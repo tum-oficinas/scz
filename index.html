@@ -584,9 +584,40 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .btn-green:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,255,20,.5)}
 .btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy)}
 .btn-outline:hover{background:var(--navy);color:#fff}
-.paq-extra{margin-top:34px;background:#fff;border:2px dashed var(--border);border-radius:18px;padding:30px;text-align:center}
-.paq-extra h4{font-size:17px;font-weight:700;margin-bottom:8px}
-.paq-extra p{font-size:14px;color:var(--gray);margin-bottom:18px;line-height:1.7}
+.paq-extra{
+  margin-top:28px;
+  background:var(--navy);
+  border-radius:20px;
+  padding:36px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:32px;
+  position:relative;overflow:hidden;
+}
+.paq-extra::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 0% 50%,rgba(57,255,20,.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+.paq-extra::after{
+  content:'?';position:absolute;right:160px;top:50%;transform:translateY(-50%);
+  font-size:140px;font-weight:900;color:rgba(255,255,255,.03);
+  letter-spacing:-.05em;line-height:1;pointer-events:none;
+  font-family:'Montserrat',sans-serif;
+}
+.paq-extra-left{position:relative;z-index:1;flex:1}
+.paq-extra-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--green);margin-bottom:10px;
+}
+.paq-extra h4{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1.2;margin-bottom:10px}
+.paq-extra p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.75;max-width:460px}
+.paq-extra p strong{color:rgba(255,255,255,.85);font-weight:700}
+.paq-extra-right{position:relative;z-index:1;flex-shrink:0}
+@media(max-width:700px){
+  .paq-extra{flex-direction:column;align-items:flex-start;padding:28px 24px;gap:20px}
+  .paq-extra::after{display:none}
+  .paq-extra h4{font-size:18px}
+}
 @media(max-width:580px){.paq-card{padding:24px 20px}}
 
 /* ── CONFIANZA ── */
@@ -717,43 +748,48 @@ footer strong{color:var(--green)}
 /* ── MENÚ FLOTANTE TUM ── */
 #tum-fab{
   position:fixed;bottom:22px;left:22px;z-index:9000;
-  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
 }
 #tum-fab-btn{
-  width:52px;height:52px;border-radius:50%;
+  width:56px;height:56px;border-radius:50%;
   background:var(--navy);border:2px solid rgba(57,255,20,.5);
   box-shadow:0 4px 24px rgba(0,0,0,.35);
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;
   transition:transform .25s, box-shadow .25s, border-color .25s;
   animation:pulse 2.8s infinite;
-  padding:0;
+  padding:0;position:relative;z-index:2;
   -webkit-tap-highlight-color:transparent;
 }
 #tum-fab-btn:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(57,255,20,.5);border-color:rgba(57,255,20,.9)}
-#tum-fab-btn img{width:32px;height:32px;object-fit:contain;border-radius:50%}
-#tum-fab-menu{
+#tum-fab-btn img{width:34px;height:34px;object-fit:contain;border-radius:50%}
+
+/* Menús posicionados absolutamente sobre el botón */
+.fab-panel{
+  position:absolute;
+  bottom:66px;left:0;
   display:flex;flex-direction:column;gap:8px;
   pointer-events:none;
   transform-origin:bottom left;
-  transform:scale(0.85) translateY(10px);
+  transform:scale(0.88) translateY(8px);
   opacity:0;
   transition:opacity .25s ease, transform .25s ease;
+  width:max-content;
+  max-width:260px;
 }
-#tum-fab-menu.open{
+.fab-panel.open{
   pointer-events:all;
   transform:scale(1) translateY(0);
   opacity:1;
 }
 .fab-item{
   display:flex;align-items:center;gap:10px;
-  background:rgba(15,23,42,.92);
+  background:rgba(15,23,42,.95);
   border:1px solid rgba(57,255,20,.22);
   border-radius:100px;
   padding:9px 16px 9px 10px;
   text-decoration:none;
-  box-shadow:0 4px 18px rgba(0,0,0,.3);
-  backdrop-filter:blur(12px);
+  box-shadow:0 4px 18px rgba(0,0,0,.35);
+  backdrop-filter:blur(14px);
   transition:border-color .2s, transform .2s, background .2s;
   white-space:nowrap;
 }
@@ -766,9 +802,31 @@ footer strong{color:var(--green)}
 }
 .fab-label{font-size:12px;font-weight:700;color:#fff;letter-spacing:.04em}
 .fab-sub{font-size:10px;color:rgba(255,255,255,.4);font-weight:500;line-height:1.3}
+.fab-menu-header{
+  font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  padding:0 6px 2px 6px;
+  display:flex;align-items:center;gap:6px;
+}
+.fab-menu-header span{color:var(--green)}
+
+#fab-mode-pill{
+  position:absolute;bottom:62px;left:60px;
+  background:rgba(15,23,42,.9);
+  border:1px solid rgba(57,255,20,.2);
+  border-radius:100px;
+  padding:4px 10px;
+  font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  white-space:nowrap;
+  pointer-events:none;
+  opacity:0;transition:opacity .3s;
+}
+#tum-fab:hover #fab-mode-pill{opacity:1}
+
 @media(max-width:480px){
-  #tum-fab{bottom:18px;left:18px}
-  #tum-fab-btn{width:52px;height:52px}
+  #tum-fab{bottom:18px;left:14px}
+  .fab-panel{max-width:calc(100vw - 40px)}
   .fab-label{font-size:11px}
 }
 .wa-float{
@@ -1097,123 +1155,99 @@ footer strong{color:var(--green)}
 
         <!-- RÁPIDO -->
         <div class="size-card" data-size="rapido" data-label="Rápido (8–15 m²)" data-time="30 min" onclick="selectSize(this)"
-          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
-          <div class="size-header-row" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:12px">
-              <div style="width:44px;height:44px;background:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
+          <div class="size-header-row" style="margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <div style="width:40px;height:40px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               </div>
               <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:2px">Oficina pequeña</div>
-                <div style="font-size:18px;font-weight:900;color:var(--navy);letter-spacing:-.02em;line-height:1.1;margin-bottom:6px">RÁPIDO</div>
-                <div style="display:flex;gap:8px;align-items:center">
-                  <span style="font-size:11px;color:var(--gray);font-weight:600">8 — 15 m²</span>
-                  <span style="font-size:11px;color:var(--green);font-weight:900;background:var(--navy);padding:2px 10px;border-radius:100px;letter-spacing:.04em">30 min</span>
-                </div>
+                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Oficina pequeña</div>
+                <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.03em;line-height:1.1">RÁPIDO</div>
+              </div>
+              <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;margin-left:auto">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
             </div>
-            <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-          </div>
-          <div class="size-info">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Oficina pequeña</div>
-            <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.02em;margin-bottom:14px">RÁPIDO</div>
-            <div class="size-divider" style="height:1px;background:var(--border);margin-bottom:14px"></div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;align-items:center;gap:8px">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray);flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                <span style="font-size:12px;color:var(--gray)">Tamaño</span>
-                <span style="font-size:13px;font-weight:700;color:var(--navy);margin-left:auto">8 — 15 m²</span>
+            <div style="height:1px;background:var(--border);margin-bottom:14px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="text-align:center;flex:1">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Superficie</div>
+                <div style="font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.02em">8 — 15 m²</div>
               </div>
-              <div style="display:flex;align-items:center;gap:8px">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray);flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span style="font-size:12px;color:var(--gray)">Tiempo</span>
-                <span style="font-size:13px;font-weight:900;color:var(--green);background:var(--navy);padding:2px 12px;border-radius:100px;letter-spacing:.04em">30 min</span>
+              <div style="width:1px;height:32px;background:var(--border)"></div>
+              <div style="text-align:center;flex:1">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Duración</div>
+                <div style="font-size:15px;font-weight:900;color:var(--green);letter-spacing:-.02em">30 min</div>
               </div>
             </div>
           </div>
+          <div class="size-info" style="display:none"></div>
         </div>
 
         <!-- ESTÁNDAR -->
         <div class="size-card" data-size="estandar" data-label="Estándar (16–30 m²)" data-time="45 min" onclick="selectSize(this)"
-          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
-          <div style="position:absolute;top:12px;right:12px;background:var(--green);color:var(--navy);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px">Más elegido</div>
-          <div class="size-header-row" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;margin-top:4px">
-            <div style="display:flex;align-items:center;gap:12px">
-              <div style="width:44px;height:44px;background:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
+          <div style="position:absolute;top:-1px;right:-1px;background:var(--green);color:var(--navy);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:0 18px 0 12px">Más elegido</div>
+          <div class="size-header-row" style="margin-bottom:16px;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <div style="width:40px;height:40px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
               </div>
               <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:2px">Oficina mediana</div>
-                <div style="font-size:18px;font-weight:900;color:var(--navy);letter-spacing:-.02em;line-height:1.1;margin-bottom:6px">ESTÁNDAR</div>
-                <div style="display:flex;gap:8px;align-items:center">
-                  <span style="font-size:11px;color:var(--gray);font-weight:600">16 — 30 m²</span>
-                  <span style="font-size:11px;color:var(--green);font-weight:900;background:var(--navy);padding:2px 10px;border-radius:100px;letter-spacing:.04em">45 min</span>
-                </div>
+                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Oficina mediana</div>
+                <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.03em;line-height:1.1">ESTÁNDAR</div>
+              </div>
+              <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;margin-left:auto">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
             </div>
-            <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-          </div>
-          <div class="size-info">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Oficina mediana</div>
-            <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.02em;margin-bottom:14px">ESTÁNDAR</div>
-            <div class="size-divider" style="height:1px;background:var(--border);margin-bottom:14px"></div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;align-items:center;gap:8px">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray);flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                <span style="font-size:12px;color:var(--gray)">Tamaño</span>
-                <span style="font-size:13px;font-weight:700;color:var(--navy);margin-left:auto">16 — 30 m²</span>
+            <div style="height:1px;background:var(--border);margin-bottom:14px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="text-align:center;flex:1">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Superficie</div>
+                <div style="font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.02em">16 — 30 m²</div>
               </div>
-              <div style="display:flex;align-items:center;gap:8px">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray);flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span style="font-size:12px;color:var(--gray)">Tiempo</span>
-                <span style="font-size:13px;font-weight:900;color:var(--green);background:var(--navy);padding:2px 12px;border-radius:100px;letter-spacing:.04em">45 min</span>
+              <div style="width:1px;height:32px;background:var(--border)"></div>
+              <div style="text-align:center;flex:1">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Duración</div>
+                <div style="font-size:15px;font-weight:900;color:var(--green);letter-spacing:-.02em">45 min</div>
               </div>
             </div>
           </div>
+          <div class="size-info" style="display:none"></div>
         </div>
 
         <!-- COMPLETO -->
         <div class="size-card" data-size="completo" data-label="Completo (31–50 m²)" data-time="60 min" onclick="selectSize(this)"
-          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
-          <div class="size-header-row" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:12px">
-              <div style="width:44px;height:44px;background:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
+          <div class="size-header-row" style="margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <div style="width:40px;height:40px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
               </div>
               <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:2px">Oficina grande</div>
-                <div style="font-size:18px;font-weight:900;color:var(--navy);letter-spacing:-.02em;line-height:1.1;margin-bottom:6px">COMPLETO</div>
-                <div style="display:flex;gap:8px;align-items:center">
-                  <span style="font-size:11px;color:var(--gray);font-weight:600">31 — 50 m²</span>
-                  <span style="font-size:11px;color:var(--green);font-weight:900;background:var(--navy);padding:2px 10px;border-radius:100px;letter-spacing:.04em">60 min</span>
-                </div>
+                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Oficina grande</div>
+                <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.03em;line-height:1.1">COMPLETO</div>
+              </div>
+              <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;margin-left:auto">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
             </div>
-            <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-          </div>
-          <div class="size-info">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Oficina grande</div>
-            <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.02em;margin-bottom:14px">COMPLETO</div>
-            <div class="size-divider" style="height:1px;background:var(--border);margin-bottom:14px"></div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;align-items:center;gap:8px">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray);flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                <span style="font-size:12px;color:var(--gray)">Tamaño</span>
-                <span style="font-size:13px;font-weight:700;color:var(--navy);margin-left:auto">31 — 50 m²</span>
+            <div style="height:1px;background:var(--border);margin-bottom:14px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="text-align:center;flex:1">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Superficie</div>
+                <div style="font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.02em">31 — 50 m²</div>
               </div>
-              <div style="display:flex;align-items:center;gap:8px">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray);flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span style="font-size:12px;color:var(--gray)">Tiempo</span>
-                <span style="font-size:13px;font-weight:900;color:var(--green);background:var(--navy);padding:2px 12px;border-radius:100px;letter-spacing:.04em">60 min</span>
+              <div style="width:1px;height:32px;background:var(--border)"></div>
+              <div style="text-align:center;flex:1">
+                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Duración</div>
+                <div style="font-size:15px;font-weight:900;color:var(--green);letter-spacing:-.02em">60 min</div>
               </div>
             </div>
           </div>
+          <div class="size-info" style="display:none"></div>
         </div>
 
       </div>
@@ -1423,11 +1457,20 @@ footer strong{color:var(--green)}
     </div>
 
     <div class="paq-extra reveal">
-      <h4>¿No sabes por cuál empezar?</h4>
-      <p>Ideal para tu primera vez con TUM: empieza con <strong>TUM PRO</strong> — después de esto, tu oficina se siente y se ve como nueva. Luego <strong>TUM MINI</strong> cada semana. Escríbenos y te orientamos.</p>
-      <a href="https://wa.me/34602846694?text=Orientaci%C3%B3n%20para%20elegir%20paquete%20TUM" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex;margin-top:4px">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Orientación gratuita
-      </a>
+      <div class="paq-extra-left">
+        <div class="paq-extra-eyebrow">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Te ayudamos a elegir
+        </div>
+        <h4>¿No sabes por cuál empezar?</h4>
+        <p>Para tu primera vez con TUM te recomendamos empezar con <strong>TUM PRO</strong> — deja tu oficina como nueva desde el día uno. Luego <strong>TUM MINI</strong> la mantiene cada semana. Un WhatsApp y te orientamos sin compromiso.</p>
+      </div>
+      <div class="paq-extra-right">
+        <a href="https://wa.me/34602846694?text=Orientaci%C3%B3n%20para%20elegir%20paquete%20TUM" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex;white-space:nowrap">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Orientación gratuita
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1506,7 +1549,13 @@ footer strong{color:var(--green)}
 
 <!-- ── MENÚ FLOTANTE TUM ── -->
 <div id="tum-fab">
-  <div id="tum-fab-menu">
+
+  <!-- MENÚ 1: NAVEGACIÓN -->
+  <div id="tum-fab-menu" class="fab-panel">
+    <div class="fab-menu-header">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <span>Navegar</span>
+    </div>
 
     <a href="#paquetes" class="fab-item" onclick="closeFab()">
       <div class="fab-icon">
@@ -1537,8 +1586,38 @@ footer strong{color:var(--green)}
         <div class="fab-sub">Nuestras reglas, sin excepción</div>
       </div>
     </a>
-
   </div>
+
+  <!-- MENÚ 2: MIS ACCESOS TUM -->
+  <div id="tum-fab-menu2" class="fab-panel">
+    <div class="fab-menu-header">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span>Mis Accesos TUM</span>
+    </div>
+
+    <a href="https://tum-oficinas.github.io/mi-agenda/" class="fab-item" target="_blank" rel="noopener" onclick="closeFab()">
+      <div class="fab-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 15 11 17 15 13"/></svg>
+      </div>
+      <div>
+        <div class="fab-label">Verificador de Agenda</div>
+        <div class="fab-sub">Consulta tu cita online</div>
+      </div>
+    </a>
+
+    <a href="https://t.me/TumAgenda_bot" class="fab-item" target="_blank" rel="noopener" onclick="closeFab()">
+      <div class="fab-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 6.498a2.268 2.268 0 0 0 .126 4.37l3.669 1.144 1.979 6.156a.96.96 0 0 0 1.739.236l2.367-3.321 4.597 3.36a2.268 2.268 0 0 0 3.553-1.376l3.14-15.64a2.242 2.242 0 0 0-3.648-1.642z"/></svg>
+      </div>
+      <div>
+        <div class="fab-label">Bot Telegram</div>
+        <div class="fab-sub">Verificación de agendamiento</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Pill indicador de modo -->
+  <div id="fab-mode-pill">2° clic → Mis Accesos</div>
 
   <button id="tum-fab-btn" onclick="toggleFab()" aria-label="Menú TUM">
     <img src="https://i.ibb.co/MycykDCW/TUM-CEO-verde-fluo-S-F-1014x1024.png" alt="TUM">
@@ -1552,25 +1631,56 @@ footer strong{color:var(--green)}
 </a>
 
 <script>
-// ── MENÚ FLOTANTE TUM ──
+// ── MENÚ FLOTANTE TUM — MODO DUAL ──
 let fabOpen = false;
+let fabMode = 1; // 1 = Navegar, 2 = Mis Accesos TUM
+
 function toggleFab(){
-  fabOpen = !fabOpen;
-  const menu = document.getElementById('tum-fab-menu');
-  const btn  = document.getElementById('tum-fab-btn');
-  menu.classList.toggle('open', fabOpen);
-  btn.style.borderColor = fabOpen ? 'rgba(57,255,20,.8)' : 'rgba(57,255,20,.35)';
-  btn.style.transform   = fabOpen ? 'scale(1.1) rotate(8deg)' : 'scale(1) rotate(0deg)';
-  btn.style.boxShadow   = fabOpen ? '0 0 0 6px rgba(57,255,20,.12), 0 6px 28px rgba(0,0,0,.4)' : '';
+  const menu1 = document.getElementById('tum-fab-menu');
+  const menu2 = document.getElementById('tum-fab-menu2');
+  const btn   = document.getElementById('tum-fab-btn');
+  const pill  = document.getElementById('fab-mode-pill');
+
+  if(!fabOpen){
+    // Primer clic: abrir menú 1
+    fabOpen = true;
+    fabMode = 1;
+    menu1.classList.add('open');
+    menu2.classList.remove('open');
+    btn.style.borderColor = 'rgba(57,255,20,.8)';
+    btn.style.transform   = 'scale(1.1) rotate(8deg)';
+    btn.style.boxShadow   = '0 0 0 6px rgba(57,255,20,.12), 0 6px 28px rgba(0,0,0,.4)';
+    pill.textContent = '2° clic → Mis Accesos';
+  } else if(fabMode === 1){
+    // Segundo clic: cambiar a menú 2
+    fabMode = 2;
+    menu1.classList.remove('open');
+    menu2.classList.add('open');
+    btn.style.borderColor = 'rgba(57,255,20,1)';
+    btn.style.transform   = 'scale(1.1) rotate(-8deg)';
+    pill.textContent = '2° clic → Navegar';
+  } else {
+    // Tercer clic: volver a menú 1
+    fabMode = 1;
+    menu2.classList.remove('open');
+    menu1.classList.add('open');
+    btn.style.borderColor = 'rgba(57,255,20,.8)';
+    btn.style.transform   = 'scale(1.1) rotate(8deg)';
+    pill.textContent = '2° clic → Mis Accesos';
+  }
 }
+
 function closeFab(){
   fabOpen = false;
+  fabMode = 1;
   document.getElementById('tum-fab-menu').classList.remove('open');
+  document.getElementById('tum-fab-menu2').classList.remove('open');
   const btn = document.getElementById('tum-fab-btn');
   btn.style.borderColor = 'rgba(57,255,20,.35)';
   btn.style.transform   = 'scale(1) rotate(0deg)';
   btn.style.boxShadow   = '';
 }
+
 document.addEventListener('click', e => {
   if(fabOpen && !document.getElementById('tum-fab').contains(e.target)) closeFab();
 });
