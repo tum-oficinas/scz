@@ -903,6 +903,10 @@ footer strong{color:var(--green)}
   .pricing-modal{align-items:center;padding:20px}
   .pricing-modal-content{max-width:600px;border-radius:16px;max-height:90vh}
 }
+
+/* Asegurar que el scroll funciona cuando el modal está cerrado */
+body:not(.modal-open){overflow-y:auto!important}
+html:not(.modal-open){overflow-y:auto!important}
 </style>
 </head>
 <body>
@@ -1798,6 +1802,7 @@ let widgetLoaded = false;
 function openPricingModal(){
   const modal = document.getElementById('pricingModal');
   modal.classList.add('active');
+  document.body.classList.add('modal-open');
   document.body.style.overflow = 'hidden';
   
   if(!widgetLoaded){
@@ -1809,7 +1814,8 @@ function openPricingModal(){
 function closePricingModal(){
   const modal = document.getElementById('pricingModal');
   modal.classList.remove('active');
-  document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = 'auto';
 }
 
 function loadWidgetContent(){
