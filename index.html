@@ -874,62 +874,52 @@ footer strong{color:var(--green)}
   flex-direction:column;
   overflow:hidden;
   margin:auto;
+  padding-top:0;
 }
 @keyframes slideModalUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 
+/* BARRA DE CIERRE FLOTANTE */
+.modal-header-bar{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(180deg, rgba(57,255,20,.1) 0%, transparent 100%);
+  border-bottom:1px solid rgba(57,255,20,.15);
+  padding:10px 14px;
+  position:relative;
+  z-index:100;
+}
+
+.modal-header-text{
+  font-size:11px;
+  font-weight:600;
+  color:#39FF14;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+}
+
 .modal-close{
-  position:absolute;top:14px;right:14px;
-  background:rgba(57,255,20,0);
-  border:2px solid rgba(57,255,20,0);
-  width:36px;height:36px;border-radius:50%;
-  cursor:pointer;font-size:22px;
+  background:rgba(57,255,20,.15);
+  border:1px solid rgba(57,255,20,.3);
+  width:32px;height:32px;border-radius:6px;
+  cursor:pointer;font-size:18px;
   display:flex;align-items:center;justify-content:center;
   transition:all .25s ease;
   z-index:10001;
   color:#39FF14;
   font-weight:300;
   font-family:monospace;
-  opacity:0;
 }
-.modal-close:hover,
-.modal-close:focus,
-.pricing-modal-content:hover .modal-close {
-  opacity:1;
-  background:rgba(57,255,20,.2);
+.modal-close:hover{
+  background:rgba(57,255,20,.25);
   border-color:rgba(57,255,20,.5);
-  transform:scale(1);
-  box-shadow:0 0 20px rgba(57,255,20,.2);
+  box-shadow:0 0 15px rgba(57,255,20,.2);
+  transform:scale(1.05);
 }
 .modal-close:active{
   transform:scale(0.95);
-  background:rgba(57,255,20,.35);
-}
-
-/* Móvil - botón visible */
-@media(max-width:768px) {
-  .pricing-modal{
-    align-items:flex-start;
-    padding:12px 12px 12px 12px;
-    padding-top:60px;
-  }
-  .pricing-modal-content{
-    max-width:100%;
-    max-height:auto;
-    border-radius:12px;
-    margin:0;
-  }
-  .modal-close {
-    opacity:0.6;
-    background:rgba(57,255,20,.08);
-    border-color:rgba(57,255,20,.2);
-    top:8px;
-    right:8px;
-  }
-  .modal-close:active {
-    opacity:1;
-    background:rgba(57,255,20,.2);
-    border-color:rgba(57,255,20,.4);
-  }
+  background:rgba(57,255,20,.3);
 }
 
 .pricing-modal-wrapper{
@@ -941,7 +931,7 @@ footer strong{color:var(--green)}
 }
 
 .pricing-modal-wrapper::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 .pricing-modal-wrapper::-webkit-scrollbar-track {
   background: transparent;
@@ -954,11 +944,42 @@ footer strong{color:var(--green)}
   background: rgba(57,255,20,.4);
 }
 
+/* Móvil */
+@media(max-width:768px) {
+  .pricing-modal{
+    align-items:center;
+    padding:12px;
+    padding-top:20px;
+  }
+  .pricing-modal-content{
+    max-width:100%;
+    max-height:calc(100vh - 40px);
+    border-radius:12px;
+    margin:auto;
+  }
+  .modal-header-bar{
+    padding:8px 12px;
+  }
+  .modal-header-text{
+    font-size:10px;
+  }
+  .modal-close {
+    width:30px;height:30px;
+    font-size:16px;
+  }
+}
+
 /* Desktop */
 @media(min-width:769px){
   .pricing-modal{padding:20px}
   .pricing-modal-content{background:#111214}
-  .modal-close{top:16px;right:16px;width:40px;height:40px;font-size:24px}
+  .modal-header-bar{
+    padding:12px 16px;
+  }
+  .modal-close{
+    width:34px;height:34px;
+    font-size:20px;
+  }
 }
 
 /* Asegurar que el scroll funciona cuando el modal está cerrado */
@@ -2282,7 +2303,10 @@ document.addEventListener('keydown', (e) => {
 <!-- PRICING MODAL -->
 <div id="pricingModal" class="pricing-modal">
   <div class="pricing-modal-content">
-    <button class="modal-close" onclick="closePricingModal()">×</button>
+    <div class="modal-header-bar">
+      <span class="modal-header-text">Tabla de recargos</span>
+      <button class="modal-close" onclick="closePricingModal()">×</button>
+    </div>
     <div class="pricing-modal-wrapper">
       
 <div class="widget">
