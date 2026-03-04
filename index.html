@@ -533,52 +533,15 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .excl-box strong{color:var(--navy)}
 @media(max-width:580px){.excl-box{padding:28px 22px}}
 
-/* ── SELECTOR TAMAÑO MÓVIL ── */
-#size-selector{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-/* En desktop, ocultar size-info (ya está todo en el header-row) */
-.size-card .size-info{ display:none }
-
-@media(max-width:640px){
-  #size-selector{ grid-template-columns:1fr; gap:10px; }
-  .size-card{
-    padding:14px 16px!important;
-    border-radius:16px!important;
-  }
-  /* En móvil también ocultar size-info, el header-row lo tiene todo */
-  .size-card .size-info{ display:none!important }
-  .size-card > div.size-header-row{
-    margin-bottom:0!important;
-    margin-top:0!important;
-  }
-  .size-divider{ display:none!important }
-}
-
 /* ── PAQUETES MÓVIL ── */
 @media(max-width:640px){
   #paquetes{ padding:60px 16px }
   .paq-intro{ margin-bottom:32px }
 }
 .paq-intro{margin-bottom:50px}
-.paq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
-@media(max-width:960px){.paq-grid{grid-template-columns:1fr}}
-.paq-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:34px 28px;transition:transform .3s,box-shadow .3s}
-.paq-featured{background:var(--navy);border-color:var(--navy);box-shadow:0 22px 60px rgba(15,23,42,.2);transform:scale(1.03)}
-@media(max-width:960px){.paq-featured{transform:scale(1)}}
-.paq-card:not(.paq-featured):hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(15,23,42,.1)}
-.paq-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:14px;background:var(--navy);color:var(--green)}
-.paq-featured .paq-badge{background:var(--green);color:var(--navy)}
-.paq-card h3{font-size:22px;font-weight:900;margin-bottom:6px;letter-spacing:-.025em}
-.paq-featured h3{color:#fff}
-.paq-tagline{font-size:13px;color:var(--gray);margin-bottom:22px;line-height:1.55}
-.paq-featured .paq-tagline{color:rgba(255,255,255,.48)}
 .paq-features{list-style:none;margin-bottom:22px}
 .paq-features li{font-size:13px;padding:8px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;line-height:1.55;color:var(--gray)}
 .paq-features li:last-child{border-bottom:none}
-.paq-featured .paq-features li{border-color:rgba(255,255,255,.07);color:rgba(255,255,255,.65)}
 .pcheck{color:var(--green);flex-shrink:0;margin-top:1px}
 .paq-warn{font-size:12px;color:var(--gray);background:#FFF8E1;border-radius:9px;padding:10px 13px;margin-bottom:18px;border-left:3px solid #F59E0B;line-height:1.55;display:flex;gap:8px;align-items:flex-start}
 .paq-warn a{color:var(--navy);font-weight:600}
@@ -621,7 +584,6 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
   .paq-extra::after{display:none}
   .paq-extra h4{font-size:18px}
 }
-@media(max-width:580px){.paq-card{padding:24px 20px}}
 
 /* ── CONFIANZA ── */
 #confianza{background:var(--navy);position:relative;overflow:hidden}
@@ -1665,325 +1627,499 @@ html:not(.modal-open){overflow-y:auto!important}
 
 
 <!-- ── SECCIÓN 5: LOS PAQUETES ── -->
-<section id="paquetes">
-  <div class="container">
-    <div class="paq-intro reveal">
-      <div class="sec-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Los paquetes</div>
-      <h2 class="sec-h2">Elige cómo quieres<br>recuperar tu tiempo.</h2>
+<section id="paquetes" style="background:var(--light);position:relative;overflow:hidden">
+
+  <!-- Fondo decorativo sutil -->
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+    <div style="position:absolute;top:-120px;right:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(57,255,20,.055) 0%,transparent 65%)"></div>
+    <div style="position:absolute;bottom:-80px;left:-60px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(57,255,20,.04) 0%,transparent 65%)"></div>
+  </div>
+
+  <div class="container" style="position:relative;z-index:1">
+
+    <!-- ENCABEZADO SECCIÓN -->
+    <div class="paq-intro reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:64px">
+      <div>
+        <div class="sec-label" style="margin-bottom:16px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Los paquetes</div>
+        <h2 class="sec-h2" style="margin-bottom:0">Elige cómo quieres<br>recuperar tu tiempo.</h2>
+      </div>
+      <p style="font-size:14px;color:var(--gray);max-width:280px;line-height:1.65;text-align:right">Dos servicios diseñados para tu oficina. Sin letra pequeña, sin sorpresas.</p>
     </div>
 
-    <!-- Selector de tamaño interactivo -->
+    <!-- CONFIGURADOR -->
     <div class="reveal" style="margin-bottom:52px">
 
-      <p style="font-size:14px;font-weight:600;color:var(--gray);margin-bottom:20px;display:flex;align-items:center;gap:8px">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Paso 1 — ¿Cuánto mide tu oficina? Selecciónala y te armamos tu plan.
-      </p>
-
-      <div id="size-selector">
-
-        <!-- RÁPIDO -->
-        <div class="size-card" data-size="rapido" data-label="Rápido (8–15 m²)" data-time="30 min" onclick="selectSize(this)"
-          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
-          <div class="size-header-row" style="margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-              <div style="width:40px;height:40px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              </div>
-              <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Oficina pequeña</div>
-                <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.03em;line-height:1.1">S</div>
-              </div>
-              <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;margin-left:auto">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-            </div>
-            <div style="height:1px;background:var(--border);margin-bottom:14px"></div>
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="text-align:center;flex:1">
-                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Superficie</div>
-                <div style="font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.02em">8 — 15 m²</div>
-              </div>
-              <div style="width:1px;height:32px;background:var(--border)"></div>
-              <div style="text-align:center;flex:1">
-                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Duración</div>
-                <div style="font-size:15px;font-weight:900;color:var(--green);letter-spacing:-.02em">30 min</div>
-              </div>
-            </div>
-          </div>
-          <div class="size-info" style="display:none"></div>
+      <!-- PASO TRACKER -->
+      <div id="paq-step-tracker" style="display:flex;align-items:center;gap:0;margin-bottom:40px">
+        <div class="paq-step-pill paq-step-active" id="pill-1">
+          <span class="paq-step-num">1</span>
+          <span class="paq-step-txt">Servicio</span>
         </div>
-
-        <!-- ESTÁNDAR -->
-        <div class="size-card" data-size="estandar" data-label="Estándar (16–30 m²)" data-time="45 min" onclick="selectSize(this)"
-          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
-          <div style="position:absolute;top:-1px;right:-1px;background:var(--green);color:var(--navy);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:0 18px 0 12px">Más elegido</div>
-          <div class="size-header-row" style="margin-bottom:16px;margin-top:4px">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-              <div style="width:40px;height:40px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-              </div>
-              <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Oficina mediana</div>
-                <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.03em;line-height:1.1">M</div>
-              </div>
-              <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;margin-left:auto">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-            </div>
-            <div style="height:1px;background:var(--border);margin-bottom:14px"></div>
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="text-align:center;flex:1">
-                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Superficie</div>
-                <div style="font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.02em">16 — 30 m²</div>
-              </div>
-              <div style="width:1px;height:32px;background:var(--border)"></div>
-              <div style="text-align:center;flex:1">
-                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Duración</div>
-                <div style="font-size:15px;font-weight:900;color:var(--green);letter-spacing:-.02em">45 min</div>
-              </div>
-            </div>
-          </div>
-          <div class="size-info" style="display:none"></div>
+        <div class="paq-step-line" id="line-1-2"></div>
+        <div class="paq-step-pill" id="pill-2">
+          <span class="paq-step-num">2</span>
+          <span class="paq-step-txt">Tamaño</span>
         </div>
-
-        <!-- COMPLETO -->
-        <div class="size-card" data-size="completo" data-label="Completo (31–50 m²)" data-time="60 min" onclick="selectSize(this)"
-          style="background:#fff;border:2px solid var(--border);border-radius:20px;padding:22px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden">
-          <div class="size-header-row" style="margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-              <div style="width:40px;height:40px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              </div>
-              <div>
-                <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Oficina grande</div>
-                <div style="font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.03em;line-height:1.1">L</div>
-              </div>
-              <div class="size-check" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;margin-left:auto">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-            </div>
-            <div style="height:1px;background:var(--border);margin-bottom:14px"></div>
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="text-align:center;flex:1">
-                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Superficie</div>
-                <div style="font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.02em">31 — 50 m²</div>
-              </div>
-              <div style="width:1px;height:32px;background:var(--border)"></div>
-              <div style="text-align:center;flex:1">
-                <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Duración</div>
-                <div style="font-size:15px;font-weight:900;color:var(--green);letter-spacing:-.02em">60 min</div>
-              </div>
-            </div>
-          </div>
-          <div class="size-info" style="display:none"></div>
+        <div class="paq-step-line" id="line-2-3"></div>
+        <div class="paq-step-pill" id="pill-3">
+          <span class="paq-step-num">3</span>
+          <span class="paq-step-txt">Tu precio</span>
         </div>
-
       </div>
 
-      <!-- Panel resultado: aparece al seleccionar -->
-      <div id="size-result" style="display:none;margin-top:16px;animation:fadeUp .4s both">
+      <!-- ══ PASO 1: SELECTOR DE SERVICIO ══ -->
+      <div id="paq-step1-wrap">
+        <p class="paq-step-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          ¿Qué necesita tu oficina ahora mismo?
+        </p>
 
-        <!-- Confirmación de selección -->
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding:14px 18px;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.25);border-radius:14px">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <div>
-            <span style="font-size:13px;font-weight:700;color:var(--navy)">Seleccionaste: </span>
-            <span style="font-size:13px;font-weight:900;color:var(--navy)" id="result-label">—</span>
-            <span style="font-size:12px;color:var(--gray);margin-left:8px">· Servicio en <strong id="result-time" style="color:var(--navy)">—</strong></span>
-          </div>
-        </div>
+        <div id="paq-service-selector">
 
-        <!-- Paso 2 -->
-        <div style="background:var(--navy);border-radius:18px;padding:28px 28px 24px;position:relative;overflow:hidden">
-          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 50%,rgba(57,255,20,.06) 0%,transparent 65%)"></div>
-          <div style="position:relative;z-index:1">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-              <div style="width:22px;height:22px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <span style="font-size:11px;font-weight:900;color:var(--navy)">2</span>
+          <!-- TUM MINI -->
+          <div class="paq-svc-card" id="svc-mini" onclick="paqSelectService('mini')">
+            <div class="paq-svc-popular">⭐ Más popular</div>
+            <div class="paq-svc-inner">
+              <div class="paq-svc-header">
+                <div class="paq-svc-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div class="paq-svc-titles">
+                  <div class="paq-svc-sub">Mantenimiento semanal</div>
+                  <div class="paq-svc-name">TUM MINI</div>
+                </div>
+                <div class="paq-svc-check paq-svc-check-mini"></div>
               </div>
-              <span style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4)">Paso 2 — Elige cómo quieres empezar</span>
-            </div>
-            <p style="font-size:14px;color:rgba(255,255,255,.5);margin-bottom:22px;padding-left:30px">Selecciona el plan que mejor se adapta a tu situación:</p>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-
-              <!-- Opción A: TUM PRO -->
-              <a id="btn-pro-size" href="#" target="_blank" rel="noopener"
-                style="display:flex;flex-direction:column;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px 16px;text-decoration:none;transition:all .25s;-webkit-tap-highlight-color:transparent">
-                <div style="display:flex;align-items:center;gap:8px">
-                  <div style="width:32px;height:32px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <div class="paq-svc-divider"></div>
+              <p class="paq-svc-desc">Recupera 3.5 hrs cada semana sin interrumpir tu jornada. Precio fijo, sin negociaciones.</p>
+              <div class="paq-svc-divider"></div>
+              <!-- Acordeón -->
+              <div class="acc-wrap" onclick="event.stopPropagation()">
+                <button class="acc-btn paq-acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+                  <span>Ver qué incluye</span>
+                  <svg class="acc-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="acc-body">
+                  <ul class="paq-features paq-features-sm">
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Desinfección de escritorios, mesas y archivadores</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Objetos decorativos: portafotos, lámparas, tarjeteros</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Monitores, teclados, ratones, impresoras y teléfonos</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Vaciado de papeleras y reposición de bolsas</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Desinfección de pomos, interruptores y pasamanos</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Aspirado y trapeado de pisos</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Manejo de residuos con protocolo de confianza</li>
+                  </ul>
+                  <div class="paq-warn" style="margin-top:10px">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    <span style="font-size:11px"><strong>NO INCLUYE:</strong> Higienización profunda de equipos. <a href="https://wa.me/34602846694?text=Consulta%20higienizaci%C3%B3n%20de%20equipos" target="_blank">Consúltanos →</a></span>
                   </div>
-                  <span style="font-size:13px;font-weight:900;color:#fff">TUM PRO</span>
                 </div>
-                <p style="font-size:11px;color:rgba(255,255,255,.45);line-height:1.5;margin:0">Limpieza profunda inicial. Ideal si tu oficina necesita una puesta a cero.</p>
-                <span style="font-size:11px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:4px;margin-top:2px">
-                  Contratar por WhatsApp
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </span>
-              </a>
-
-              <!-- Opción B: TUM MINI -->
-              <a id="btn-mini-size" href="#" target="_blank" rel="noopener"
-                style="display:flex;flex-direction:column;gap:8px;background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.3);border-radius:14px;padding:18px 16px;text-decoration:none;transition:all .25s;-webkit-tap-highlight-color:transparent;animation:pulse 2.8s infinite">
-                <div style="display:flex;align-items:center;gap:8px">
-                  <div style="width:32px;height:32px;background:rgba(57,255,20,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  </div>
-                  <span style="font-size:13px;font-weight:900;color:#fff">TUM MINI <span style="font-size:10px;background:var(--green);color:var(--navy);padding:1px 7px;border-radius:100px;font-weight:700;margin-left:2px">Recomendado</span></span>
-                </div>
-                <p style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.5;margin:0">Mantenimiento semanal. Recupera 3.5 hrs cada semana sin interrumpir tu jornada.</p>
-                <span style="font-size:11px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:4px;margin-top:2px">
-                  Contratar por WhatsApp
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </span>
-              </a>
-
+              </div>
             </div>
           </div>
+
+          <!-- TUM PRO -->
+          <div class="paq-svc-card" id="svc-pro" onclick="paqSelectService('pro')">
+            <div class="paq-svc-inner" style="padding-top:28px">
+              <div class="paq-svc-header">
+                <div class="paq-svc-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="paq-svc-titles">
+                  <div class="paq-svc-sub">Limpieza profunda · Única vez</div>
+                  <div class="paq-svc-name">TUM PRO</div>
+                </div>
+                <div class="paq-svc-check paq-svc-check-pro"></div>
+              </div>
+              <div class="paq-svc-divider"></div>
+              <p class="paq-svc-desc">La puesta a cero de tu oficina. Ideal cuando acumuló suciedad o antes de arrancar el mantenimiento regular.</p>
+              <div class="paq-svc-divider"></div>
+              <!-- Acordeón -->
+              <div class="acc-wrap" onclick="event.stopPropagation()">
+                <button class="acc-btn paq-acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+                  <span>Ver qué incluye</span>
+                  <svg class="acc-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="acc-body">
+                  <ul class="paq-features paq-features-sm">
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Desinfección profunda de todas las superficies de trabajo</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Estanterías, libreros, repisas y objetos decorativos</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Cuadros, espejos, relojes de pared, lámparas y ventiladores</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Cocina: encimera, muebles exteriores, microondas y lavaplatos</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Baño completo: espejo, lavamanos, WC y suelos</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Rodapiés, apoyabrazos y áreas de alto contacto</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Aspirado y trapeado de pisos completo</li>
+                    <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Manejo de residuos con protocolo de confianza</li>
+                  </ul>
+                  <p style="font-size:11px;color:var(--gray);margin:10px 0 0;line-height:1.6;font-style:italic">"Ideal para tu primera vez con TUM. Después de esto, tu oficina se siente — y se ve — como nueva."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </div>
+
+      <!-- ══ PASO 2: SELECTOR DE TAMAÑO ══ -->
+      <div id="paq-step2" style="display:none">
+        <div class="paq-step-separator">
+          <div class="paq-step-sep-line"></div>
+          <div class="paq-step-sep-dot">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="paq-step-sep-line"></div>
+        </div>
+
+        <!-- Confirmación paso 1 -->
+        <div class="paq-confirm-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Servicio seleccionado: <strong id="paq-svc-label">—</strong></span>
+        </div>
+
+        <p class="paq-step-label" style="margin-top:28px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          ¿Cuánto mide tu oficina?
+        </p>
+
+        <div id="paq-size-grid">
+          <button class="paq-size-btn" data-size="s" onclick="paqSelectSize('s')">
+            <div class="paq-size-letter">S</div>
+            <div class="paq-size-metros">8 – 15 m²</div>
+            <div class="paq-size-tag">Pequeña</div>
+          </button>
+          <button class="paq-size-btn" data-size="m" onclick="paqSelectSize('m')">
+            <div class="paq-size-letter">M</div>
+            <div class="paq-size-metros">16 – 30 m²</div>
+            <div class="paq-size-tag">Mediana</div>
+          </button>
+          <button class="paq-size-btn" data-size="l" onclick="paqSelectSize('l')">
+            <div class="paq-size-letter">L</div>
+            <div class="paq-size-metros">31 – 50 m²</div>
+            <div class="paq-size-tag">Grande</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ══ PASO 3: PRECIO Y CTA ══ -->
+      <div id="paq-step3" style="display:none">
+        <div class="paq-step-separator">
+          <div class="paq-step-sep-line"></div>
+          <div class="paq-step-sep-dot">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="paq-step-sep-line"></div>
+        </div>
+
+        <!-- Doble confirmación -->
+        <div class="paq-confirm-bar" style="margin-bottom:8px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="paq-result-summary">—</span>
+        </div>
+
+        <!-- Tarjeta de precio -->
+        <div class="paq-price-card">
+          <div class="paq-price-card-glow"></div>
+          <div style="position:relative;z-index:1" id="paq-result-inner"></div>
+        </div>
+
+        <button onclick="paqReset()" class="paq-reset-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Cambiar selección
+        </button>
       </div>
 
     </div>
 
     <style>
-    .size-card.selected{border-color:var(--green) !important;background:rgba(57,255,20,.04) !important;box-shadow:0 8px 32px rgba(57,255,20,.15)}
-    .size-card.selected .size-check{background:var(--green) !important;border-color:var(--green) !important}
-    #btn-pro-size:hover{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.25)!important}
-    #btn-mini-size:hover{background:rgba(57,255,20,.14)!important;border-color:rgba(57,255,20,.5)!important}
-    @media(max-width:640px){
-      #size-selector{grid-template-columns:1fr}
-      #size-result > div:last-child > div:last-child > div:last-child{grid-template-columns:1fr!important}
+    /* ── PAQ STEP TRACKER ── */
+    #paq-step-tracker{margin-bottom:40px}
+    .paq-step-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:100px;background:#e8ecf0;transition:all .3s;white-space:nowrap}
+    .paq-step-pill.paq-step-active{background:var(--navy);box-shadow:0 4px 16px rgba(15,23,42,.15)}
+    .paq-step-pill.paq-step-done{background:rgba(57,255,20,.12);border:1px solid rgba(57,255,20,.3)}
+    .paq-step-num{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+    .paq-step-active .paq-step-num{background:var(--green);color:var(--navy)}
+    .paq-step-done .paq-step-num{background:var(--green);color:var(--navy)}
+    .paq-step-txt{font-size:12px;font-weight:700;letter-spacing:.04em;color:rgba(255,255,255,.35);transition:all .3s}
+    .paq-step-active .paq-step-txt{color:#fff}
+    .paq-step-done .paq-step-txt{color:var(--navy)}
+    .paq-step-pill:not(.paq-step-active):not(.paq-step-done) .paq-step-num{background:rgba(100,116,139,.2);color:var(--gray)}
+    .paq-step-pill:not(.paq-step-active):not(.paq-step-done) .paq-step-txt{color:var(--gray)}
+    .paq-step-line{flex:1;height:2px;background:#e2e8f0;border-radius:2px;min-width:20px;transition:background .3s}
+    .paq-step-line.paq-line-done{background:rgba(57,255,20,.4)}
+
+    /* ── PAQ LABELS ── */
+    .paq-step-label{font-size:13px;font-weight:700;color:var(--gray);margin-bottom:20px;display:flex;align-items:center;gap:8px;letter-spacing:.01em}
+    .paq-step-label svg{color:var(--green);flex-shrink:0}
+
+    /* ── PAQ SERVICE CARDS ── */
+    #paq-service-selector{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:0}
+    .paq-svc-card{
+      background:#fff;
+      border:2px solid var(--border);
+      border-radius:24px;
+      cursor:pointer;
+      transition:all .3s cubic-bezier(.25,.46,.45,.94);
+      position:relative;overflow:hidden;
+      box-shadow:0 2px 12px rgba(15,23,42,.04);
     }
+    .paq-svc-card:hover{
+      border-color:rgba(57,255,20,.5);
+      box-shadow:0 8px 32px rgba(57,255,20,.1);
+      transform:translateY(-3px);
+    }
+    .paq-svc-card.paq-selected{
+      border-color:var(--green);
+      background:linear-gradient(135deg,rgba(57,255,20,.03) 0%,#fff 100%);
+      box-shadow:0 12px 40px rgba(57,255,20,.18),0 2px 8px rgba(57,255,20,.08);
+      transform:translateY(-3px);
+    }
+    .paq-svc-popular{
+      position:absolute;top:0;right:0;
+      background:var(--green);color:var(--navy);
+      font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+      padding:6px 16px;border-radius:0 22px 0 14px;
+      box-shadow:0 2px 8px rgba(57,255,20,.4);
+    }
+    .paq-svc-inner{padding:28px 26px 24px}
+    .paq-svc-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .paq-svc-icon{
+      width:46px;height:46px;
+      background:var(--navy);border-radius:14px;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+      box-shadow:0 4px 12px rgba(15,23,42,.2);
+    }
+    .paq-svc-titles{flex:1;min-width:0}
+    .paq-svc-sub{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
+    .paq-svc-name{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:-.04em;line-height:1}
+    .paq-svc-check{
+      width:24px;height:24px;border-radius:50%;
+      border:2px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;transition:all .25s;
+    }
+    .paq-svc-card.paq-selected .paq-svc-check{
+      background:var(--green);border-color:var(--green);
+    }
+    .paq-svc-divider{height:1px;background:var(--border);margin:14px 0}
+    .paq-svc-desc{font-size:13px;color:var(--gray);line-height:1.6;margin:0}
+    .paq-acc-btn{padding:10px 0 !important;font-size:12px !important;background:transparent !important;border:none !important}
+
+    /* ── SEPARATOR ── */
+    .paq-step-separator{display:flex;align-items:center;gap:12px;margin:32px 0}
+    .paq-step-sep-line{flex:1;height:1px;background:var(--border)}
+    .paq-step-sep-dot{
+      width:30px;height:30px;border-radius:50%;
+      background:#fff;border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--gray);flex-shrink:0;
+    }
+
+    /* ── CONFIRM BAR ── */
+    .paq-confirm-bar{
+      display:flex;align-items:center;gap:10px;
+      padding:12px 18px;
+      background:rgba(57,255,20,.07);
+      border:1px solid rgba(57,255,20,.22);
+      border-radius:12px;
+      font-size:13px;font-weight:600;color:var(--navy);
+    }
+
+    /* ── SIZE GRID ── */
+    #paq-size-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0}
+    .paq-size-btn{
+      background:#fff;
+      border:2px solid var(--border);
+      border-radius:20px;
+      padding:22px 18px;
+      cursor:pointer;
+      text-align:left;
+      font-family:'Montserrat',sans-serif;
+      transition:all .25s cubic-bezier(.25,.46,.45,.94);
+      box-shadow:0 2px 8px rgba(15,23,42,.04);
+      position:relative;overflow:hidden;
+    }
+    .paq-size-btn::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(57,255,20,.06) 0%,transparent 60%);
+      opacity:0;transition:opacity .25s;
+    }
+    .paq-size-btn:hover{border-color:rgba(57,255,20,.45);transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,255,20,.1)}
+    .paq-size-btn:hover::before{opacity:1}
+    .paq-size-btn.paq-size-active{border-color:var(--green);background:#fff;box-shadow:0 10px 32px rgba(57,255,20,.18)}
+    .paq-size-btn.paq-size-active::before{opacity:1}
+    .paq-size-letter{font-size:38px;font-weight:900;color:var(--navy);letter-spacing:-.04em;line-height:1;margin-bottom:10px}
+    .paq-size-btn.paq-size-active .paq-size-letter{color:var(--navy)}
+    .paq-size-metros{font-size:20px;font-weight:900;color:var(--navy);letter-spacing:-.03em;margin-bottom:6px;line-height:1.1}
+    .paq-size-btn.paq-size-active .paq-size-metros{color:var(--navy)}
+    .paq-size-tag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
+
+    /* ── PRICE CARD ── */
+    .paq-price-card{
+      background:var(--navy);
+      border-radius:24px;
+      padding:36px 36px 32px;
+      position:relative;overflow:hidden;
+      box-shadow:0 20px 60px rgba(15,23,42,.25),0 4px 16px rgba(15,23,42,.15);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .paq-price-card-glow{
+      position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(ellipse 65% 55% at 85% 50%,rgba(57,255,20,.09) 0%,transparent 60%),
+                 radial-gradient(ellipse 40% 40% at 10% 80%,rgba(57,255,20,.05) 0%,transparent 55%);
+    }
+    .paq-price-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+    .paq-price-meta-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px}
+    .paq-price-meta-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.55;max-width:260px}
+    .paq-price-amount-wrap{text-align:right;flex-shrink:0}
+    .paq-price-desde{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px}
+    .paq-price-num{font-size:56px;font-weight:900;color:var(--green);line-height:1;letter-spacing:-.04em}
+    .paq-price-bs{font-size:20px;font-weight:700;vertical-align:top;margin-top:8px;display:inline-block}
+    .paq-price-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:4px}
+
+    /* ── RESET BTN ── */
+    .paq-reset-btn{
+      background:none;border:none;cursor:pointer;
+      font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;
+      color:var(--gray);margin-top:16px;
+      display:flex;align-items:center;gap:6px;padding:0;
+      transition:color .2s;
+    }
+    .paq-reset-btn:hover{color:var(--navy)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:700px){
+      #paq-service-selector{grid-template-columns:1fr}
+      #paq-size-grid{grid-template-columns:1fr 1fr}
+      .paq-price-card{padding:24px 20px}
+      .paq-price-num{font-size:44px}
+    }
+    @media(max-width:480px){
+      #paq-size-grid{grid-template-columns:1fr}
+      #paq-step-tracker .paq-step-txt{display:none}
+      .paq-step-pill{padding:8px 10px}
+    }
+    .paq-features-sm li{font-size:12px;padding:6px 0}
     </style>
 
     <script>
-    function selectSize(el){
-      const alreadySelected = el.classList.contains('selected');
-      document.querySelectorAll('.size-card').forEach(c=>c.classList.remove('selected'));
-      const panel = document.getElementById('size-result');
-      if(alreadySelected){
-        panel.style.display = 'none';
-        return;
-      }
-      el.classList.add('selected');
-      const label = el.dataset.label;
-      const time  = el.dataset.time;
-      document.getElementById('result-label').textContent = label;
-      document.getElementById('result-time').textContent  = time;
-      const msgPro  = encodeURIComponent('Hola, quiero mi Puesta a Cero TUM PRO — Oficina ' + label);
-      const msgMini = encodeURIComponent('Hola, quiero TUM MINI semanal — Oficina ' + label);
-      document.getElementById('btn-pro-size').href  = 'https://wa.me/34602846694?text=' + msgPro;
-      document.getElementById('btn-mini-size').href = 'https://wa.me/34602846694?text=' + msgMini;
-      panel.style.display = 'block';
+    const paqPrecios = {
+      s: { mini: 130, proDesde: 200, proHasta: 250, label: 'Pequeña (8–15 m²)', time: '30 min' },
+      m: { mini: 170, proDesde: 300, proHasta: 380, label: 'Mediana (16–30 m²)', time: '45 min' },
+      l: { mini: 240, proDesde: 450, proHasta: 550, label: 'Grande (31–50 m²)', time: '60 min' },
+    };
+    let paqSvc = null, paqSize = null;
+
+    const WA_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+
+    function paqStepUpdate(activeStep) {
+      [1,2,3].forEach(n => {
+        const pill = document.getElementById('pill-'+n);
+        pill.classList.remove('paq-step-active','paq-step-done');
+        if(n < activeStep) pill.classList.add('paq-step-done');
+        else if(n === activeStep) pill.classList.add('paq-step-active');
+      });
+      const l12 = document.getElementById('line-1-2');
+      const l23 = document.getElementById('line-2-3');
+      if(l12) l12.classList.toggle('paq-line-done', activeStep > 1);
+      if(l23) l23.classList.toggle('paq-line-done', activeStep > 2);
     }
-    </script>
 
-    <div class="paq-grid">
+    function paqShow(id) {
+      const el = document.getElementById(id);
+      el.style.display = 'block';
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = 'fadeUp .35s cubic-bezier(.25,.46,.45,.94) both';
+    }
 
-      <!-- TUM PRO -->
-      <div class="paq-card reveal">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div class="paq-badge"><svg style="display:none" class="" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Puesta a Cero</div>
-          <span style="font-size:11px;font-weight:600;color:var(--gray)">Limpieza profunda · Única vez</span>
-        </div>
-        <h3 style="font-size:20px;margin-bottom:6px">TUM PRO</h3>
-        <p class="paq-tagline" style="margin-bottom:14px">Inversión única que transforma tu espacio. El primer paso para recuperar tu tiempo.</p>
+    function paqSelectService(svc) {
+      if(paqSvc === svc) { paqReset(); return; }
+      paqSvc = svc;
 
-        <!-- ACORDEÓN -->
-        <div class="acc-wrap">
-          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
-            <span>Ver qué incluye</span>
-            <svg class="acc-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="acc-body">
-            <ul class="paq-features">
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Desinfección profunda de todas las superficies de trabajo</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Estanterías, libreros, repisas y objetos decorativos</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Cuadros, espejos, relojes de pared, lámparas y ventiladores</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Cocina: encimera, muebles exteriores, microondas y lavaplatos</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Baño completo: espejo, lavamanos, WC y suelos</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Rodapiés, apoyabrazos y áreas de alto contacto</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Aspirado y trapeado de pisos</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Manejo de residuos con protocolo de confianza</li>
-            </ul>
-            <p style="font-size:12px;color:var(--gray);margin:10px 0 0;line-height:1.6;font-style:italic">"Ideal para tu primera vez con TUM. Después de esto, tu oficina se siente — y se ve — como nueva."</p>
-          </div>
-        </div>
+      document.querySelectorAll('.paq-svc-card').forEach(c => c.classList.remove('paq-selected'));
+      document.getElementById('svc-'+svc).classList.add('paq-selected');
 
-        <a href="https://wa.me/34602846694?text=Hola%2C%20quiero%20mi%20Puesta%20a%20Cero%20con%20TUM%20PRO" class="btn-paq btn-outline" target="_blank" rel="noopener" style="margin-top:16px">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> QUIERO MI PUESTA A CERO
-        </a>
-      </div>
+      // Check icons
+      ['mini','pro'].forEach(s => {
+        const ch = document.querySelector('.paq-svc-check-'+s);
+        ch.innerHTML = svc === s
+          ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
+          : '';
+      });
 
-      <!-- TUM MINI -->
-      <div class="paq-card paq-featured reveal">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div class="paq-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Más popular</div>
-          <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.4)">Mantenimiento · Semanal</span>
-        </div>
-        <h3 style="font-size:20px;margin-bottom:6px">TUM MINI</h3>
-        <p class="paq-tagline" style="margin-bottom:14px">Lo que inviertes en TUM Mini, lo recuperas con creces en la primera factura que emites mientras nosotros limpiamos.</p>
+      document.getElementById('paq-svc-label').textContent =
+        svc === 'mini' ? 'TUM MINI — Mantenimiento semanal' : 'TUM PRO — Puesta a cero';
 
-        <!-- ACORDEÓN -->
-        <div class="acc-wrap">
-          <button class="acc-btn acc-btn-dark" onclick="toggleAcc(this)" aria-expanded="false">
-            <span>Ver qué incluye</span>
-            <svg class="acc-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="acc-body">
-            <ul class="paq-features">
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Desinfección de escritorios, mesas y archivadores</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Polvo en objetos decorativos: portafotos, lámparas, tarjeteros</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Limpieza de polvo básica: monitores, teclados, ratones, impresoras, televisores, teléfonos y controles remotos</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Vaciado de papeleras y reposición de bolsas</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Desinfección de pomos, interruptores y pasamanos</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Aspirado y trapeado de pisos</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Manejo de residuos con protocolo de confianza</li>
-            </ul>
-            <div class="paq-warn" style="margin-top:12px">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span><strong>NO INCLUYE:</strong> Higienización profunda de equipos informáticos. <a href="https://wa.me/34602846694?text=Consulta%20higienizaci%C3%B3n%20de%20equipos" target="_blank">Consúltanos →</a></span>
+      paqSize = null;
+      document.querySelectorAll('.paq-size-btn').forEach(b => b.classList.remove('paq-size-active'));
+      document.getElementById('paq-step3').style.display = 'none';
+
+      paqStepUpdate(2);
+      paqShow('paq-step2');
+    }
+
+    function paqSelectSize(size) {
+      paqSize = size;
+      document.querySelectorAll('.paq-size-btn').forEach(b => b.classList.toggle('paq-size-active', b.dataset.size === size));
+
+      const p = paqPrecios[size];
+      const svcName = paqSvc === 'mini' ? 'TUM MINI' : 'TUM PRO';
+
+      document.getElementById('paq-result-summary').innerHTML = `<strong>${svcName}</strong> — Oficina ${p.label}`;
+
+      let inner;
+      if(paqSvc === 'mini') {
+        const wa = 'https://wa.me/34602846694?text=' + encodeURIComponent('Hola, quiero TUM MINI semanal — Oficina ' + p.label);
+        inner = `
+          <div class="paq-price-top">
+            <div>
+              <div class="paq-price-meta-label">TUM MINI · Oficina ${p.label}</div>
+              <div class="paq-price-meta-desc">Precio fijo por visita. Sin negociación, sin letra pequeña. Todos pagan igual por igual servicio.</div>
+            </div>
+            <div class="paq-price-amount-wrap">
+              <div class="paq-price-num" id="paq-dyn-price-mini">${p.mini}<span class="paq-price-bs"> Bs</span></div>
+              <div class="paq-price-sub">por visita semanal</div>
             </div>
           </div>
-        </div>
-
-        <a href="https://wa.me/34602846694?text=Hola%2C%20quiero%20TUM%20MINI%20semanal" class="btn-paq btn-green" target="_blank" rel="noopener" style="margin-top:16px">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> QUIERO MANTENER MI OFICINA
-        </a>
-      </div>
-
-      <!-- EXTRAS -->
-      <div class="paq-card reveal">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div class="paq-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>A medida</div>
-          <span style="font-size:11px;font-weight:600;color:var(--gray)">Servicios adicionales</span>
-        </div>
-        <h3 style="font-size:20px;margin-bottom:6px">¿Necesitas algo más?</h3>
-        <p class="paq-tagline" style="margin-bottom:14px">También ofrecemos servicios adicionales a medida. Cuéntanos qué necesitas y te cotizamos.</p>
-
-        <!-- ACORDEÓN -->
-        <div class="acc-wrap">
-          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
-            <span>Ver ejemplos</span>
-            <svg class="acc-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="acc-body">
-            <ul class="paq-features">
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Interior de cajones</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Lámparas de pie</li>
-              <li><span class="pcheck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Mesas de reuniones</li>
-            </ul>
+          <a href="${wa}" class="btn-paq btn-green" target="_blank" rel="noopener" style="width:100%;justify-content:center;font-size:13px;letter-spacing:.06em">
+            ${WA_SVG} QUIERO MANTENER MI OFICINA
+          </a>`;
+      } else {
+        const wa = 'https://wa.me/34602846694?text=' + encodeURIComponent('Hola, quiero presupuesto TUM PRO — Oficina ' + p.label);
+        inner = `
+          <div class="paq-price-top">
+            <div>
+              <div class="paq-price-meta-label">TUM PRO · Oficina ${p.label}</div>
+              <div class="paq-price-meta-desc">El precio exacto se define en visita de diagnóstico gratuita — evaluamos cada área antes de empezar.</div>
+            </div>
+            <div class="paq-price-amount-wrap">
+              <div class="paq-price-desde">Desde</div>
+              <div class="paq-price-num" id="paq-dyn-price-pro">${p.proDesde}<span class="paq-price-bs"> Bs</span></div>
+              <div class="paq-price-sub">hasta ${p.proHasta} Bs · según suciedad</div>
+            </div>
           </div>
-        </div>
+          <a href="${wa}" class="btn-paq btn-green" target="_blank" rel="noopener" style="width:100%;justify-content:center;font-size:13px;letter-spacing:.06em">
+            ${WA_SVG} QUIERO ESTE SERVICIO PARA MI OFICINA
+          </a>`;
+      }
 
-        <a href="https://wa.me/34602846694?text=Consulta%20sin%20compromiso%20TUM" class="btn-paq btn-outline" target="_blank" rel="noopener" style="margin-top:16px">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          CONSULTA SIN COMPROMISO
-        </a>
-      </div>
-    </div>
+      document.getElementById('paq-result-inner').innerHTML = inner;
+      paqStepUpdate(3);
+      paqShow('paq-step3');
+
+      const prEl = document.getElementById(paqSvc === 'mini' ? 'paq-dyn-price-mini' : 'paq-dyn-price-pro');
+      if(prEl){ prEl.style.animation='none'; void prEl.offsetWidth; prEl.style.animation='fadeUp .3s ease both'; }
+    }
+
+    function paqReset() {
+      paqSvc = null; paqSize = null;
+      document.querySelectorAll('.paq-svc-card').forEach(c => c.classList.remove('paq-selected'));
+      ['mini','pro'].forEach(s => { document.querySelector('.paq-svc-check-'+s).innerHTML = ''; });
+      document.getElementById('paq-step2').style.display = 'none';
+      document.getElementById('paq-step3').style.display = 'none';
+      paqStepUpdate(1);
+    }
+    </script>
 
     <div class="paq-extra reveal">
       <div class="paq-extra-left">
