@@ -134,7 +134,7 @@ nav{
   -webkit-tap-highlight-color:transparent;
 }
 .btn-secondary:hover{border-color:rgba(255,255,255,.65);background:rgba(255,255,255,.06)}
-.hero-trust{display:flex;gap:18px;flex-wrap:wrap}
+.hero-trust{display:flex;gap:14px;flex-wrap:wrap}
 .trust-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(255,255,255,.38)}
 .trust-item svg{color:var(--green);flex-shrink:0}
 
@@ -415,6 +415,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
   color:var(--gray);
   max-width:360px;
 }
+.sol-card p strong{font-weight:800;color:#0a0f1e}
 
 /* Pill de resultado */
 .sol-pill{
@@ -493,6 +494,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
   color:rgba(255,255,255,.45);
   max-width:400px;
 }
+.regla-desc p strong{font-weight:800;color:#ffffff}
 
 .r-icon{
   width:40px;height:40px;
@@ -586,6 +588,9 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
   .paq-extra{flex-direction:column;align-items:flex-start;padding:28px 24px;gap:20px}
   .paq-extra::after{display:none}
   .paq-extra h4{font-size:18px}
+  .paq-extra-right{width:100%}
+  .paq-extra-right > div{align-items:flex-start !important}
+  .paq-extra-right > div > div{justify-content:flex-start !important}
 }
 
 /* ── CONFIANZA ── */
@@ -594,7 +599,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 #confianza .sec-label{background:rgba(57,255,20,.12);color:var(--green);border:1px solid rgba(57,255,20,.25)}
 #confianza .sec-h2{color:#fff}
 
-.confianza-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;border:1px solid rgba(57,255,20,.12);border-radius:20px;overflow:hidden;background:rgba(57,255,20,.08)}
+.confianza-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:48px;border:1px solid rgba(57,255,20,.12);border-radius:20px;overflow:hidden;background:rgba(57,255,20,.08)}
 @media(max-width:900px){.confianza-grid{grid-template-columns:1fr;gap:1px}}
 @media(max-width:580px){.confianza-grid{margin-top:32px}}
 
@@ -669,27 +674,66 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .cierre-inner .sec-h2{color:#fff;margin-bottom:10px}
 .cierre-sub{font-size:16px;color:rgba(255,255,255,.5);margin:0 auto 36px;line-height:1.75}
 @media(max-width:580px){.cierre-sub{font-size:15px}}
-.cierre-badges{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:36px}
-.cierre-badge{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.6)}
+.cierre-badges{display:flex;justify-content:center;gap:16px 28px;flex-wrap:wrap;margin-bottom:36px}
+.cierre-badge{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.75);white-space:nowrap}.cierre-badge svg{color:var(--green);flex-shrink:0}
 .cierre-badge svg{color:var(--green)}
-@media(max-width:480px){.cierre-badge{font-size:12px;gap:6px}}
+@media(max-width:600px){
+  .cierre-badges{flex-direction:column;align-items:center;gap:10px}
+  .cierre-badge{font-size:13px}
+}
 .btn-big{
   display:inline-flex;align-items:center;gap:10px;
   background:var(--green);color:var(--navy);
-  font-family:'Montserrat',sans-serif;font-size:16px;font-weight:900;
-  padding:19px 42px;border-radius:100px;border:none;cursor:pointer;text-decoration:none;
+  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:900;
+  padding:10px 26px;border-radius:100px;border:none;cursor:pointer;text-decoration:none;
   animation:pulse 2.8s infinite;transition:transform .25s,box-shadow .25s;
   -webkit-tap-highlight-color:transparent;
 }
 .btn-big:hover{transform:scale(1.04);box-shadow:0 12px 44px rgba(57,255,20,.5)}
-@media(max-width:480px){.btn-big{font-size:14px;padding:17px 28px;width:100%;justify-content:center}}
+@media(max-width:480px){.btn-big{font-size:12px;padding:9px 22px;width:auto;justify-content:center}}
 .cierre-note{margin-top:18px;font-size:12px;color:rgba(255,255,255,.25);letter-spacing:.07em}
+.cierre-stats{display:flex;align-items:center;justify-content:center;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 32px;margin:0 auto 32px;max-width:520px}
+.cierre-stat{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.cierre-stat-num{font-size:22px;font-weight:900;color:var(--green);letter-spacing:-.02em}
+.cierre-stat-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em}
+.cierre-stat-divider{width:1px;height:40px;background:rgba(255,255,255,.1);flex-shrink:0}
+@media(max-width:480px){.cierre-stats{padding:18px 16px;gap:0}.cierre-stat-num{font-size:18px}.cierre-stat-label{font-size:10px}}
 
 /* ── FOOTER ── */
 footer{background:#060d1a;padding:28px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
 footer p{font-size:13px;color:rgba(255,255,255,.26)}
 footer strong{color:var(--green)}
 @media(max-width:580px){footer{padding:22px 20px}}
+
+/* ── MOBILE GLOBAL FIXES ── */
+@media(max-width:480px){
+  /* Hero trust items — 2 por fila */
+  .hero-trust{gap:10px 14px}
+  .trust-item{font-size:11px}
+
+  /* ROI calc sliders */
+  .roi-slider-header{flex-direction:column;align-items:flex-start;gap:2px}
+
+  /* Dolor bridge */
+  .dolor-bridge{padding:36px 18px;gap:12px}
+  .dolor-bridge-title{font-size:24px}
+  .dolor-bridge-sub{font-size:13px}
+
+  /* Regla cards */
+  .regla-card{padding:20px 16px}
+
+  /* Confianza cards */
+  .conf-card{padding:24px 18px 22px}
+
+  /* Cierre title */
+  .cierre-inner .sec-h2{font-size:clamp(24px,7vw,36px)}
+
+  /* Nav logo más pequeño en móvil muy pequeño */
+  nav{padding:8px 12px;gap:8px}
+
+  /* Sections padding en móvil */
+  section{padding:50px 16px}
+}
 
 
 /* ── ACORDEÓN ── */
@@ -868,7 +912,7 @@ footer strong{color:var(--green)}
   font-family:'Montserrat',sans-serif;
   font-size:11px;
   font-weight:800;
-  color:var(--green);
+  color:#ffffff;
   letter-spacing:.18em;
   text-transform:uppercase;
   display:flex;align-items:center;gap:8px;
@@ -1080,11 +1124,12 @@ html:not(.modal-open){overflow-y:auto!important}
 }
 .urg-row:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
 
-.urg-row-icon{font-size:15px;flex-shrink:0;width:22px;text-align:center}
-.urg-row-time{display:flex;flex-direction:column;gap:2px;min-width:78px}
-.urt-label{font-size:12px;font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap}
-.urt-sub{font-size:9px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.06em;white-space:nowrap;text-transform:uppercase}
-.urg-row-desc{flex:1;font-size:11px;color:rgba(255,255,255,.4);line-height:1.4;font-weight:500}
+.urg-row-icon{font-size:15px;flex-shrink:0;width:22px;text-align:center;align-self:center}
+.urg-row-time{display:flex;flex-direction:column;gap:1px;flex:1}
+.urt-sub{font-size:8px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1px}
+.urt-label{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.urg-row-desc{font-size:11px;color:rgba(255,255,255,.4);line-height:1.3;font-weight:400;margin-top:2px}
+.urg-row-desc strong{color:#ffffff;font-weight:700}
 .urg-row-price{font-size:13px;font-weight:800;white-space:nowrap;letter-spacing:.02em}
 
 .ur0 .urg-row-price{color:#39FF14}
@@ -1212,22 +1257,21 @@ html:not(.modal-open){overflow-y:auto!important}
     <h1 class="hero-h1">
       Libera tu tiempo,<br><span class="accent">TUM se encarga.</span>
     </h1>
-    <p class="hero-sub" style="font-weight:600;color:var(--green);margin-bottom:14px">Servicio profesional de limpieza manual, artesanal e independiente.</p>
-    <p class="hero-sub">Garantizamos atención personalizada y resultados de alta calidad.<br><strong style="color:var(--green);font-weight:700">Para quien entiende que su tiempo vale dinero.</strong><br>Profesionales, emprendedores y dueños de negocio.<br><strong style="color:rgba(255,255,255,0.95)">Tu tranquilidad es nuestra responsabilidad.</strong></p>
+    <p class="hero-sub" style="margin-bottom:18px">Tu jornada sigue. En <strong style="color:#fff;font-weight:700">30 minutos</strong> tu oficina está lista — con las <strong style="color:#fff;font-weight:700">mismas personas de siempre,</strong> foto antes y después, y el <strong style="color:var(--green);font-weight:700">precio exacto</strong> antes de confirmar.</p>
+    <p class="hero-sub"><strong style="color:#fff;font-weight:700">Para quien entiende que su <span style="color:var(--green)">tiempo vale más</span> que cualquier tarea de limpieza.</strong></p>
     <div class="hero-ctas">
       <a href="https://wa.me/34602846694?text=Hola%2C%20quiero%20agendar%20mi%20limpieza%20TUM" class="btn-primary" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> LO QUIERO AHORA
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> Quiero que TUM se encargue
       </a>
       <a href="#solucion" class="btn-secondary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Conoce más ↓
       </a>
     </div>
     <div class="hero-trust">
-      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>Servicio manual, artesanal e independiente</span>
-      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>Registro fotográfico antes/después</span>
-      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Verificación de cita online</span>
-      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Notificaciones a tu WhatsApp</span>
+      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 minutos exactos.</span>
+      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Coordinado con un mensaje.</span>
+      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Siempre las mismas 2 personas.</span>
+      <span class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>Registro + precio sin sorpresas.</span>
     </div>
   </div>
 </section>
@@ -1237,37 +1281,37 @@ html:not(.modal-open){overflow-y:auto!important}
   <div class="container">
     <div class="reveal">
       <div class="sec-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>El problema real</div>
-      <h2 class="sec-h2">¿Cuánto le está costando<br>esto a tu negocio?</h2>
+      <h2 class="sec-h2">¿Cuánto te está<br><span style="color:var(--green)">costando esto a ti?</span></h2>
     </div>
     <div class="dolor-grid">
       <div class="dolor-card reveal">
         <div class="dolor-num">01</div>
         <div class="d-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M6 11h2M6 15h2M16 11h2M16 15h2"/></svg></div>
         <h3>Mi oficina no me representa</h3>
-        <p>"Tu cliente entra antes de que abras la boca. Un espacio descuidado ya tomó la decisión por ti."</p>
+        <p>Tu cliente entra antes de que abras la boca. <strong style="color:var(--green)">Tu equipo lo nota cada mañana.</strong> Un espacio descuidado ya habló por ti — y no dijo lo que querías.</p>
       </div>
       <div class="dolor-card reveal">
         <div class="dolor-num">02</div>
         <div class="d-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <h3>Pierdo tiempo que no recupero</h3>
-        <p>"3 a 4 horas semanales que no estás facturando, no estás creciendo. Las estás limpiando."</p>
+        <p>3 a 4 horas cada semana que no estás facturando, no estás descansando, <strong style="color:var(--green)">no estás creciendo.</strong> Las estás limpiando.</p>
       </div>
       <div class="dolor-card reveal">
         <div class="dolor-num">03</div>
         <div class="d-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
         <h3>No sé qué pasa en mi oficina</h3>
-        <p>"¿Entraron? ¿Qué tocaron? ¿Qué movieron? Sin fotos, sin registro, sin certeza."</p>
+        <p>¿Quién entró? ¿Qué tocaron? ¿Qué movieron? Sin fotos, sin registro, sin certeza — <strong style="color:var(--green)">y sin saber con quién dejaste tu espacio.</strong></p>
       </div>
       <div class="dolor-card reveal">
         <div class="dolor-num">04</div>
         <div class="d-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="10" y1="14" x2="14" y2="18"/><line x1="14" y1="14" x2="10" y2="18"/></svg></div>
         <h3>Coordinar esto me agota</h3>
-        <p>"Llegan cuando pueden. Cambian cada semana. Nunca sabes con quién vas a tratar."</p>
+        <p>Llegan cuando pueden. Cambian cada semana. <strong style="color:var(--green)">Nunca sabes con quién vas a tratar ni si van a aparecer.</strong></p>
       </div>
     </div>
     <div class="dolor-bridge reveal">
       <div class="dolor-bridge-title">Para eso existe <em class="g">TUM.</em></div>
-      <div class="dolor-bridge-sub">Profesionales que responden por su trabajo.</div>
+      <div class="dolor-bridge-sub">Para que ninguno de estos cuatro problemas vuelva a ser tuyo.</div>
     </div>
   </div>
 </section>
@@ -1280,11 +1324,11 @@ html:not(.modal-open){overflow-y:auto!important}
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         Calculadora de impacto
       </div>
-      <h2 class="roi-title">¿Cuánto dinero estás<br><span>perdiendo cada semana</span><br>limpiando tu oficina?</h2>
-      <p class="roi-desc">Ajusta los sliders con tu situación real. Los números hablan solos.</p>
+      <h2 class="roi-title">¿Cuánto <span>dinero y energía</span> estás perdiendo<br>cada semana limpiando tu oficina?</h2>
+      <p class="roi-desc">Es rápido. Mueve los sliders con tu situación real y los números hablan solos.</p>
       <div class="roi-sliders">
         <div>
-          <div class="roi-slider-header"><span class="roi-slider-label">¿Cuánto facturas por hora?</span><span class="roi-slider-val" id="val-tarifa">Bs. 120/hr</span></div>
+          <div class="roi-slider-header"><span class="roi-slider-label">¿Cuánto vale tu hora de trabajo?</span><span class="roi-slider-val" id="val-tarifa">Bs. 120/hr</span></div>
           <input type="range" id="slider-tarifa" min="50" max="500" step="10" value="120">
         </div>
         <div>
@@ -1299,17 +1343,17 @@ html:not(.modal-open){overflow-y:auto!important}
     </div>
     <div class="roi-result reveal">
       <div class="roi-result-title">Tu pérdida real por limpiar tú mismo</div>
-      <div class="roi-metric"><span class="rm-label">Tiempo perdido por semana</span><div class="rm-val red" id="res-horas-sem">3.5 <span class="rm-unit">hrs</span></div></div>
-      <div class="roi-metric"><span class="rm-label">Dinero perdido por semana</span><div class="rm-val red" id="res-semana">Bs. 420 <span class="rm-unit">/sem</span></div></div>
-      <div class="roi-metric"><span class="rm-label">Dinero perdido por mes</span><div class="rm-val red" id="res-mes">Bs. 1,680 <span class="rm-unit">/mes</span></div></div>
-      <div class="roi-metric"><span class="rm-label">Pérdida anual</span><div class="rm-val red" id="res-anio">Bs. 20,160 <span class="rm-unit">/año</span></div></div>
+      <div class="roi-metric"><span class="rm-label">Tiempo perdido por semana</span><div class="rm-val" id="res-horas-sem" style="color:rgba(255,255,255,.9);font-weight:700">3.5 <span class="rm-unit">hrs</span></div></div>
+      <div class="roi-metric"><span class="rm-label">Dinero perdido por semana</span><div class="rm-val" id="res-semana" style="color:rgba(255,255,255,.9);font-weight:700">Bs. 420 <span class="rm-unit"></span></div></div>
+      <div class="roi-metric" style="margin-top:4px"><span class="rm-label" style="color:rgba(255,255,255,.9);font-weight:700">Dinero perdido por mes</span><div class="rm-val" id="res-mes" style="color:var(--green);font-size:1.6rem;font-weight:900">Bs. 1.680 <span class="rm-unit"></span></div></div>
+      <div class="roi-metric"><span class="rm-label">Pérdida anual</span><div class="rm-val" id="res-anio" style="color:rgba(255,255,255,.9);font-weight:700">Bs. 20.160 <span class="rm-unit"></span></div></div>
       <div style="margin-top:18px">
-        <div class="roi-pct-row"><span class="roi-pct-label">% de tu semana laboral limpiando</span><span class="roi-pct-val" id="res-pct">8.8%</span></div>
+        <div class="roi-pct-row"><span class="roi-pct-label">% de tu semana que le regalas a la limpieza</span><span class="roi-pct-val" id="res-pct">8.8%</span></div>
         <div class="roi-bar-wrap"><div class="roi-bar" id="roi-bar" style="width:8.8%"></div></div>
       </div>
-      <div class="roi-conclusion">Con <strong>TUM MINI</strong> tu oficina queda impecable en 30 min.<br><strong id="res-conclusion">Recuperas Bs. 1,680 al mes</strong> en tiempo facturable.</div>
+      <div class="roi-conclusion">Eso es exactamente lo que <strong style="color:var(--green)">TUM te devuelve cada mes.</strong> Tu oficina lista en 30 minutos — y ese tiempo de vuelta en tu agenda, <strong style="color:var(--green)">donde siempre debió estar.</strong></div>
       <a href="https://wa.me/34602846694?text=Hola%2C%20calcul%C3%A9%20mi%20p%C3%A9rdida%20y%20quiero%20empezar%20con%20TUM" class="roi-cta" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Quiero recuperar ese tiempo
+        Empezar a recuperarlo — sin compromiso
       </a>
     </div>
   </div>
@@ -1320,7 +1364,7 @@ html:not(.modal-open){overflow-y:auto!important}
   <div class="container">
     <div class="sol-intro reveal">
       <div class="sec-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>La solución</div>
-      <h2 class="sec-h2">No vendemos limpieza.<br>Vendemos tiempo y tranquilidad.</h2>
+      <h2 class="sec-h2">No vendemos limpieza.<br>Vendemos <strong style="color:var(--green)">tiempo, tranquilidad y certeza.</strong></h2>
     </div>
 
     <div class="sol-grid">
@@ -1330,12 +1374,11 @@ html:not(.modal-open){overflow-y:auto!important}
         <div class="s-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
         </div>
-        <div class="sol-before">Antes &nbsp;→&nbsp; <span>Ahora</span></div>
-        <h3>Tu oficina te<br><em>representa.</em></h3>
-        <p>Antes de que abras la boca, tu espacio ya habla. Con TUM, cada visita deja tu oficina impecable — la imagen que tu negocio merece, sin que tengas que pensar en ello.</p>
+        <h3>Tu oficina te <em>representa.</em></h3>
+        <p>Antes de que abras la boca, tu espacio ya habla. Con TUM, cada visita deja tu oficina impecable — <strong>la imagen que tú mereces,</strong> sin que tengas que pensar en ello.</p>
         <div class="sol-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Desde la primera visita
+          Tu imagen, siempre cuidada.
         </div>
       </div>
 
@@ -1344,12 +1387,11 @@ html:not(.modal-open){overflow-y:auto!important}
         <div class="s-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <div class="sol-before">Antes &nbsp;→&nbsp; <span>Ahora</span></div>
-        <h3>Recuperas <em>3.5 horas</em><br>cada semana.</h3>
-        <p>Esas horas no eran de limpieza — eran horas que no estabas facturando. TUM entra, limpia y sale en 30 minutos exactos. Tu jornada no se detiene ni un segundo.</p>
+        <h3>Recuperas horas cada semana. <em>Las que tú calculaste.</em></h3>
+        <p>Esas horas no eran de limpieza — <strong>eran tuyas.</strong> TUM entra, limpia y sale en 30 minutos exactos. Tu jornada sigue sin que notes que estuvimos.</p>
         <div class="sol-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          30 minutos · sin interrupciones
+          30 minutos · sin interrupciones.
         </div>
       </div>
 
@@ -1358,12 +1400,11 @@ html:not(.modal-open){overflow-y:auto!important}
         <div class="s-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
         </div>
-        <div class="sol-before">Antes &nbsp;→&nbsp; <span>Ahora</span></div>
-        <h3>Sabes exactamente<br><em>qué pasó.</em></h3>
-        <p>Fotos antes y después, notificación a tu WhatsApp al terminar, y verificación online de cada cita. Control total de tu espacio — aunque estés en otra reunión.</p>
+        <h3>Sabes exactamente <em>qué pasó.</em></h3>
+        <p>Fotos antes y después. Notificación a tu WhatsApp al terminar. Todo verificable online. <strong>Control total de tu espacio</strong> — aunque estés en otra reunión.</p>
         <div class="sol-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Registro fotográfico siempre
+          Prueba de cada visita. Siempre.
         </div>
       </div>
 
@@ -1372,12 +1413,11 @@ html:not(.modal-open){overflow-y:auto!important}
         <div class="s-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
         </div>
-        <div class="sol-before">Antes &nbsp;→&nbsp; <span>Ahora</span></div>
-        <h3>Cero estrés de<br><em>coordinación.</em></h3>
-        <p>Siempre las mismas 2 personas. Tu horario fijo. Sin sorpresas, sin caras nuevas, sin recordatorios. Lo coordinas una vez y listo — funciona solo.</p>
+        <h3>Cero estrés de <em>coordinación.</em></h3>
+        <p>Siempre las mismas 2 personas. Horario fijo. Caras conocidas. Sin que tengas que recordar nada. <strong>Lo coordinas una vez y listo</strong> — funciona solo.</p>
         <div class="sol-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Siempre las mismas 2 personas
+          Siempre las mismas 2 personas.
         </div>
       </div>
 
@@ -1391,9 +1431,9 @@ html:not(.modal-open){overflow-y:auto!important}
     <div class="reveal">
       <div class="sec-label sec-label-dark">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Cómo trabajamos
+        Lo que puedes esperar siempre
       </div>
-      <h2 class="sec-h2 sec-h2-white">Estas son las reglas TUM.<br>No las cambiamos por nadie.</h2>
+      <h2 class="sec-h2 sec-h2-white">Estas son las reglas TUM.<br><span style="color:var(--green)">Las mismas para todos, desde el primer día.</span></h2>
     </div>
     <div class="reglas-grid">
 
@@ -1405,7 +1445,7 @@ html:not(.modal-open){overflow-y:auto!important}
         </div>
         <div class="regla-desc">
           <h3>30 minutos exactos, sin excepción</h3>
-          <p>Para oficinas hasta 50m². Entramos, trabajamos, salimos. Tu jornada no se interrumpe ni un segundo — ni antes ni después.</p>
+          <p>Para oficinas hasta 50m². <strong>Entramos, trabajamos, salimos.</strong> Tu jornada sigue intacta — antes, durante y después.</p>
         </div>
         <div class="r-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
       </div>
@@ -1418,7 +1458,7 @@ html:not(.modal-open){overflow-y:auto!important}
         </div>
         <div class="regla-desc">
           <h3>Tu equipo fijo desde el día uno</h3>
-          <p>No rotamos personal. Las mismas 2 personas en cada visita. Las conoces, las reconoces, confías en ellas — sin presentaciones ni sorpresas.</p>
+          <p>Tu equipo es fijo. <strong>Las conoces, las reconoces, confías en ellas</strong> — sin presentaciones ni sorpresas.</p>
         </div>
         <div class="r-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       </div>
@@ -1431,7 +1471,7 @@ html:not(.modal-open){overflow-y:auto!important}
         </div>
         <div class="regla-desc">
           <h3>Fotos antes, durante y después</h3>
-          <p>Cada visita queda registrada con hora y fecha. Te llega directo a WhatsApp. Sabes exactamente qué pasó — aunque estés en otra reunión.</p>
+          <p>Cada visita registrada con hora y fecha. <strong>Te llega directo a WhatsApp.</strong> Sabes exactamente qué pasó — aunque estés en otra reunión.</p>
         </div>
         <div class="r-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
       </div>
@@ -1444,7 +1484,7 @@ html:not(.modal-open){overflow-y:auto!important}
         </div>
         <div class="regla-desc">
           <h3>Especialistas en espacios de trabajo</h3>
-          <p>No hacemos casas, no hacemos locales, no hacemos de todo. Cada detalle de nuestro proceso está pensado para una oficina — y solo para eso.</p>
+          <p>Nos especializamos únicamente en oficinas. <strong>Cada detalle fue diseñado para tu espacio.</strong> Eso es lo que hace la diferencia.</p>
         </div>
         <div class="r-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
       </div>
@@ -1472,17 +1512,17 @@ html:not(.modal-open){overflow-y:auto!important}
     <!-- ENCABEZADO SECCIÓN -->
     <div class="paq-intro reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:64px">
       <div>
-        <div class="sec-label" style="margin-bottom:16px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Los paquetes</div>
-        <h2 class="sec-h2" style="margin-bottom:0">Elige cómo quieres<br>recuperar tu tiempo.</h2>
+        <div class="sec-label" style="margin-bottom:16px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Tu servicio TUM</div>
+        <h2 class="sec-h2" style="margin-bottom:8px">Elige cómo quieres recuperar tu tiempo.<br><span style="color:var(--green)">Son solo dos opciones — y ambas son transparentes.</span></h2>
+        <p style="font-size:14px;color:var(--gray);line-height:1.65">Diseñadas para tu oficina. Precio y condiciones claros antes de confirmar.</p>
       </div>
-      <p style="font-size:14px;color:var(--gray);max-width:280px;line-height:1.65;text-align:right">Dos servicios diseñados para tu oficina. Sin letra pequeña, sin sorpresas.</p>
     </div>
 
     <!-- CONFIGURADOR -->
     <div class="reveal" style="margin-bottom:52px">
 
       <!-- PASO TRACKER -->
-      <div id="paq-step-tracker" style="display:flex;align-items:center;gap:0;margin-bottom:40px">
+      <div id="paq-step-tracker" style="display:flex;align-items:center;gap:0;margin-bottom:40px;width:100%;min-width:0;overflow:hidden">
         <div class="paq-step-pill paq-step-active" id="pill-1">
           <span class="paq-step-num">1</span>
           <span class="paq-step-txt">Servicio</span>
@@ -1517,15 +1557,14 @@ html:not(.modal-open){overflow-y:auto!important}
                 </div>
                 <div class="paq-svc-titles">
                   <div class="paq-svc-sub">Limpieza a fondo · Una vez</div>
-                  <div class="paq-svc-name">TUM PRO</div>
+                  <div class="paq-svc-name">TUM <span style="color:var(--green)">PRO</span></div>
                 </div>
                 <div class="paq-svc-check paq-svc-check-pro"></div>
               </div>
               <div class="paq-svc-tagline-block">
                 <div class="tagline-bg-text">PRO</div>
-                <div class="tagline-pill">Limpieza a fondo · una vez</div>
-                <div class="tagline-main">La puesta a cero<br><em>de tu oficina</em></div>
-                <p class="tagline-body">Para oficinas que acumularon suciedad. El reset total antes del mantenimiento regular.</p>
+                <div style="color:var(--green);font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.3">El reinicio que tu oficina necesita.</div>
+                <p class="tagline-body">El punto de partida perfecto. Una limpieza profunda y completa que deja tu espacio en su mejor estado — listo para el mantenimiento que lo mantiene así.</p>
               </div>
 
               <!-- Acordeón con contenido actualizado -->
@@ -1547,7 +1586,7 @@ html:not(.modal-open){overflow-y:auto!important}
                     <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Aspirado de alfombras pequeñas</li>
                   </ul>
                   <button class="paq-select-btn paq-svc-check-pro" onclick="event.stopPropagation();paqSelectService('pro')">
-                    <span class="paq-select-label">SELECCIONAR TUM PRO →</span>
+                    <span class="paq-select-label">Quiero el PRO →</span>
                     <span class="paq-selected-label">✓ SELECCIONADO</span>
                   </button>
                 </div>
@@ -1565,15 +1604,14 @@ html:not(.modal-open){overflow-y:auto!important}
                 </div>
                 <div class="paq-svc-titles">
                   <div class="paq-svc-sub">Mantenimiento semanal</div>
-                  <div class="paq-svc-name">TUM MINI</div>
+                  <div class="paq-svc-name">TUM <span style="color:var(--green)">MINI</span></div>
                 </div>
                 <div class="paq-svc-check paq-svc-check-mini"></div>
               </div>
               <div class="paq-svc-tagline-block">
                 <div class="tagline-bg-text">MINI</div>
-                <div class="tagline-pill">Mantenimiento semanal</div>
-                <div class="tagline-main">30 minutos<br><em>que rentan</em></div>
-                <p class="tagline-body">Tu oficina siempre lista sin interrumpir tu jornada. Precio fijo, sin sorpresas.</p>
+                <div style="color:var(--green);font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.3">30 minutos que rentan. Cada semana.</div>
+                <p class="tagline-body">Tu oficina lista. Tu jornada intacta. Precio fijo — sin variables, sin sorpresas de ningún tipo.</p>
               </div>
 
               <!-- Acordeón con contenido actualizado -->
@@ -1595,7 +1633,7 @@ html:not(.modal-open){overflow-y:auto!important}
                     <li><span class="pcheck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Fotos antes/después + notificación WhatsApp</li>
                   </ul>
                   <button class="paq-select-btn paq-svc-check-mini" onclick="event.stopPropagation();paqSelectService('mini')">
-                    <span class="paq-select-label">SELECCIONAR TUM MINI →</span>
+                    <span class="paq-select-label">Quiero el MINI →</span>
                     <span class="paq-selected-label">✓ SELECCIONADO</span>
                   </button>
                 </div>
@@ -1675,8 +1713,9 @@ html:not(.modal-open){overflow-y:auto!important}
       border-radius:20px;
       padding:18px 24px;
       box-shadow:0 4px 24px rgba(15,23,42,.06);
+      overflow:hidden;
     }
-    .paq-step-pill{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border-radius:14px;background:transparent;transition:all .3s cubic-bezier(.25,.46,.45,.94);white-space:nowrap;border:1.5px solid transparent}
+    .paq-step-pill{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border-radius:14px;background:transparent;transition:all .3s cubic-bezier(.25,.46,.45,.94);white-space:nowrap;border:1.5px solid transparent;flex-shrink:0}
     .paq-step-pill.paq-step-active{background:var(--navy);border-color:var(--navy);box-shadow:0 6px 20px rgba(15,23,42,.2)}
     .paq-step-pill.paq-step-done{background:rgba(57,255,20,.08);border-color:rgba(57,255,20,.35)}
     .paq-step-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.1);color:rgba(255,255,255,.4);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
@@ -1704,6 +1743,11 @@ html:not(.modal-open){overflow-y:auto!important}
       transition:all .35s cubic-bezier(.25,.46,.45,.94);
       position:relative;overflow:hidden;
       box-shadow:0 4px 20px rgba(15,23,42,.06),0 1px 4px rgba(15,23,42,.04);
+    }
+    #svc-mini{
+      border:2px solid var(--green);
+      box-shadow:0 16px 50px rgba(57,255,20,.22),0 4px 16px rgba(57,255,20,.12);
+      transform:translateY(-6px) scale(1.013);
     }
     .paq-svc-card::after{
       content:'';position:absolute;inset:0;
@@ -1932,13 +1976,50 @@ html:not(.modal-open){overflow-y:auto!important}
       .prc-btn{min-width:unset;width:100%}
       .prc-reset{text-align:center}
     }
+    @media(max-width:480px){
+      .prc-header{flex-direction:column;align-items:flex-start;gap:10px}
+      .prc-price-block{text-align:left}
+      .prc-service-name{font-size:30px}
+      .prc-price-num{font-size:44px}
+    }
     @media(max-width:700px){#paq-service-selector{grid-template-columns:1fr}}
     @media(max-width:700px){#paq-size-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:420px){#paq-size-grid{grid-template-columns:1fr}}
     @media(max-width:480px){
       #paq-size-grid{grid-template-columns:1fr}
-      #paq-step-tracker .paq-step-txt{display:none}
-      .paq-step-pill{padding:8px 10px}
+    }
+
+    /* ── STEP TRACKER MOBILE ── */
+    @media(max-width:640px){
+      #paq-step-tracker{
+        padding:12px 14px;
+        overflow:visible;
+      }
+      .paq-step-pill{
+        padding:8px 12px;
+        gap:8px;
+        flex-shrink:1;
+        min-width:0;
+      }
+      .paq-step-txt{font-size:11px;letter-spacing:.02em}
+      .paq-step-line{min-width:10px;margin:0 2px}
+      .paq-step-num{width:22px;height:22px;font-size:10px;flex-shrink:0}
+    }
+    @media(max-width:480px){
+      #paq-step-tracker{padding:10px 12px}
+      .paq-step-pill{padding:8px 10px;gap:6px}
+      .paq-step-txt{display:none}
+      .paq-step-line{min-width:16px;flex:1;margin:0 4px}
+      .paq-step-num{width:28px;height:28px;font-size:12px}
+      #paq-step-tracker .paq-step-active .paq-step-txt{
+        display:inline;
+        font-size:11px;
+        letter-spacing:.04em;
+      }
+    }
+    @media(max-width:360px){
+      .paq-step-num{width:26px;height:26px;font-size:11px}
+      #paq-step-tracker{padding:8px 10px}
     }
     .acc-body .paq-select-btn{
       margin-top:16px;
@@ -1978,6 +2059,17 @@ html:not(.modal-open){overflow-y:auto!important}
       text-align:center;
       transition:all .25s cubic-bezier(.25,.46,.45,.94);
       position:relative;overflow:hidden;
+    }
+    .paq-svc-check-mini.paq-select-btn{
+      background:var(--green);
+      border-color:var(--green);
+      color:var(--navy);
+      box-shadow:0 6px 24px rgba(57,255,20,.4);
+    }
+    .paq-svc-check-mini.paq-select-btn:hover{
+      background:var(--green);
+      box-shadow:0 10px 32px rgba(57,255,20,.6);
+      transform:translateY(-2px);
     }
     .paq-select-btn:hover{
       border-color:rgba(57,255,20,.5);
@@ -2154,7 +2246,7 @@ html:not(.modal-open){overflow-y:auto!important}
         </div>
 
         <!-- Título grande -->
-        <h4 style="font-size:clamp(20px,2.5vw,26px);font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1.15;margin-bottom:18px">
+        <h4 style="font-size:clamp(22px,2.8vw,32px);font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1.15;margin-bottom:18px">
           Somos transparentes<br>
           <span style="color:var(--green)">desde el inicio</span>
         </h4>
@@ -2162,30 +2254,30 @@ html:not(.modal-open){overflow-y:auto!important}
         <!-- Separador + texto en dos cols -->
         <div style="display:flex;gap:28px;flex-wrap:wrap">
           <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.75;max-width:420px;margin:0">
-            No hay sorpresas. Horarios pico, fines de semana, servicios urgentes — cada escenario tiene una tarifa <strong style="color:rgba(255,255,255,.8);font-weight:700">clara y justa</strong>. Siempre sabrás exactamente cuánto pagarás antes de confirmar.
+            <strong style="color:var(--green);font-weight:700">Todo está calculado.</strong> Horarios pico, fines de semana, servicios urgentes — cada escenario tiene una tarifa <strong style="color:#ffffff;font-weight:800">clara y justa.</strong> Sabrás exactamente cuánto pagarás <strong style="color:#ffffff;font-weight:800">antes de agendar.</strong>
           </p>
         </div>
 
-        <!-- Microbadges -->
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5)">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Sin letra pequeña
-          </span>
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5)">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Tabla interactiva
-          </span>
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5)">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Precio exacto antes de reservar
-          </span>
-        </div>
       </div>
 
       <div class="paq-extra-right" style="position:relative;z-index:1;flex-shrink:0">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
-          <button class="btn-primary" onclick="openPricingModal()" style="display:inline-flex;align-items:center;gap:8px;white-space:nowrap;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:800;padding:16px 28px;border-radius:100px;background:var(--green);color:var(--navy);letter-spacing:.03em;box-shadow:0 8px 32px rgba(57,255,20,.35);transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 40px rgba(57,255,20,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(57,255,20,.35)'">
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">
+          <!-- Badges arriba a la derecha -->
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--green);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:700;color:var(--green)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Sin letra pequeña
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--green);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:700;color:var(--green)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Tabla interactiva
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--green);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:700;color:var(--green)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Precio exacto antes de reservar
+            </span>
+          </div>
+          <button class="btn-primary" onclick="openPricingModal()" style="display:inline-flex;align-items:center;gap:8px;white-space:nowrap;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:800;padding:12px 24px;border-radius:100px;background:var(--green);color:var(--navy);letter-spacing:.03em;box-shadow:0 8px 32px rgba(57,255,20,.35);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 40px rgba(57,255,20,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(57,255,20,.35)'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
             Ver tabla completa
           </button>
@@ -2201,29 +2293,27 @@ html:not(.modal-open){overflow-y:auto!important}
 <section id="confianza">
   <div class="container">
     <div class="reveal">
-      <div class="sec-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Prueba social</div>
-      <h2 class="sec-h2">¿Primera vez contratando<br>un servicio así? Normal.</h2>
+      <div class="sec-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Por qué confiar en TUM</div>
+      <h2 class="sec-h2">Confiar en alguien nuevo para tu espacio requiere razones.<br><span style="color:var(--green)">TUM las tiene.</span></h2>
     </div>
     <div class="confianza-grid">
 
       <!-- CARD 01 -->
       <div class="conf-card reveal">
         <div class="conf-num">01</div>
-        <div class="c-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-        <h3>Somos nuevos. Eso es una ventaja para ti.</h3>
-        <p>Atención personalizada, compromiso total y cero burocracia. Antes de tocarte una sola superficie, te mostramos quiénes somos, firmamos juntos y documentamos todo.</p>
-        <p>Tu tranquilidad no depende de cuántos años llevamos — depende de cómo trabajamos.</p>
-        <span class="conf-highlight">Sé de los primeros. La experiencia que tengas será la que cuenten los que vengan después.</span>
+        <h3>Somos nuevos. <em style="color:var(--green);font-style:normal">Eso trabaja a tu favor.</em></h3>
+        <p>Trato directo, sin burocracia y con cero intermediarios. Antes de la primera visita te presentamos quiénes somos — <strong>en persona, con todo lo que necesitas ver</strong> para tomar una decisión informada.</p>
+        <p>Tu tranquilidad no depende de cuántos años llevamos — <strong>depende de cómo respondemos.</strong></p>
+        <p>Los primeros clientes de TUM reciben algo que los siguientes no podrán tener — <strong>agenda abierta, atención sin competencia y prioridad total desde el inicio.</strong></p>
       </div>
 
       <!-- CARD 02 -->
       <div class="conf-card reveal">
         <div class="conf-num">02</div>
-        <div class="c-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-        <h3>TUM no es para todos.</h3>
-        <p>Trabajamos con profesionales independientes, emprendedores y dueños de negocio que entienden que <strong>su tiempo vale más que cualquier tarea de limpieza.</strong></p>
-        <p>Consultores, agencias, sucursales, estudios — si tienes una oficina y valoras tu tiempo, TUM es para ti.</p>
-        <span class="conf-highlight">No somos para quien busca lo más barato. Somos para quien no puede permitirse perder más tiempo.</span>
+        <h3>TUM <em style="color:var(--green);font-style:normal">no es para todos.</em></h3>
+        <p>TUM es para profesionales, emprendedores y dueños de negocio que entienden que <strong>su tiempo vale más que cualquier tarea de limpieza.</strong></p>
+        <p>Consultores, agencias, sucursales, estudios — si tienes una oficina y tu tiempo tiene valor, <strong>TUM es para ti.</strong></p>
+        <p>TUM no compite por precio.<br><span style="color:var(--green);font-weight:700">Compite por resultados.</span></p>
       </div>
 
       <!-- CARD 03 — GARANTÍA -->
@@ -2231,13 +2321,33 @@ html:not(.modal-open){overflow-y:auto!important}
         <div class="conf-num">03</div>
         <div class="conf-badge">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Garantía escrita
+          Garantía escrita. Tiempos reales.
         </div>
-        <div class="c-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Si no quedó bien, volvemos. Así de simple.</h3>
-        <p>Nos avisas en las siguientes <strong>24 horas con una foto</strong> y volvemos sin costo adicional.</p>
-        <p>Documentamos todo con registro fotográfico al finalizar — para protegerte a ti y protegernos a nosotros.</p>
-        <span class="conf-highlight">Sin excusas, sin letras pequeñas. Solo resultados.</span>
+        <h3>Si no quedó bien, volvemos. <em style="color:var(--green);font-style:normal">Así de simple.</em></h3>
+        <div style="display:flex;flex-direction:column;gap:10px;margin:16px 0">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.55)">
+            <span style="width:18px;height:18px;background:rgba(57,255,20,.15);border:1px solid rgba(57,255,20,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Foto dentro de las <strong style="color:#fff;margin-left:4px">24 horas</strong>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.55)">
+            <span style="width:18px;height:18px;background:rgba(57,255,20,.15);border:1px solid rgba(57,255,20,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Respuesta de TUM en máximo <strong style="color:#fff;margin-left:4px">2 horas</strong>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.55)">
+            <span style="width:18px;height:18px;background:rgba(57,255,20,.15);border:1px solid rgba(57,255,20,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#39FF14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Corrección en las siguientes <strong style="color:var(--green);margin-left:4px">24 horas — sin costo adicional</strong>
+          </div>
+        </div>
+        <p>Cada visita queda registrada con fotos y hora exacta. <strong>Evidencia real para ambos</strong> — certeza de cómo quedó cada visita.</p>
+        <span class="conf-highlight">Compromiso directo. Solo resultados.</span>
+      </div>
+
+      <!-- CARD 04 -->
+      <div class="conf-card reveal">
+        <div class="conf-num">04</div>
+        <h3>Lo que <em style="color:var(--green);font-style:normal">ningún otro servicio</em> te muestra.</h3>
+        <p>Antes de empezar, te presentamos en persona todo lo que necesitas para confiar. <strong>Hechos concretos, no argumentos de venta.</strong></p>
+        <p><strong>¿Dudas de un servicio que nunca has contratado? Bien. Eso se resuelve — en persona, antes de la primera visita.</strong></p>
       </div>
 
     </div>
@@ -2249,19 +2359,48 @@ html:not(.modal-open){overflow-y:auto!important}
   <div class="container cierre-inner reveal">
     <div class="sec-label sec-label-dark">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Es el momento
+      Tu próximo paso
     </div>
-    <h2 class="sec-h2">Deja de perder tiempo<br>en lo que no suma.</h2>
-    <p class="cierre-sub">Tu oficina impecable en 30 minutos. Un WhatsApp y lo coordinamos.</p>
+    <h2 class="sec-h2">Tu oficina lista.<br><span style="color:var(--green)">Tu tiempo, tuyo.</span></h2>
+    <p class="cierre-sub">Tu oficina lista en 30 minutos. Un WhatsApp y lo coordinamos.</p>
+    <!-- Mini stats -->
+    <div class="cierre-stats">
+      <div class="cierre-stat">
+        <span class="cierre-stat-num">30 min</span>
+        <span class="cierre-stat-label">Tu oficina lista</span>
+      </div>
+      <div class="cierre-stat-divider"></div>
+      <div class="cierre-stat">
+        <span class="cierre-stat-num">1 mensaje</span>
+        <span class="cierre-stat-label">Para coordinar todo</span>
+      </div>
+      <div class="cierre-stat-divider"></div>
+      <div class="cierre-stat">
+        <span class="cierre-stat-num">0 contratos</span>
+        <span class="cierre-stat-label">Sin permanencia</span>
+      </div>
+    </div>
+
+    <!-- Badges -->
     <div class="cierre-badges">
-      <div class="cierre-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Antecedentes policiales actualizados</div>
-      <div class="cierre-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Siempre las mismas 2 personas</div>
-      <div class="cierre-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Garantía escrita desde la primera visita</div>
+      <div class="cierre-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Quiénes somos — te lo mostramos en persona
+      </div>
+      <div class="cierre-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Las mismas 2 personas. Siempre verificable.
+      </div>
+      <div class="cierre-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Garantía escrita. Desde el primer día.
+      </div>
     </div>
+
     <a href="https://wa.me/34602846694?text=Hola%2C%20quiero%20recuperar%20mi%20tiempo%20con%20TUM" class="btn-big" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> RECUPERA TU TIEMPO AHORA
+      Quiero que TUM se encargue →
     </a>
-    <p class="cierre-note">Respuesta rápida · Sin compromiso · Sin contratos</p>
+    <p class="cierre-note">Respuesta rápida &nbsp;|&nbsp; Un solo mensaje &nbsp;|&nbsp; Sin permanencia &nbsp;|&nbsp; Sin contratos</p>
   </div>
 </section>
 
@@ -2436,12 +2575,11 @@ function updateROI(){
   document.getElementById('val-semanas').textContent=s+' semanas';
   const pw=t*h,pm=pw*s,pa=pm*12,pct=Math.min((h/40)*100,100);
   document.getElementById('res-horas-sem').innerHTML=h+' <span class="rm-unit">hrs</span>';
-  document.getElementById('res-semana').innerHTML='Bs. '+fmt(pw)+' <span class="rm-unit">/sem</span>';
-  document.getElementById('res-mes').innerHTML='Bs. '+fmt(pm)+' <span class="rm-unit">/mes</span>';
-  document.getElementById('res-anio').innerHTML='Bs. '+fmt(pa)+' <span class="rm-unit">/año</span>';
+  document.getElementById('res-semana').innerHTML='Bs. '+fmt(pw);
+  document.getElementById('res-mes').innerHTML='Bs. '+fmt(pm);
+  document.getElementById('res-anio').innerHTML='Bs. '+fmt(pa);
   document.getElementById('res-pct').textContent=pct.toFixed(1)+'%';
   document.getElementById('roi-bar').style.width=pct+'%';
-  document.getElementById('res-conclusion').textContent='Recuperas Bs. '+fmt(pm)+' al mes';
 }
 sT.addEventListener('input',updateROI);
 sH.addEventListener('input',updateROI);
@@ -2498,7 +2636,7 @@ document.addEventListener('keydown', (e) => {
 <div id="pricingModal" class="pricing-modal">
   <div class="pricing-modal-content">
     <div class="modal-header-bar">
-      <span class="modal-header-text">Tabla de recargos</span>
+      <span class="modal-header-text">• PRECIOS <span style="color:var(--green)">CLAROS.</span> SIEMPRE.</span>
       <button class="modal-close" onclick="closePricingModal()">×</button>
     </div>
     <div class="pricing-modal-wrapper">
@@ -2508,7 +2646,7 @@ document.addEventListener('keydown', (e) => {
   <div class="w-header">
     <div class="w-header-desc">
       <span class="whd-icon">🤝</span>
-      <span class="whd-text">Disponibles <strong>todos los días</strong>, a cualquier hora. Antes de confirmar siempre sabrás el precio <strong>exacto</strong> — sin sorpresas, sin letra chica.</span>
+      <span class="whd-text">Disponibles <strong>todos los días</strong>, a cualquier hora. Antes de confirmar siempre sabrás el precio <strong style="color:var(--green)">exacto</strong> — claro, completo y antes de agendar.</span>
     </div>
   </div>
 
@@ -2539,7 +2677,7 @@ document.addEventListener('keydown', (e) => {
         <div class="sched-row">
           <div class="row-left">
             <span class="row-time">08:00 – 12:29 &amp; 14:31 – 18:59</span>
-            <span class="row-label">Horario estándar</span>
+            <span class="row-label">Horario base</span>
           </div>
           <span class="row-badge rb-free">Sin recargo</span>
         </div>
@@ -2565,7 +2703,7 @@ document.addEventListener('keydown', (e) => {
         <div class="sched-row">
           <div class="row-left">
             <span class="row-time">08:00 – 12:29 &amp; 14:31 – 18:59</span>
-            <span class="row-label">Horario estándar</span>
+            <span class="row-label">Horario base</span>
           </div>
           <span class="row-badge rb-mid">+ 40 Bs</span>
         </div>
@@ -2591,7 +2729,7 @@ document.addEventListener('keydown', (e) => {
         <div class="sched-row">
           <div class="row-left">
             <span class="row-time">08:00 – 12:29 &amp; 14:31 – 18:59</span>
-            <span class="row-label">Horario estándar</span>
+            <span class="row-label">Horario base</span>
           </div>
           <span class="row-badge rb-high">+ 80 Bs</span>
         </div>
@@ -2617,71 +2755,73 @@ document.addEventListener('keydown', (e) => {
   <div class="w-divider"></div>
 
   <div class="w-urgency">
-    <div class="w-section-label">⚡ Anticipación de reserva</div>
+    <div class="w-section-label" style="color:var(--green)">⚡ ¿CON CUÁNTA ANTICIPACIÓN AGENDAS?</div>
     <div class="urg-track-bar"></div>
     <div class="urg-rows">
 
       <div class="urg-row ur0">
         <span class="urg-row-icon">✅</span>
         <div class="urg-row-time">
-          <span class="urt-label">+ 24 horas</span>
-          <span class="urt-sub">con anticipación</span>
+          <span class="urt-sub">PLANIFICADO</span>
+          <span class="urt-label">+ 24 horas <span style="color:var(--green)">con anticipación</span></span>
+          <span class="urg-row-desc"><strong>Todo coordinado.</strong> Sin apuros.</span>
         </div>
-        <span class="urg-row-desc">Planificación normal, sin presión</span>
         <span class="urg-row-price">Sin recargo</span>
       </div>
 
       <div class="urg-row ur1">
         <span class="urg-row-icon">🕐</span>
         <div class="urg-row-time">
+          <span class="urt-sub">AJUSTADO</span>
           <span class="urt-label">12 – 24 h</span>
-          <span class="urt-sub">poco margen</span>
+          <span class="urg-row-desc"><strong>Reorganizamos</strong> para recibirte.</span>
         </div>
-        <span class="urg-row-desc">Agenda ajustada</span>
         <span class="urg-row-price">+ 35 Bs</span>
       </div>
 
       <div class="urg-row ur2">
         <span class="urg-row-icon">⏱️</span>
         <div class="urg-row-time">
+          <span class="urt-sub">PRIORITARIO</span>
           <span class="urt-label">6 – 12 h</span>
-          <span class="urt-sub">reorganización</span>
+          <span class="urg-row-desc">Tu cita toma el <strong>primer lugar disponible.</strong></span>
         </div>
-        <span class="urg-row-desc">Se reorganiza la agenda</span>
         <span class="urg-row-price">+ 70 Bs</span>
       </div>
 
       <div class="urg-row ur3">
         <span class="urg-row-icon">⚠️</span>
         <div class="urg-row-time">
+          <span class="urt-sub">URGENTE</span>
           <span class="urt-label">2 – 6 h</span>
-          <span class="urt-sub">urgente</span>
+          <span class="urg-row-desc"><strong>TUM reorganiza todo</strong> para estar ahí.</span>
         </div>
-        <span class="urg-row-desc">Cancela otro cliente para atenderte</span>
         <span class="urg-row-price">+ 120 Bs</span>
       </div>
 
       <div class="urg-row ur4">
         <span class="urg-row-icon">🚨</span>
         <div class="urg-row-time">
-          <span class="urt-label">&lt; 2 horas</span>
-          <span class="urt-sub">emergencia</span>
+          <span class="urt-sub">EMERGENCIA</span>
+          <span class="urt-label">menos de 2 horas</span>
+          <span class="urg-row-desc">Máxima prioridad. <strong>TUM se mueve ahora.</strong></span>
         </div>
-        <span class="urg-row-desc">Máxima prioridad inmediata</span>
         <span class="urg-row-price">+ 150 Bs</span>
+      </div>
+
       </div>
 
     </div>
   </div>
 
   <div class="w-extra">
-    <div class="w-section-label">⚙️ Condiciones externas</div>
+    <div class="w-section-label">⚙️ CONDICIONES DEL DÍA</div>
     <div class="extra-row">
       <div class="extra-left">
         <div class="extra-icon">🚧</div>
         <div>
           <span class="extra-name">Bloqueo activo</span>
-          <span class="extra-desc">Desvíos por bloqueos o protestas en la ruta</span>
+          <span class="extra-desc">Te <span style="color:var(--green)">avisamos con tiempo</span> y coordinamos juntos.</span>
         </div>
       </div>
       <span class="row-badge rb-mid">+ 55 Bs</span>
@@ -2690,9 +2830,38 @@ document.addEventListener('keydown', (e) => {
 
 </div>
 
+  <div style="
+    background:rgba(255,255,255,.04);
+    border-top:1px solid rgba(255,255,255,.07);
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-shrink:0;
+  ">
+    <div>
+      <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;">
+        <span style="color:var(--green)">Sabrás el total exacto</span> antes de confirmar.
+      </div>
+      <div style="font-size:10px;color:rgba(255,255,255,.35);font-weight:500;">Sin letra pequeña. Sin sorpresas de ningún tipo.</div>
+    </div>
+    <button style="
+      background:var(--green);
+      color:#000;
+      font-size:12px;
+      font-weight:800;
+      border:none;
+      border-radius:50px;
+      padding:10px 18px;
+      cursor:pointer;
+      white-space:nowrap;
+      letter-spacing:-.01em;
+    ">Agendar ahora →</button>
+  </div>
+
     </div>
   </div>
-</div>
 
 </body>
 </html>
