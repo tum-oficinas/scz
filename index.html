@@ -162,8 +162,8 @@ nav{
 }
 
 /* ── SECCIONES COMUNES ── */
-section{padding:88px 40px}
-@media(max-width:768px){section{padding:60px 20px}}
+section{padding:60px 40px}
+@media(max-width:768px){section{padding:44px 20px}}
 .container{max-width:1100px;margin:0 auto}
 .sec-label{
   font-family:var(--font-body);display:inline-flex;align-items:center;gap:6px;
@@ -206,7 +206,7 @@ section{padding:88px 40px}
   font-style:normal;
   color:var(--green);
 }
-.dolor-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:48px;border-radius:20px;overflow:hidden}
+.dolor-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:32px;border-radius:20px;overflow:hidden}
 @media(max-width:640px){.dolor-grid{grid-template-columns:1fr}}
 .dolor-card{
   background:rgba(255,255,255,.03);
@@ -295,7 +295,7 @@ section{padding:88px 40px}
 }
 
 /* ── ROI CALC ── */
-#roi-calc{background:var(--navy);padding:88px 40px;position:relative;overflow:hidden}
+#roi-calc{background:var(--navy);padding:60px 40px;position:relative;overflow:hidden}
 #roi-calc::before{
   content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse 65% 55% at 50% 50%,rgba(0,255,135,.045) 0%,transparent 65%);
@@ -304,7 +304,7 @@ section{padding:88px 40px}
   position:relative;z-index:1;max-width:1100px;margin:0 auto;
   display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
 }
-@media(max-width:900px){.roi-inner{grid-template-columns:1fr;gap:40px}#roi-calc{padding:64px 20px}}
+@media(max-width:900px){.roi-inner{grid-template-columns:1fr;gap:28px}#roi-calc{padding:44px 20px}}
 .roi-tag{
   display:inline-flex;align-items:center;gap:7px;
   font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
@@ -351,7 +351,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 
 /* ── SOLUCIÓN ── */
 #solucion{background:#fff}
-.sol-intro{margin-bottom:52px}
+.sol-intro{margin-bottom:36px}
 
 .sol-grid{
   display:grid;
@@ -540,8 +540,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 }
 
 /* ── EXCLUSIVIDAD ── */
-#exclusividad{background:#fff;padding:60px 40px}
-@media(max-width:580px){#exclusividad{padding:50px 20px}}
+#exclusividad{background:#fff;padding:44px 40px}
+@media(max-width:580px){#exclusividad{padding:36px 20px}}
 .excl-box{max-width:660px;margin:0 auto;background:var(--light);border-radius:20px;padding:44px;border:1px solid var(--border);position:relative;overflow:hidden}
 .excl-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--green)}
 .excl-box h2{font-size:clamp(20px,3vw,26px);font-weight:900;margin-bottom:14px;letter-spacing:-.025em}
@@ -551,7 +551,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 
 /* ── PAQUETES MÓVIL ── */
 @media(max-width:640px){
-  #paquetes{ padding:60px 16px }
+  #paquetes{ padding:44px 16px }
   .paq-intro{ margin-bottom:32px }
   #paq-step-tracker{padding:14px 16px}
 }
@@ -681,8 +681,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 @media(max-width:580px){.conf-card{padding:28px 22px 26px}}
 
 /* ── CIERRE ── */
-#cierre{background:var(--navy);text-align:center;padding:96px 40px;position:relative;overflow:hidden}
-@media(max-width:580px){#cierre{padding:72px 20px}}
+#cierre{background:var(--navy);text-align:center;padding:64px 40px;position:relative;overflow:hidden}
+@media(max-width:580px){#cierre{padding:48px 20px}}
 #cierre::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(0,255,135,.065) 0%,transparent 65%)}
 .cierre-inner{position:relative;z-index:1;max-width:660px;margin:0 auto}
 .cierre-inner .sec-h2{color:#fff;margin-bottom:10px}
@@ -746,7 +746,7 @@ footer strong{color:var(--green)}
   nav{padding:8px 12px;gap:8px}
 
   /* Sections padding en móvil */
-  section{padding:50px 16px}
+  section{padding:36px 16px}
 }
 
 
@@ -2756,6 +2756,33 @@ document.getElementById('pricingModal')?.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') closePricingModal();
 });
+
+function agendarDesdeModal() {
+  // Lee el tab activo del modal de precios
+  const activeTab = document.querySelector('#pricingModal .tab.active');
+  let franja = 'Lunes a Viernes';
+  if (activeTab) {
+    if (activeTab.classList.contains('t-sd'))  franja = 'Sábados';
+    if (activeTab.classList.contains('t-fer')) franja = 'Feriados';
+  }
+
+  // Si el usuario ya pasó por el flujo de paquetes, usa ese contexto
+  let contexto = '';
+  if (paqSvc && paqSize) {
+    const svcNombre = paqSvc === 'mini' ? 'TUM MINI (mantenimiento semanal)' : 'TUM PRO (puesta a cero)';
+    const tamanios = { s: 'Pequeña (8–15 m²)', m: 'Mediana (16–30 m²)', l: 'Grande (31–50 m²)' };
+    const oficina = tamanios[paqSize] || paqSize;
+    contexto = `Hola, quiero agendar ${svcNombre} — Oficina ${oficina} — Horario: ${franja}`;
+  } else if (paqSvc) {
+    const svcNombre = paqSvc === 'mini' ? 'TUM MINI' : 'TUM PRO';
+    contexto = `Hola, quiero agendar ${svcNombre} — Horario: ${franja}`;
+  } else {
+    contexto = `Hola, quiero agendar un servicio TUM — Horario: ${franja}`;
+  }
+
+  const url = 'https://wa.me/34602846694?text=' + encodeURIComponent(contexto);
+  window.open(url, '_blank', 'noopener');
+}
 </script>
 
 <!-- PRICING MODAL -->
@@ -2972,7 +2999,7 @@ document.addEventListener('keydown', (e) => {
       </div>
       <div style="font-size:10px;color:rgba(255,255,255,.35);font-weight:500;">Sin letra pequeña. Sin sorpresas de ningún tipo.</div>
     </div>
-    <button style="
+    <button onclick="agendarDesdeModal()" style="
       background:var(--green);
       color:#000;
       font-size:12px;
