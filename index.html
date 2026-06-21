@@ -40,6 +40,7 @@ body{font-family:var(--font-body);background:#fff;color:var(--navy);overflow-x:h
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,135,.45)}55%{box-shadow:0 0 0 12px rgba(0,255,135,0)}}
+@keyframes cardGlow{0%,100%{box-shadow:0 0 0 0 rgba(0,255,135,.35),0 0 24px 0 rgba(0,255,135,.12)}50%{box-shadow:0 0 0 7px rgba(0,255,135,0),0 0 38px 4px rgba(0,255,135,.22)}}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.07)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
@@ -679,6 +680,101 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
   margin-bottom:16px;width:fit-content;
 }
 @media(max-width:580px){.conf-card{padding:28px 22px 26px}}
+
+/* ── LÍNEA DE SERVICIOS ── */
+#servicios{background:var(--navy);position:relative;overflow:hidden}
+#servicios::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(0,255,135,.05) 0%,transparent 60%);pointer-events:none}
+#servicios .sec-head{max-width:none}
+#servicios .sec-sub{max-width:none}
+#servicios .sec-label{background:rgba(0,255,135,.12);color:var(--green);border:1px solid rgba(0,255,135,.25)}
+#servicios .sec-h2{color:#fff}
+#servicios .sec-sub{font-size:14.5px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:6px}
+
+.lineas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:40px;align-items:stretch;max-width:780px;margin-left:auto;margin-right:auto}
+@media(max-width:580px){.lineas-grid{grid-template-columns:1fr;margin-top:28px}}
+
+.linea-card{
+  background:#0c1628;border:1px solid rgba(0,255,135,.16);border-radius:18px;
+  padding:22px;position:relative;overflow:hidden;
+  transition:border-color .25s,background .25s,transform .25s;
+}
+.linea-card::after{
+  content:'';position:absolute;inset:0;border-radius:18px;
+  box-shadow:0 0 0 1px rgba(0,255,135,.25) inset;opacity:0;transition:opacity .25s;pointer-events:none;
+}
+.linea-card:hover{border-color:rgba(0,255,135,.4);background:#0f1d35;transform:translateY(-2px)}
+.linea-card:hover::after{opacity:1}
+
+.linea-card-featured{
+  border:1.5px solid rgba(0,255,135,.55);
+  background:linear-gradient(180deg,rgba(0,255,135,.07) 0%,#0c1628 38%);
+  animation:cardGlow 2.6s ease-in-out infinite;
+}
+.linea-card-featured:hover{border-color:var(--green);background:linear-gradient(180deg,rgba(0,255,135,.1) 0%,#0f1d35 38%);transform:translateY(-2px)}
+.linea-card-featured .linea-icon{background:rgba(0,255,135,.16);border-color:rgba(0,255,135,.45)}
+
+.linea-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.linea-icon{
+  width:40px;height:40px;border-radius:11px;flex-shrink:0;
+  background:rgba(0,255,135,.1);border:1px solid rgba(0,255,135,.25);
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+.linea-titles{flex:1;min-width:0}
+.linea-sub{font-size:11px;font-weight:600;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.linea-name{font-family:var(--font-heading);font-size:16px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.linea-name span{color:var(--green)}
+.linea-badge{
+  background:rgba(0,255,135,.12);color:var(--green);border:1px solid rgba(0,255,135,.28);
+  font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:4px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-top:2px;
+}
+
+.linea-claim{font-size:13.5px;font-weight:700;color:var(--green);line-height:1.4;margin-bottom:14px}
+
+.linea-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.linea-tag{
+  font-size:10.5px;font-weight:600;color:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  padding:4px 10px;border-radius:100px;
+}
+
+.linea-acc-body p{font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.55);margin-bottom:10px}
+.linea-acc-body p:last-child{margin-bottom:0}
+.linea-acc-body strong{color:rgba(255,255,255,.85);font-weight:700}
+
+.linea-divider{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
+
+.linea-quote{
+  font-size:12px;line-height:1.6;color:rgba(255,255,255,.6);font-style:italic;
+  border-left:2px solid rgba(0,255,135,.4);padding-left:10px;margin:12px 0 0;
+}
+
+.linea-cta{
+  display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  background:var(--green);color:var(--navy);
+  font-family:var(--font-heading);font-size:12.5px;font-weight:700;
+  padding:11px 16px;border-radius:11px;text-decoration:none;
+  transition:transform .2s,box-shadow .2s;white-space:nowrap;margin-top:6px;
+}
+.linea-cta:hover{transform:scale(1.02);box-shadow:0 4px 18px rgba(0,255,135,.25)}
+
+/* tarjeta "próxima línea" */
+.linea-card-empty{
+  border:1.5px dashed rgba(0,255,135,.22);background:rgba(0,255,135,.02);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+}
+.linea-card-empty:hover{border-color:rgba(0,255,135,.4);background:rgba(0,255,135,.04);transform:none}
+.linea-card-empty::after{display:none}
+.linea-plus{
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(0,255,135,.08);border:1px solid rgba(0,255,135,.28);
+  display:flex;align-items:center;justify-content:center;color:var(--green);
+  margin-bottom:12px;font-size:20px;font-weight:300;
+}
+.linea-card-empty h3{font-family:var(--font-heading);font-size:14.5px;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-.02em}
+.linea-card-empty p{font-size:12px;line-height:1.65;color:rgba(255,255,255,.45);max-width:230px;margin-bottom:16px}
+.linea-card-empty .linea-cta{background:transparent !important;color:var(--green) !important;border:1px solid rgba(0,255,135,.35);width:auto;padding:9px 16px;box-shadow:none;font-weight:700}
+.linea-card-empty .linea-cta:hover{background:rgba(0,255,135,.08) !important;color:var(--green) !important;box-shadow:none;border-color:rgba(0,255,135,.55)}
 
 /* ── CIERRE ── */
 #cierre{background:var(--navy);text-align:center;padding:64px 40px;position:relative;overflow:hidden}
@@ -1331,6 +1427,7 @@ p,li,span:not(.accent):not(.nav-logo *),
     <li><a href="#dolor">El problema</a></li>
     <li><a href="#roi-calc">Calculá tu pérdida</a></li>
     <li><a href="#paquetes">Paquetes</a></li>
+    <li><a href="#servicios">Servicios</a></li>
     <li><a href="#confianza">Garantía</a></li>
   </ul>
   <a href="https://wa.me/59174959697?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20TUM" class="nav-cta" target="_blank" rel="noopener">
@@ -2405,7 +2502,7 @@ p,li,span:not(.accent):not(.nav-logo *),
           </div>
           <button class="btn-primary" onclick="openPricingModal()" style="display:inline-flex;align-items:center;gap:8px;white-space:nowrap;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:800;padding:12px 24px;border-radius:100px;background:var(--green);color:var(--navy);box-shadow:0 8px 32px rgba(0,255,135,.35);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 40px rgba(0,255,135,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,255,135,.35)'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            Ver tabla completa
+            Tabla de Horarios y Urgencia
           </button>
           <span style="font-size:10px;color:rgba(255,255,255,.25);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Sin compromiso</span>
         </div>
@@ -2474,6 +2571,64 @@ p,li,span:not(.accent):not(.nav-logo *),
         <h3>Lo que <em style="color:var(--green);font-style:normal">ningún otro servicio</em> te muestra.</h3>
         <p>Antes de empezar, te presentamos en persona todo lo que necesitas para confiar. <strong>Hechos concretos, no argumentos de venta.</strong></p>
         <p><strong>¿Dudas de un servicio que nunca has contratado? Bien. Eso se resuelve — en persona, antes de la primera visita.</strong></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 6.5: LÍNEA DE SERVICIOS TUM ── -->
+<section id="servicios">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Línea de Servicios TUM</div>
+      <h2 class="sec-h2"><span style="color:var(--green)">Cada vez más formas</span> de liberar tu tiempo.</h2>
+      <p class="sec-sub">Cada línea nace de una necesidad real de nuestros clientes — y se suma al mismo estándar TUM.</p>
+    </div>
+
+    <div class="lineas-grid">
+
+      <!-- LÍNEA 01 — CRISTALES -->
+      <div class="linea-card linea-card-featured reveal">
+        <div class="linea-header">
+          <div class="linea-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
+          <div class="linea-titles">
+            <div class="linea-sub">Vidrios y escaparates</div>
+            <div class="linea-name">TUM <span>Cristales</span></div>
+          </div>
+          <span class="linea-badge">A medida</span>
+        </div>
+
+        <div class="linea-claim">Tu escaparate vende antes que tú. Hazlo brillar.</div>
+
+        <div class="linea-tags">
+          <span class="linea-tag">Escaparates</span>
+          <span class="linea-tag">Vitrinas</span>
+          <span class="linea-tag">Fachadas</span>
+        </div>
+
+        <div class="acc-wrap">
+          <button class="acc-btn acc-btn-dark" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Ver detalle del servicio</span>
+            <svg class="acc-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body linea-acc-body">
+            <p>Limpieza profesional de <strong>cristales, vitrinas y escaparates de tienda</strong> — el mismo estándar TUM: ahora también en tu escaparate.</p>
+            <p>Cada local es distinto, así que el precio también.<br>Por eso <strong>vamos a tu local, vemos qué necesitas, y te damos el precio ahí mismo</strong> sin sorpresas.</p>
+            <div class="linea-quote">"Tu escaparate es lo primero que tu cliente ve. Si está sucio, ya perdiste antes de empezar."</div>
+          </div>
+        </div>
+
+        <div class="linea-divider"></div>
+        <a href="https://wa.me/59174959697?text=Hola%2C%20quiero%20cotizar%20TUM%20Cristales%20para%20mi%20local" class="linea-cta" target="_blank" rel="noopener">Cotizar mi local →</a>
+      </div>
+
+      <!-- LÍNEA 02 — PRÓXIMA LÍNEA -->
+      <div class="linea-card linea-card-empty reveal">
+        <div class="linea-plus">+</div>
+        <h3>La próxima línea TUM</h3>
+        <p>Cada necesidad nueva que nos plantean se convierte en una línea a su medida. Esta es la próxima.</p>
+        <a href="https://wa.me/59174959697?text=Hola%2C%20tengo%20una%20necesidad%20que%20no%20veo%20en%20la%20l%C3%ADnea%20de%20servicios%20TUM" class="linea-cta" target="_blank" rel="noopener">Cuéntanos qué necesitas →</a>
       </div>
 
     </div>
@@ -2557,6 +2712,26 @@ p,li,span:not(.accent):not(.nav-logo *),
       <div>
         <div class="fab-label">Paquetes</div>
         <div class="fab-sub">Elige tu plan ideal</div>
+      </div>
+    </a>
+
+    <a href="#servicios" class="fab-item" onclick="closeFab()">
+      <div class="fab-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div>
+        <div class="fab-label">Línea de Servicios</div>
+        <div class="fab-sub">TUM Cristales y más</div>
+      </div>
+    </a>
+
+    <a href="#" class="fab-item" onclick="closeFab();openPricingModal();return false;">
+      <div class="fab-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <div>
+        <div class="fab-label">Horarios y Urgencia</div>
+        <div class="fab-sub">Precio exacto antes de reservar</div>
       </div>
     </a>
 
@@ -2684,7 +2859,7 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
 reveals.forEach(el => obs.observe(el));
 
-document.querySelectorAll('.dolor-grid,.sol-grid,.reglas-grid,.paq-grid,.confianza-grid').forEach(grid => {
+document.querySelectorAll('.dolor-grid,.sol-grid,.reglas-grid,.paq-grid,.confianza-grid,.lineas-grid').forEach(grid => {
   grid.querySelectorAll('.reveal').forEach((c,i) => c.style.transitionDelay = `${i*0.09}s`);
 });
 
