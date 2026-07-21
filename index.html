@@ -8,7 +8,7 @@
 <meta name="description" content="Para quienes entienden que su tiempo vale dinero — profesionales, emprendedores y dueños de negocio.">
 <link rel="icon" type="image/png" href="https://i.ibb.co/rGX4H9F9/tum-oficinas-scz.png">
 <title>TUM Libera tu tiempo</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -23,6 +23,7 @@
   /* Typography system */
   --font-heading:'Plus Jakarta Sans',sans-serif;
   --font-body:'Inter',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
   /* Colors */
   --color-h1:#FFFFFF;
   --color-keyphrase:#00FF87;
@@ -1355,6 +1356,109 @@ p,li,span:not(.accent):not(.nav-logo *),
 }
 
 
+/* ── OPINIONES (tickets verificados) ── */
+#opiniones{background:#F0F4F8;position:relative;overflow:hidden}
+#opiniones::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 85% 10%,rgba(0,255,135,.05) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 10% 90%,rgba(0,255,135,.04) 0%,transparent 55%);
+  pointer-events:none;
+}
+#opiniones .sec-label{background:rgba(15,23,42,.06);color:var(--navy);border:1px solid rgba(15,23,42,.1)}
+#opiniones .sec-h2{color:var(--navy)}
+#opiniones .sec-sub{color:var(--gray);font-size:14.5px;line-height:1.7;margin-top:6px;max-width:560px}
+
+/* — pase de verificación Google — */
+.op-pass{
+  position:relative;display:flex;align-items:center;
+  background:#fff;border:1px solid rgba(15,23,42,.08);border-radius:16px;
+  margin-top:28px;margin-bottom:32px;
+  box-shadow:0 10px 30px rgba(15,23,42,.07);
+}
+.op-pass-main{display:flex;align-items:center;gap:16px;flex:1;padding:16px 20px;min-width:0}
+.op-g-icon{flex-shrink:0;width:32px;height:32px}
+.op-pass-mid{display:flex;flex-direction:column;gap:3px;min-width:0}
+.op-score-row{display:flex;align-items:baseline;gap:8px}
+.op-score{font-family:var(--font-heading);font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-.03em}
+#opiniones .op-stars{display:flex;gap:2px}
+#opiniones .op-stars svg{width:15px;height:15px}
+.op-count{font-size:12.5px;color:var(--gray);font-weight:500}
+.op-pass-tear{position:relative;flex-shrink:0;align-self:stretch;width:0;border-left:1.5px dashed rgba(15,23,42,.18)}
+.op-pass-tear::before,.op-pass-tear::after{
+  content:'';position:absolute;left:50%;transform:translateX(-50%);
+  width:20px;height:20px;border-radius:50%;background:#F0F4F8;
+}
+.op-pass-tear::before{top:-10px}
+.op-pass-tear::after{bottom:-10px}
+.op-pass-cta-wrap{display:flex;align-items:center;padding:16px 20px;flex-shrink:0}
+.op-summary-cta{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--navy);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:13px;
+  padding:11px 20px;border-radius:100px;text-decoration:none;white-space:nowrap;
+  transition:transform .2s,background .2s;
+}
+.op-summary-cta:hover{background:#1e2c47;transform:translateY(-2px)}
+@media(max-width:640px){
+  .op-pass{flex-direction:column}
+  .op-pass-tear{width:auto;height:0;align-self:stretch;border-left:none;border-top:1.5px dashed rgba(15,23,42,.18)}
+  .op-pass-tear::before{top:auto;left:-10px;transform:translateY(-50%)}
+  .op-pass-tear::after{bottom:auto;left:auto;right:-10px;transform:translateY(-50%)}
+  .op-pass-main{padding:16px}
+  .op-pass-cta-wrap{padding:14px 16px 16px}
+  .op-summary-cta{width:100%;justify-content:center}
+}
+
+/* — tarjetas de opinión — */
+.op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.op-grid{grid-template-columns:1fr;gap:12px}}
+
+.op-card{
+  position:relative;
+  background:#fff;
+  border:1px solid rgba(15,23,42,.08);border-radius:14px;
+  padding:18px 20px;display:flex;flex-direction:column;
+  box-shadow:0 6px 20px rgba(15,23,42,.05);
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.op-card:hover{transform:translateY(-4px);border-color:rgba(0,255,135,.35);animation:cardGlow 1.8s ease-in-out infinite}
+
+.op-card-head{
+  display:flex;align-items:center;gap:10px;
+  padding-bottom:10px;margin-bottom:8px;
+  border-bottom:1px dashed rgba(15,23,42,.15);
+}
+.op-verified{
+  margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;gap:3px;
+  background:rgba(0,255,135,.12);color:#0a8a51;
+  font-size:10.5px;font-weight:700;letter-spacing:.01em;
+  padding:3px 8px;border-radius:20px;white-space:nowrap;
+}
+.op-verified svg{width:9px;height:9px;flex-shrink:0}
+.op-avatar{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-heading);font-weight:700;font-size:14px;color:#fff;
+}
+.op-who{display:flex;flex-direction:column;gap:2px;min-width:0}
+.op-name{font-size:14px;font-weight:700;color:var(--navy);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.op-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.op-meta .op-stars svg{width:13px;height:13px}
+.op-text{font-size:13.5px;line-height:1.7;color:#3a4457}
+.op-more{color:var(--navy);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(15,23,42,.25)}
+.op-more:hover{border-color:var(--navy)}
+
+.op-bottom{display:flex;justify-content:center;margin-top:40px}
+.op-add-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--color-cta-bg);color:var(--color-cta-text);
+  font-family:var(--font-heading);font-size:14.5px;font-weight:700;
+  padding:16px 32px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;
+  box-shadow:0 8px 28px rgba(0,255,135,.28);
+  animation:pulse 2.8s infinite;transition:transform .25s,box-shadow .25s;
+  -webkit-tap-highlight-color:transparent;
+}
+.op-add-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 34px rgba(0,255,135,.45)}
+.op-add-btn svg{flex-shrink:0}
+
 /* ── FIX: sec-h2 en secciones oscuras ── */
 #roi-calc .sec-h2,
 #reglas .sec-h2,
@@ -1429,6 +1533,7 @@ p,li,span:not(.accent):not(.nav-logo *),
     <li><a href="#paquetes">Paquetes</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#confianza">Garantía</a></li>
+    <li><a href="#opiniones">Opiniones</a></li>
   </ul>
   <a href="https://wa.me/59174959697?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20TUM" class="nav-cta" target="_blank" rel="noopener">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Escribir ahora
@@ -2635,6 +2740,119 @@ p,li,span:not(.accent):not(.nav-logo *),
   </div>
 </section>
 
+<!-- ── SECCIÓN 6.6: OPINIONES (GOOGLE) ── -->
+<section id="opiniones">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-label"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Opiniones verificadas</div>
+      <h2 class="sec-h2">Esto dicen quienes ya <span style="color:var(--green)">liberaron su tiempo</span> con TUM.</h2>
+      <p class="sec-sub">Nada de reseñas compradas. Cada opinión de aquí abajo está publicada por un cliente real, con verificación directa de nuestro perfil de Google Business.</p>
+    </div>
+
+    <!-- PASE DE VERIFICACIÓN GOOGLE -->
+    <div class="op-pass reveal">
+      <div class="op-pass-main">
+        <svg class="op-g-icon" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.7-6.1 8.1-11.3 8.1-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.1-5.1C33.9 6.1 29.2 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6 4.4C13.9 15.1 18.6 12 24 12c3.1 0 5.8 1.1 8 3l5.1-5.1C33.9 6.1 29.2 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.3 35.4 26.8 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.2 4.8C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.5 44 30.1 44 24c0-1.2-.1-2.4-.4-3.5z"/></svg>
+        <div class="op-pass-mid">
+          <div class="op-score-row">
+            <span class="op-score">5.0</span>
+            <span class="op-stars">
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            </span>
+          </div>
+          <span class="op-count">Hay más opiniones en Google</span>
+        </div>
+      </div>
+      <div class="op-pass-tear"></div>
+      <div class="op-pass-cta-wrap">
+        <a href="https://share.google/FftlJsxEJ9N9CoTcW" class="op-summary-cta" target="_blank" rel="noopener">
+          Ver en Google
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="op-grid">
+
+      <!-- OPINIÓN 01 -->
+      <div class="op-card reveal">
+        <div class="op-card-head">
+          <div class="op-avatar" style="background:linear-gradient(135deg,#6C63FF,#4338CA)">A</div>
+          <div class="op-who">
+            <span class="op-name">Alcira Jaldin</span>
+          </div>
+          <span class="op-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verificado</span>
+        </div>
+        <div class="op-meta">
+          <span class="op-stars">
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+          </span>
+        </div>
+        <p class="op-text">Un lindo servicio, justo lo que necesitaba.</p>
+      </div>
+
+      <!-- OPINIÓN 02 -->
+      <div class="op-card reveal">
+        <div class="op-card-head">
+          <div class="op-avatar" style="background:linear-gradient(135deg,#00D9A3,#00A87E)">M</div>
+          <div class="op-who">
+            <span class="op-name">Meyson Camacho</span>
+          </div>
+          <span class="op-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verificado</span>
+        </div>
+        <div class="op-meta">
+          <span class="op-stars">
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+          </span>
+        </div>
+        <p class="op-text">Cuando me dejaron un folleto con su propuesta de servicio en la oficina fue cuando caí en cuenta de algo. Yo pensaba que mi oficina estaba bien porque la&hellip; <a href="https://share.google/FftlJsxEJ9N9CoTcW" class="op-more" target="_blank" rel="noopener">Leer más</a></p>
+      </div>
+
+      <!-- OPINIÓN 03 -->
+      <div class="op-card reveal">
+        <div class="op-card-head">
+          <div class="op-avatar" style="background:linear-gradient(135deg,#0F172A,#334155)">T</div>
+          <div class="op-who">
+            <span class="op-name">TeEchoUnaMano SA.</span>
+          </div>
+          <span class="op-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verificado</span>
+        </div>
+        <div class="op-meta">
+          <span class="op-stars">
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+          </span>
+        </div>
+        <p class="op-text">Excelente servicio, muy profesional y puntual. Quiero compartir algunas dudas que yo también tenía antes de contratar, por si le sirve a alguien más:&hellip; <a href="https://share.google/FftlJsxEJ9N9CoTcW" class="op-more" target="_blank" rel="noopener">Leer más</a></p>
+      </div>
+
+    </div>
+
+    <div class="op-bottom reveal">
+      <a href="https://g.page/r/CfsayaFqAZPOEBM/review" class="op-add-btn" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+        Dejar mi opinión en Google
+      </a>
+    </div>
+
+  </div>
+</section>
+
 <!-- ── SECCIÓN 7: EL CIERRE ── -->
 <section id="cierre">
   <div class="container cierre-inner reveal">
@@ -2859,7 +3077,7 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
 reveals.forEach(el => obs.observe(el));
 
-document.querySelectorAll('.dolor-grid,.sol-grid,.reglas-grid,.paq-grid,.confianza-grid,.lineas-grid').forEach(grid => {
+document.querySelectorAll('.dolor-grid,.sol-grid,.reglas-grid,.paq-grid,.confianza-grid,.lineas-grid,.op-grid').forEach(grid => {
   grid.querySelectorAll('.reveal').forEach((c,i) => c.style.transitionDelay = `${i*0.09}s`);
 });
 
