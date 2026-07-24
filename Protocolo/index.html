@@ -162,8 +162,8 @@ ul{list-style:none}
 
 /* ── SECTION SHELL ── */
 .sec{padding:52px 20px;max-width:1000px;margin:0 auto}
-.sec-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:block}
-.sec-h2{font-family:var(--font-heading);font-size:clamp(22px,3.6vw,32px);font-weight:800;letter-spacing:-.02em;color:var(--navy);margin-bottom:10px;line-height:1.12}
+.sec-label{font-family:var(--font-body);display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--green);background:var(--navy);border:1px solid var(--navy);padding:5px 14px;border-radius:100px;margin-bottom:14px}
+.sec-h2{font-family:var(--font-heading);font-size:clamp(22px,3.6vw,32px);font-weight:600;letter-spacing:-.035em;color:var(--navy);margin-bottom:10px;line-height:1.12}
 .sec-desc{font-size:14.5px;line-height:1.7;color:var(--gray);max-width:640px;margin-bottom:6px}
 
 /* ── CUS INTERACTIVE FLOW ── */
@@ -346,6 +346,22 @@ ul{list-style:none}
 .req-item .k{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
 .req-item .v{font-size:12px;font-weight:700;color:var(--navy)}
 
+/* ── TRAMOS DE ESPERA (semáforo visual: sin recargo / recargo / cancelación) ── */
+.tramo-list{display:flex;flex-direction:column;gap:9px;margin:12px 0 4px}
+.tramo-item{display:flex;align-items:flex-start;gap:13px;padding:12px 14px;border-radius:11px;background:var(--light);border:1px solid var(--border);border-left:4px solid transparent}
+.tramo-item.ok{border-left-color:var(--green)}
+.tramo-item.warn{border-left-color:var(--amber)}
+.tramo-item.danger{border-left-color:#EF4444}
+.tramo-badge{font-family:var(--font-mono);font-size:11.5px;font-weight:700;white-space:nowrap;padding:5px 11px;border-radius:100px;flex-shrink:0;margin-top:1px}
+.tramo-item.ok .tramo-badge{background:var(--green-soft);color:#059669}
+.tramo-item.warn .tramo-badge{background:rgba(245,158,11,.12);color:#B45309}
+.tramo-item.danger .tramo-badge{background:rgba(239,68,68,.12);color:#B91C1C}
+.tramo-text{font-size:13.5px;line-height:1.55;color:#3a4658}
+.tramo-text strong{color:var(--navy);font-weight:700}
+@media(max-width:560px){
+  .tramo-item{flex-direction:column;gap:8px}
+}
+
 /* ── PUNTUALIDAD CALC (interactivo) ── */
 #calc-tardanza{background:var(--navy);padding:52px 20px 64px;position:relative;overflow:hidden}
 #calc-tardanza::before{
@@ -362,7 +378,7 @@ ul{list-style:none}
 .calc-inner>p{color:rgba(255,255,255,.5);font-size:14px;margin-bottom:30px}
 .calc-box{background:rgba(255,255,255,.04);border:1px solid rgba(0,255,135,.16);border-radius:20px;padding:30px 26px;text-align:left}
 .calc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.calc-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.6)}
+.calc-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.88)}
 .calc-val{font-size:15px;font-weight:900;color:var(--green);font-family:var(--font-mono)}
 input[type="range"]{-webkit-appearance:none;width:100%;height:5px;border-radius:100px;background:rgba(255,255,255,.14);outline:none;margin:14px 0 6px;position:relative;z-index:2}
 input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--thumb-color,var(--green));cursor:pointer;box-shadow:0 0 0 5px var(--thumb-glow,rgba(0,255,135,.18));transition:background .15s linear,box-shadow .15s linear}
@@ -377,15 +393,11 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .calc-ticks span{font-size:10px;font-weight:600;color:rgba(255,255,255,.32);font-family:var(--font-mono)}
 
 .calc-blocks-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
-.calc-blocks-label span:first-child{font-size:11px;font-weight:600;color:rgba(255,255,255,.45)}
+.calc-blocks-label span:first-child{font-size:11px;font-weight:700;color:rgba(255,255,255,.75)}
 .calc-blocks-label span:last-child{font-size:11px;font-weight:700;color:var(--green);font-family:var(--font-mono)}
 .calc-blocks{display:flex;gap:5px;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.08)}
 .calc-blocks .block{flex:1;height:10px;border-radius:4px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.06);position:relative;transition:background .2s ease,border-color .2s ease}
-.calc-blocks .block.filled{background:var(--green);border-color:var(--green);box-shadow:0 0 10px 0 rgba(0,255,135,.4)}
-.calc-blocks .block.cancelled{background:var(--amber);border-color:var(--amber);box-shadow:0 0 10px 0 rgba(245,158,11,.4)}
-.calc-blocks .block::after{content:attr(data-cost);position:absolute;top:16px;left:50%;transform:translateX(-50%);font-size:9px;font-family:var(--font-mono);color:rgba(255,255,255,.25);white-space:nowrap}
-.calc-blocks .block.filled::after{color:var(--green)}
-.calc-blocks .block.cancelled::after{color:var(--amber)}
+.calc-blocks .block::after{content:attr(data-cost);position:absolute;top:16px;left:50%;transform:translateX(-50%);font-size:9px;font-family:var(--font-mono);color:var(--block-label-color,rgba(255,255,255,.25));white-space:nowrap}
 .calc-out-val.cancelled-val{color:var(--amber) !important}
 .calc-note.cancelled-note{color:rgba(245,158,11,.85)}
 .calc-note.cancelled-note strong{color:var(--amber)}
@@ -488,7 +500,7 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 </div>
 
 <nav id="main-nav">
-  <a href="#hero" class="nav-logo"><img src="https://i.ibb.co/MycykDCW/TUM-CEO-verde-fluo-S-F-1014x1024.png" alt="TUM" style="height:52px;width:auto;display:block;"></a>
+  <a href="https://tum-oficinas.github.io/scz/" class="nav-logo"><img src="https://i.ibb.co/MycykDCW/TUM-CEO-verde-fluo-S-F-1014x1024.png" alt="TUM" style="height:52px;width:auto;display:block;"></a>
   <ul class="nav-links">
     <li><a href="#confianza">Por qué confiar</a></li>
     <li><a href="#cus-live">Cómo funciona</a></li>
@@ -732,11 +744,13 @@ var RULES = {
         '<div class="req-item"><div class="k">Requisito</div><div class="v">Acceso libre</div></div>'+
       '</div>'+
       '<div class="alert-box">'+ICON_ALERT+'<p><strong>Si estas condiciones no se cumplen</strong> al momento de nuestra llegada, se aplica lo siguiente:</p></div>'+
-      '<ul class="check-list">'+
-        '<li>'+ICON_CHECK+'<span><strong>Hasta 14 minutos de espera:</strong> sin recargo.</span></li>'+
-        '<li>'+ICON_CHECK+'<span><strong>De 15 a 29 minutos de espera:</strong> recargo de Bs 50, a cancelar antes de continuar con el servicio.</span></li>'+
-        '<li>'+ICON_CHECK+'<span><strong>30 minutos de espera (límite máximo):</strong> el agendamiento se cancela. Se descuenta una multa de Bs 100 del pago ya realizado, y el resto del monto se reembolsa a la persona responsable del pago. Como alternativa al reembolso, puede solicitarse una reprogramación (ver '+RULE_LINK('cambios','03','Reprogramaciones y cancelaciones')+').</span></li>'+
-      '</ul>'
+      '<div class="tramo-list">'+
+        '<div class="tramo-item ok"><span class="tramo-badge">Hasta 14 min</span><span class="tramo-text">Sin recargo.</span></div>'+
+        '<div class="tramo-item warn"><span class="tramo-badge">15 min</span><span class="tramo-text">Recargo de <strong>Bs 50</strong>, a cancelar antes de continuar con el servicio.</span></div>'+
+        '<div class="tramo-item warn"><span class="tramo-badge">20 min</span><span class="tramo-text">Recargo de <strong>Bs 65</strong>, a cancelar antes de continuar con el servicio.</span></div>'+
+        '<div class="tramo-item warn"><span class="tramo-badge">25 min</span><span class="tramo-text">Recargo de <strong>Bs 85</strong>, a cancelar antes de continuar con el servicio.</span></div>'+
+        '<div class="tramo-item danger"><span class="tramo-badge">30 min · límite</span><span class="tramo-text">El agendamiento se cancela. Se descuenta una <strong>multa de Bs 100</strong> del pago ya realizado, y el resto del monto se reembolsa a la persona responsable del pago. Como alternativa al reembolso, puede solicitarse una reprogramación (ver '+RULE_LINK('cambios','03','Reprogramaciones y cancelaciones')+').</span></div>'+
+      '</div>'
     },
     {num:'04', title:'Condiciones para el inicio del servicio', sub:'Lo que debe estar listo antes de empezar', body:
       '<p>El local debe estar abierto, el área contratada disponible, los accesos libres y el espacio en orden para trabajar de forma segura. Si el servicio no puede comenzar por causas ajenas a TUM, aplica la '+RULE_LINK('puntualidad','02','Política de puntualidad')+'.</p>'
@@ -1049,7 +1063,14 @@ function runCusSim(){
 }
 
 /* ══════════ CALCULADORA DE PUNTUALIDAD ══════════ */
-var SLIDER_MAX=30, BLOCK_MIN=15, BLOCK_COST=50;
+var SLIDER_MAX=30, BLOCK_MIN=15;
+/* Tabla de recargos escalonados: a partir de qué minuto se aplica cada monto */
+var FEE_TIERS=[
+  {min:15, fee:50},
+  {min:20, fee:65},
+  {min:25, fee:85}
+];
+var CANCEL_MIN=30, CANCEL_FEE=100;
 
 /* Interpola verde → ámbar → rojo según qué tan cerca está del límite (estilo termómetro) */
 function heatColor(t){
@@ -1065,14 +1086,17 @@ function heatColor(t){
 /* Genera los 2 tramos: 1) recargo de Bs 50, 2) límite → cancelación automática */
 (function buildBlocks(){
   var wrap=document.getElementById('calcBlocks');
-  var b1=document.createElement('div'); b1.className='block'; b1.dataset.cost='+Bs50'; wrap.appendChild(b1);
-  var b2=document.createElement('div'); b2.className='block'; b2.dataset.cost='Multa Bs100'; wrap.appendChild(b2);
+  var labels=['Bs 50','Bs 65','Bs 85','Multa Bs 100'];
+  labels.forEach(function(label){
+    var b=document.createElement('div'); b.className='block'; b.dataset.cost=label; wrap.appendChild(b);
+  });
 })();
 
 function updateCalc(){
   var slider=document.getElementById('sliderMin');
   var min=parseInt(slider.value,10);
-  document.getElementById('valMin').textContent=min+' min';
+  var valMinEl=document.getElementById('valMin');
+  valMinEl.textContent=min+' min';
 
   /* barra de progreso "termómetro": va de verde a rojo según se acerca al límite */
   var pct=(min/SLIDER_MAX)*100;
@@ -1082,31 +1106,58 @@ function updateCalc(){
   slider.style.setProperty('--thumb-color', rgbStr);
   slider.style.setProperty('--thumb-glow', 'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+',.35)');
   slider.style.background='linear-gradient(to right, '+rgbStr+' '+pct+'%, rgba(255,255,255,.14) '+pct+'%)';
+  valMinEl.style.color=rgbStr;
 
-  var CANCEL_FEE=100;
-  var recargo = cancelled ? CANCEL_FEE : (min>=BLOCK_MIN ? BLOCK_COST : 0);
+  /* Recargo escalonado: toma el tramo más alto alcanzado según los minutos */
+  var recargo=0;
+  FEE_TIERS.forEach(function(tier){ if(min>=tier.min) recargo=tier.fee; });
+  if(cancelled) recargo=CANCEL_FEE;
+
   var out=document.getElementById('outRecargo');
   var outLabel=document.getElementById('outLabel');
   out.classList.remove('bump'); void out.offsetWidth; out.classList.add('bump');
-  out.classList.toggle('cancelled-val', cancelled);
+  out.style.color=rgbStr;
   out.textContent='Bs '+recargo;
   outLabel.textContent = cancelled ? 'Multa por cancelación' : 'Recargo aplicado';
 
   var blocksEls=document.querySelectorAll('.calc-blocks .block');
-  blocksEls[0].classList.toggle('filled', min>=BLOCK_MIN && !cancelled);
-  blocksEls[0].classList.toggle('cancelled', min>=BLOCK_MIN && cancelled);
-  blocksEls[1].classList.toggle('cancelled', cancelled);
+  var thresholds=[15,20,25,30];
+  thresholds.forEach(function(t,i){
+    var reached = min>=t;
+    var el=blocksEls[i];
+    el.classList.remove('filled','cancelled');
+    if(reached){
+      var tierRgb=heatColor(t/SLIDER_MAX);
+      var tierRgbStr='rgb('+tierRgb[0]+','+tierRgb[1]+','+tierRgb[2]+')';
+      el.style.background=tierRgbStr;
+      el.style.borderColor=tierRgbStr;
+      el.style.boxShadow='0 0 10px 0 rgba('+tierRgb[0]+','+tierRgb[1]+','+tierRgb[2]+',.4)';
+      el.style.setProperty('--block-label-color', tierRgbStr);
+    }else{
+      el.style.background='';
+      el.style.borderColor='';
+      el.style.boxShadow='';
+      el.style.removeProperty('--block-label-color');
+    }
+  });
 
   var label=document.getElementById('blocksCount');
+  label.style.color=rgbStr;
   var note=document.getElementById('calcNote');
   note.classList.toggle('cancelled-note', cancelled);
 
   if(min<BLOCK_MIN){
     label.textContent='0–14 min · sin recargo';
     note.innerHTML='<strong>Hasta 14 minutos de espera:</strong> sin recargo.';
+  }else if(min<20){
+    label.textContent='15–19 min · Bs 50';
+    note.innerHTML='<strong>De 15 a 19 minutos de espera:</strong> recargo de Bs 50, a cancelar antes de continuar con el servicio.';
+  }else if(min<25){
+    label.textContent='20–24 min · Bs 65';
+    note.innerHTML='<strong>De 20 a 24 minutos de espera:</strong> recargo de Bs 65, a cancelar antes de continuar con el servicio.';
   }else if(!cancelled){
-    label.textContent='15–29 min · Bs 50';
-    note.innerHTML='<strong>De 15 a 29 minutos de espera:</strong> recargo de Bs 50, a cancelar antes de continuar con el servicio.';
+    label.textContent='25–29 min · Bs 85';
+    note.innerHTML='<strong>De 25 a 29 minutos de espera:</strong> recargo de Bs 85, a cancelar antes de continuar con el servicio.';
   }else{
     label.textContent='30 min · límite alcanzado';
     note.innerHTML='<strong>30 minutos de espera (límite máximo):</strong> el agendamiento se cancela. Se descuenta una <strong>multa de Bs 100</strong> del pago ya realizado, y el resto del monto se reembolsa a la persona responsable del pago. Como alternativa al reembolso, puede solicitarse una reprogramación (ver '+RULE_LINK('cambios','03','Reprogramaciones y cancelaciones')+').';
@@ -1121,14 +1172,18 @@ function updateCalc(){
 }
 updateCalc();
 
-/* Scrubbing por hover: en desktop, con solo pasar el mouse por encima (sin click sostenido)
-   el valor se actualiza según la posición horizontal del cursor. En touch se mantiene el arrastre normal. */
+/* Click y arrastre con mouse: al presionar sobre la barra (o el área ampliada del wrap)
+   el valor salta a esa posición, y mientras se mantiene presionado, se puede arrastrar
+   libremente para subir o bajar el valor. Al soltar, se detiene. */
 (function(){
+  var wrap=document.getElementById('calcSliderWrap');
   var slider=document.getElementById('sliderMin');
   var min=parseInt(slider.min,10), max=parseInt(slider.max,10), step=parseInt(slider.step,10);
-  slider.addEventListener('mousemove', function(e){
+  var isDown=false;
+
+  function setFromX(clientX){
     var rect=slider.getBoundingClientRect();
-    var pct=Math.min(1, Math.max(0, (e.clientX-rect.left)/rect.width));
+    var pct=Math.min(1, Math.max(0, (clientX-rect.left)/rect.width));
     var raw=min+pct*(max-min);
     var stepped=Math.round(raw/step)*step;
     stepped=Math.min(max, Math.max(min, stepped));
@@ -1136,7 +1191,17 @@ updateCalc();
       slider.value=stepped;
       updateCalc();
     }
+  }
+
+  wrap.addEventListener('mousedown', function(e){
+    isDown=true;
+    setFromX(e.clientX);
+    e.preventDefault();
   });
+  window.addEventListener('mousemove', function(e){
+    if(isDown) setFromX(e.clientX);
+  });
+  window.addEventListener('mouseup', function(){ isDown=false; });
 })();
 
 /* En mobile, la zona táctil real del <input type=range> es angosta (solo la barrita fina).
