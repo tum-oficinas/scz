@@ -224,69 +224,63 @@ ul{list-style:none}
 .reglas-inner{max-width:1100px;margin:0 auto}
 
 .reglas-layout{display:block}
-.reglas-content{min-width:0}
-
-/* Nav de categorías: en mobile es una tira horizontal deslizable (patrón de app real) */
-.cat-tabs{
-  display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin-bottom:8px;
-  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
-  cursor:grab;user-select:none;
+.reglas-content{
+  min-width:0;
+  background:#fff;border:1.5px solid var(--border);border-radius:20px;
+  box-shadow:0 6px 24px rgba(15,23,42,.05);overflow:hidden;
 }
-.cat-tabs.dragging{cursor:grabbing;scroll-snap-type:none}
-.cat-tabs.dragging .cat-pill{pointer-events:none}
-.cat-tabs::-webkit-scrollbar{height:5px}
-.cat-tabs::-webkit-scrollbar-thumb{background:rgba(15,23,42,.15);border-radius:10px}
+/* Nav de categorías: lista vertical de tarjetas completas.
+   Antes en mobile era una tira horizontal deslizable con scroll oculto — poco intuitiva
+   y cortaba el texto de las últimas categorías. Ahora es la misma tarjeta clara y legible
+   en cualquier tamaño de pantalla: todos los temas visibles de un vistazo, sin arrastrar nada. */
+.cat-tabs{
+  display:flex;flex-direction:column;gap:8px;margin-bottom:20px;
+}
 .cat-pill{
-  display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:100px;
-  background:#fff;border:1.5px solid var(--border);text-align:left;flex:0 0 auto;
-  scroll-snap-align:start;cursor:pointer;transition:border-color .25s,background .25s,box-shadow .25s;
+  display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border-radius:14px;
+  background:#fff;border:1.5px solid var(--border);text-align:left;width:100%;
+  cursor:pointer;transition:border-color .25s,background .25s,box-shadow .25s;
 }
 .cat-pill:hover{border-color:rgba(0,255,135,.4)}
 .cp-icon{
-  width:28px;height:28px;border-radius:9px;background:rgba(100,116,139,.12);color:var(--gray);
+  width:32px;height:32px;border-radius:9px;background:rgba(100,116,139,.12);color:var(--gray);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s;
 }
-.cp-icon svg{width:14px;height:14px}
-.cp-text{display:flex;flex-direction:column;min-width:0}
-.cat-pill .ct{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap}
-.cat-pill .cp-preview{display:none}
-.cat-pill .cc{font-size:10px;font-weight:800;color:var(--gray);background:rgba(100,116,139,.1);border-radius:100px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 5px;flex-shrink:0}
+.cp-icon svg{width:15px;height:15px}
+.cp-text{display:flex;flex-direction:column;min-width:0;flex:1}
+.cat-pill .ct{font-size:13px;font-weight:700;color:var(--navy);white-space:normal;line-height:1.3}
+.cat-pill .cp-preview{
+  display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-size:11.5px;font-weight:500;line-height:1.5;color:var(--gray);margin-top:4px;
+}
+.cat-pill.active .cp-preview{color:rgba(255,255,255,.55)}
+.cat-pill .cc{font-size:10px;font-weight:800;color:var(--gray);background:rgba(100,116,139,.1);border-radius:100px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 5px;flex-shrink:0;margin-left:auto}
 .cat-pill.active{background:var(--navy);border-color:var(--navy);box-shadow:0 6px 16px rgba(15,23,42,.18)}
 .cat-pill.active .cp-icon{background:rgba(0,255,135,.16);color:var(--green)}
 .cat-pill.active .ct{color:#fff}
 .cat-pill.active .cc{background:rgba(0,255,135,.16);color:var(--green)}
 
-/* Desktop: pasa a sidebar vertical fijo junto al contenido, con vista previa visible */
+/* Desktop: pasa a sidebar fijo junto al contenido (mismas tarjetas, en columna aparte) */
 @media(min-width:860px){
   .reglas-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
-  .reglas-content{min-width:0}
-  .cat-tabs{
-    flex-direction:column;overflow:visible;width:100%;
-    padding:0;margin-bottom:0;align-self:start;
-  }
-  .cat-pill{border-radius:14px;padding:13px 14px;align-items:flex-start;width:100%}
-  .cp-icon{width:32px;height:32px}
-  .cp-icon svg{width:15px;height:15px}
-  .cat-pill .ct{white-space:normal;line-height:1.3}
-  .cat-pill .cp-preview{
-    display:block;overflow:visible;white-space:normal;
-    font-size:11.5px;font-weight:500;line-height:1.5;color:var(--gray);margin-top:4px;
-  }
-  .cat-pill.active .cp-preview{color:rgba(255,255,255,.55)}
-  .cat-pill .cc{margin-left:auto}
+  .cat-tabs{margin-bottom:0;align-self:start}
 }
-.rules-meta{font-size:12.5px;font-weight:600;color:var(--gray);margin:0 0 16px;display:flex;align-items:center;gap:8px}
-.rules-meta::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green)}
+.rules-meta{
+  font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--navy);
+  margin:0;padding:16px 20px;display:flex;align-items:center;gap:9px;
+  background:var(--green-soft);border-bottom:1px solid var(--green-border);
+}
+.rules-meta::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .rules-list{transition:opacity .2s ease}
 .rules-list.switching{opacity:0}
 
-.rules-list{display:flex;flex-direction:column;gap:12px}
+.rules-list{display:flex;flex-direction:column;gap:12px;padding:18px 18px 6px}
 .rule-card{
-  background:#fff;border:1px solid var(--border);border-left:3px solid transparent;border-radius:16px;overflow:hidden;
-  transition:border-color .25s,box-shadow .25s;animation:stepPop .35s ease both;
+  background:var(--light);border:1px solid var(--border);border-left:3px solid transparent;border-radius:16px;overflow:hidden;
+  transition:border-color .25s,box-shadow .25s,background .25s;animation:stepPop .35s ease both;
 }
 .rule-card:hover{border-color:rgba(0,255,135,.35)}
-.rule-card.is-open{border-left-color:var(--green);box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.rule-card.is-open{background:#fff;border-left-color:var(--green);box-shadow:0 8px 24px rgba(15,23,42,.06)}
 .rule-btn{
   width:100%;display:flex;align-items:center;gap:14px;padding:18px 20px;text-align:left;
 }
@@ -299,7 +293,7 @@ ul{list-style:none}
 }
 .rule-btn[aria-expanded="true"] .rule-chev{transform:rotate(180deg);color:var(--navy);background:rgba(0,255,135,.16)}
 .rule-body{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 20px}
-.rule-body.open{max-height:900px;padding:0 20px 20px}
+.rule-body.open{padding:0 20px 20px}
 .rule-body p{font-size:13.5px;line-height:1.75;color:#3a4658;margin-bottom:10px}
 .rule-body p:last-child{margin-bottom:0}
 .rule-body strong{color:var(--navy);font-weight:700}
@@ -516,7 +510,7 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 <section id="hero">
   <div class="hero-inner reveal visible">
 
-    <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>11 reglas · léelas antes de agendar</div>
+    <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Protocolo de servicio · léelo antes de agendar</div>
 
     <p class="hero-pain">¿Cuántas veces contrataste un servicio sin saber si el precio iba a cambiar, si iban a llegar tarde, o si te iban a decir que <em>no tenían registro de tu reclamo</em>? Con TUM, eso no pasa.</p>
 
@@ -527,7 +521,7 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
     <nav class="hero-index reveal" aria-label="Índice del protocolo">
       <a href="#confianza"><span class="hi-n">01</span>Por qué confiar</a>
       <a href="#cus-live"><span class="hi-n">02</span>Cómo funciona el CUS</a>
-      <a href="#reglas"><span class="hi-n">03</span>Las 11 reglas</a>
+      <a href="#reglas"><span class="hi-n">03</span>El protocolo completo</a>
       <a href="#calc-tardanza"><span class="hi-n">04</span>Demoras y recargos</a>
     </nav>
   </div>
@@ -590,8 +584,8 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 <section id="reglas">
   <div class="reglas-inner">
     <span class="sec-label">Reglas del protocolo</span>
-    <h2 class="sec-h2">Las 11 reglas que rigen tu servicio.</h2>
-    <p class="sec-desc" style="margin-bottom:26px">Agrupadas en 6 temas para que encuentres la tuya en segundos.</p>
+    <h2 class="sec-h2">El protocolo que rige tu servicio.</h2>
+    <p class="sec-desc" style="margin-bottom:26px">Organizado por temas, para que encuentres lo que buscas en segundos.</p>
 
     <div class="reglas-layout">
       <nav class="cat-tabs" id="catTabs">
@@ -730,7 +724,8 @@ var RULES = {
         '<li>'+ICON_CHECK+'<span>El agendamiento ya validado.</span></li>'+
       '</ul>'+
       '<p>El CUS te permite <strong>identificarlo y hacerle seguimiento</strong> en todo momento.</p>'+
-      '<h5>Disponibilidad</h5><p>Hasta que confirmes el pago, esa fecha y horario <strong>siguen disponibles para otros clientes.</strong> Al confirmar tu pago, quedan reservados exclusivamente para ti.</p>'
+      '<h5>Disponibilidad</h5><p>Hasta que confirmes el pago, esa fecha y horario <strong>siguen disponibles para otros clientes.</strong> Al confirmar tu pago, quedan reservados exclusivamente para ti.</p>'+
+      '<h5>Materiales y productos incluidos</h5><p>El precio de tu servicio ya incluye los <strong>materiales y productos de limpieza</strong> que usamos — tanto en <strong>TUM Oficinas</strong> como en <strong>TUM Cristal</strong>.</p>'
     }
   ],
   puntualidad: [
@@ -767,7 +762,13 @@ var RULES = {
     {num:'05', title:'Alcance del servicio', sub:'Solo lo presupuestado y aprobado', body:
       '<p>Trabajamos exactamente sobre <strong>lo detallado en tu presupuesto aprobado</strong> — nada se suma a tu servicio sin que lo sepas y lo autorices antes.</p>'
     },
-    {num:'06', title:'Servicios adicionales', sub:'Si pides algo nuevo durante la visita', body:
+    {num:'06', title:'Alcance de la limpieza de vidrios', sub:'Qué tipo de suciedad cubre el servicio', body:
+      '<p>Nuestro servicio limpia la <strong>suciedad acumulada con el tiempo</strong> en el vidrio por falta de mantenimiento: polvo, grasa, velo de humo ambiental, marcas de rocío seco, excremento de insectos o aves, huellas y salpicaduras de agua con tierra.</p>'
+    },
+    {num:'07', title:'Restauración de vidrio (no incluida en la limpieza)', sub:'Desgastes que no cubre la limpieza estándar', body:
+      '<p>Rayones, pintura, pegamento, stickers, vinil (yurex) o sarro (agua calcificada) son un desgaste distinto: entran en <strong>restauración de vidrio</strong>, servicio que próximamente sumaremos a TUM Cristal.</p>'
+    },
+    {num:'08', title:'Servicios adicionales', sub:'Si pides algo nuevo durante la visita', body:
       '<p>Si durante la visita pides una tarea fuera de lo presupuestado, esa tarea pasa a ser un <strong>servicio adicional:</strong> te la cotizamos o la agendamos para una próxima visita.</p>'
     }
   ],
@@ -850,21 +851,43 @@ function renderCategory(cat){
     list.appendChild(card);
   });
 }
+function setRuleBodyHeight(body){
+  /* mide el alto real del contenido (puede variar por ancho de pantalla,
+     ya que el texto envuelve distinto en móvil) y lo usa como max-height,
+     en vez de un valor fijo que corta contenidos largos */
+  body.style.maxHeight=body.scrollHeight+'px';
+}
+function closeRuleBody(body){
+  /* fija el alto actual antes de animar a 0, si no la transición no corre
+     (partir de max-height:auto/vacío no anima) */
+  body.style.maxHeight=body.scrollHeight+'px';
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ body.style.maxHeight='0px'; });
+  });
+}
 function toggleRule(btn){
   var body=btn.parentElement.querySelector('.rule-body');
   var open=body.classList.contains('open');
   /* acordeón: cerrar cualquier otra regla abierta del mismo tema */
   var list=btn.closest('.rules-list');
   list.querySelectorAll('.rule-body.open').forEach(function(b){
-    if(b!==body){b.classList.remove('open');b.parentElement.querySelector('.rule-btn').setAttribute('aria-expanded','false');b.closest('.rule-card').classList.remove('is-open')}
+    if(b!==body){b.classList.remove('open');b.parentElement.querySelector('.rule-btn').setAttribute('aria-expanded','false');b.closest('.rule-card').classList.remove('is-open');closeRuleBody(b)}
   });
   btn.setAttribute('aria-expanded', open? 'false':'true');
   body.classList.toggle('open');
   btn.closest('.rule-card').classList.toggle('is-open', !open);
   if(!open){
+    setRuleBodyHeight(body);
     setTimeout(function(){btn.scrollIntoView({behavior:'smooth',block:'nearest'})},150);
+  }else{
+    closeRuleBody(body);
   }
 }
+/* si la pantalla cambia de tamaño (rotar el celular, etc.) mientras una regla
+   está abierta, el texto puede re-envolver y cambiar de alto: recalculamos */
+window.addEventListener('resize', function(){
+  document.querySelectorAll('.rule-body.open').forEach(setRuleBodyHeight);
+});
 /* Lleva a una regla puntual desde cualquier enlace del sitio:
    cambia de pestaña/categoría si hace falta, renderiza esa categoría,
    abre el acordeón de la regla exacta y la resalta brevemente. */
@@ -998,43 +1021,9 @@ function showEnlacesPanel(){
   setTimeout(function(){ sec.scrollIntoView({behavior:'smooth',block:'start'}); },50);
 }
 
-/* ── Drag to scroll (mouse y touch) para la tira de categorías ── */
-(function(){
-  var el=document.getElementById('catTabs');
-  if(!el) return;
-  var isDown=false, dragged=false, startX=0, startScroll=0;
-  function start(x){
-    isDown=true; dragged=false;
-    startX=x; startScroll=el.scrollLeft;
-    /* OJO: la clase 'dragging' (que bloquea el click de las etiquetas) NO se pone acá,
-       solo cuando hay movimiento real (ver move()), para no comerse un simple clic/tap. */
-  }
-  function move(x){
-    if(!isDown) return;
-    var delta=x-startX;
-    if(Math.abs(delta)>6){
-      dragged=true;
-      el.classList.add('dragging');
-    }
-    if(dragged) el.scrollLeft=startScroll-delta;
-  }
-  function end(){
-    isDown=false;
-    el.classList.remove('dragging');
-  }
-  /* Mouse */
-  el.addEventListener('mousedown', function(e){ start(e.pageX); });
-  window.addEventListener('mousemove', function(e){ move(e.pageX); });
-  window.addEventListener('mouseup', end);
-  el.addEventListener('mouseleave', function(){ if(isDown) end(); });
-  /* En dispositivos táctiles reales el scroll nativo ya funciona (overflow-x + touch scrolling),
-     así que no se tocan los eventos touch: eso evita que un simple tap se confunda con arrastre
-     y bloquee el click para abrir la etiqueta. */
-  /* Si hubo arrastre real con mouse, cancelar el click siguiente para que no cambie de tema sin querer */
-  el.addEventListener('click', function(e){
-    if(dragged){ e.stopPropagation(); e.preventDefault(); }
-  }, true);
-})();
+/* Ya no hace falta drag-to-scroll: la lista de categorías es vertical
+   (todas las tarjetas visibles de una vez, sin scroll horizontal que arrastrar). */
+
 
 /* ══════════ CUS SIMULATOR ══════════ */
 function runCusSim(){
