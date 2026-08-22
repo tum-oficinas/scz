@@ -764,6 +764,36 @@
     cargarCacheLocal();
   });
 
+  // Margen mínimo entre auto-sincronizaciones por "volver a la app". Sin
+  // esto, cada vez que el celular cambia de app y vuelve (algo que puede
+  // pasar varias veces en pocos segundos) se dispararía una llamada a la
+  // API por cada regreso -- este margen evita pedidos de más mientras
+  // sigue cumpliendo el objetivo real: que los datos estén al día sin
+  // tener que tocar "Sincronizar" a mano.
+  const AUTO_SYNC_MIN_INTERVAL_MS = 20000;
+
+  function autoSyncSiCorresponde(){
+    if (syncPending > 0) return; // ya hay una sincronización en curso
+    const t = parseInt(localStorage.getItem(SYNC_TIME_KEY) || '0', 10);
+    if (Date.now() - t < AUTO_SYNC_MIN_INTERVAL_MS) return; // se sincronizó hace muy poco
+    cargarTodo();
+  }
+
+  // Cubre el caso de dejar el lector abierto (pestaña de fondo, o la app
+  // minimizada en el celular) y volver más tarde: al recuperar el foco se
+  // sincroniza sola, así no hace falta salir y volver a entrar ni tocar
+  // "Sincronizar" para ver las suscripciones nuevas que se crearon
+  // mientras tanto desde el Panel Operativo. 'visibilitychange' cubre el
+  // caso normal (cambiar de pestaña/app y volver); 'pageshow' cubre el
+  // caso de volver por el botón "atrás" del navegador desde una página en
+  // caché (bfcache), donde 'DOMContentLoaded' no se vuelve a disparar.
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'visible') autoSyncSiCorresponde();
+  });
+  window.addEventListener('pageshow', function(e){
+    if (e.persisted) autoSyncSiCorresponde();
+  });
+
   function cargarCacheLocal(){
     let tieneSuscripciones = false;
 
@@ -774,9 +804,8 @@
     }
 
     const cacheAgenda = localStorage.getItem(AGENDA_CACHE_KEY);
-    let tieneAgenda = false;
     if (cacheAgenda) {
-      try { agenda = JSON.parse(cacheAgenda); tieneAgenda = true; }
+      try { agenda = JSON.parse(cacheAgenda); }
       catch (e) { /* cache corrupta, se resincroniza abajo */ }
     }
 
@@ -788,9 +817,15 @@
       setStatusInicio('Primera vez: sincronizando datos iniciales...');
     }
 
-    // Modo AFK: si falta cualquiera de los dos datasets, se trae todo junto
-    // en una sola llamada (más rápido que dos peticiones separadas).
-    if (!tieneSuscripciones || !tieneAgenda) cargarTodo();
+    // La memoria local (localStorage) se muestra de una, sin esperar red --
+    // por eso al abrir la app los datos aparecen al instante aunque no haya
+    // señal. Pero además, SIEMPRE se lanza una sincronización de fondo acá
+    // (ya no solo "si falta la caché"): así, si hiciste cambios desde el
+    // Panel Operativo, al abrir el lector los ves reflejados sin tener que
+    // tocar "Sincronizar" a mano cada vez. Como esta app solo muestra datos
+    // (no escribe nada), no hace falta mandar ninguna operación pendiente
+    // -- alcanza con traer lo último, por eso una sola llamada GET basta.
+    cargarTodo();
   }
 
   function sincronizarTodo(){
@@ -946,17 +981,58 @@
     buscarYMostrar(String(idLeido).trim());
   }
 
+  /* Normaliza una fecha "dd/mm/aaaa", "d/m/aaaa", "mm/dd/aaaa" o ISO
+     "aaaa-mm-dd" a "aaaa-m-d" (sin ceros a la izquierda), para poder
+     comparar dos fechas que representan el mismo día calendario aunque
+     vengan escritas con distinto separador, orden u con/sin ceros.
+     Usa la misma lógica de desambiguación día/mes que ya usa
+     formatearFechaLinda en esta misma app: si un valor es >12 no puede
+     ser mes, así que ese lado es el día. Si de verdad ambos ítems son
+     ambiguos (los dos ≤12), asume día/mes/año -- el orden que entrega
+     esta hoja para fechas de agenda -- salvo que venga en formato ISO
+     (aaaa-mm-dd), que siempre es año/mes/día sin ambigüedad posible. */
+  function normalizarFecha(fechaStr){
+    if (!fechaStr) return '';
+    const s = String(fechaStr).trim();
+
+    const iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (iso) return iso[1] + '-' + parseInt(iso[2], 10) + '-' + parseInt(iso[3], 10);
+
+    const partes = s.split('/');
+    if (partes.length === 3) {
+      const a = parseInt(partes[0], 10);
+      const b = parseInt(partes[1], 10);
+      const anio = parseInt(partes[2], 10);
+      if (isNaN(a) || isNaN(b) || isNaN(anio)) return s;
+
+      let dia, mes;
+      if (a > 12 && b <= 12) { dia = a; mes = b; }
+      else if (b > 12 && a <= 12) { dia = b; mes = a; }
+      else { dia = a; mes = b; } // ambiguo: día/mes/año, igual que formatearFechaLinda
+
+      if (mes < 1 || mes > 12) return s;
+      return anio + '-' + mes + '-' + dia;
+    }
+    return s;
+  }
+
   function buscarYMostrar(qrTexto){
     // El QR válido trae Id_Susc + QR_SEPARADOR + S_Fecha_Registro.
     // Se exige que AMBOS coincidan con el registro real: así un QR armado
     // a mano con solo el Id_Susc (adivinado o copiado) no es aceptado.
+    // La fecha se compara normalizada (no como texto literal), porque la
+    // hoja de origen puede entregar S_Fecha_Registro en distinto formato
+    // según cómo esté configurada esa celda en Sheets (con/sin ceros,
+    // día primero o mes primero) -- comparar el texto crudo rechazaba
+    // suscripciones válidas cuando ese formato no coincidía letra por letra.
     const partes = String(qrTexto).split(QR_SEPARADOR);
     const idSusc = partes[0] || '';
     const fechaRegistro = partes.slice(1).join(QR_SEPARADOR);
+    const fechaRegistroNorm = normalizarFecha(fechaRegistro);
 
     const s = suscripciones.find(function(x){
       return String(x.Id_Susc) === idSusc &&
-             String(x.S_Fecha_Registro || '') === fechaRegistro;
+             normalizarFecha(x.S_Fecha_Registro) === fechaRegistroNorm;
     });
 
     if (!s) {
