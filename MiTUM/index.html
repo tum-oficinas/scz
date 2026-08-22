@@ -764,13 +764,16 @@
     cargarCacheLocal();
   });
 
-  // Margen mínimo entre auto-sincronizaciones por "volver a la app". Sin
-  // esto, cada vez que el celular cambia de app y vuelve (algo que puede
-  // pasar varias veces en pocos segundos) se dispararía una llamada a la
-  // API por cada regreso -- este margen evita pedidos de más mientras
-  // sigue cumpliendo el objetivo real: que los datos estén al día sin
-  // tener que tocar "Sincronizar" a mano.
-  const AUTO_SYNC_MIN_INTERVAL_MS = 20000;
+  // Margen mínimo entre auto-sincronizaciones. El límite real de Apps
+  // Script para un Web App no es "cada tantos segundos", sino 30
+  // ejecuciones simultáneas por usuario -- el riesgo es que muchos
+  // dispositivos disparen la llamada justo al mismo instante, no la
+  // frecuencia en sí. Aun así, este margen se deja conservador a
+  // propósito (1.5 min) para no gastar cuota de más si el celular
+  // cambia de app seguido: sin esto, cada regreso a la pantalla
+  // dispararía una llamada nueva. Se aplica siempre -- tanto al abrir
+  // la app como al volver a ella -- así ningún camino se lo salta.
+  const AUTO_SYNC_MIN_INTERVAL_MS = 90000;
 
   function autoSyncSiCorresponde(){
     if (syncPending > 0) return; // ya hay una sincronización en curso
@@ -819,13 +822,17 @@
 
     // La memoria local (localStorage) se muestra de una, sin esperar red --
     // por eso al abrir la app los datos aparecen al instante aunque no haya
-    // señal. Pero además, SIEMPRE se lanza una sincronización de fondo acá
-    // (ya no solo "si falta la caché"): así, si hiciste cambios desde el
-    // Panel Operativo, al abrir el lector los ves reflejados sin tener que
-    // tocar "Sincronizar" a mano cada vez. Como esta app solo muestra datos
-    // (no escribe nada), no hace falta mandar ninguna operación pendiente
-    // -- alcanza con traer lo último, por eso una sola llamada GET basta.
-    cargarTodo();
+    // señal. Después se llama a autoSyncSiCorresponde() -- la MISMA función
+    // (y el mismo límite de tiempo) que usa el regreso a la app -- en vez de
+    // sincronizar siempre sin condición: así, si la app se recarga seguido
+    // (por ejemplo el sistema operativo reinicia la pestaña en segundo
+    // plano), no se dispara una llamada nueva cada vez, solo cuando ya
+    // pasó el margen mínimo. La primera vez que se abre (sin nada
+    // guardado todavía) siempre sincroniza, porque no hay fecha previa
+    // que comparar. Como esta app solo muestra datos (no escribe nada),
+    // no hace falta mandar ninguna operación pendiente -- alcanza con
+    // traer lo último, por eso una sola llamada GET basta.
+    autoSyncSiCorresponde();
   }
 
   function sincronizarTodo(){
