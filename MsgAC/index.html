@@ -491,14 +491,17 @@
 
   /* ---- Sheets / modals (shared) ---- */
   .modal-overlay{
-    position:fixed; inset:0;
+    position:fixed;
+    top:0; left:0; right:0;
+    height:100vh;
+    height:var(--vvh, 100vh); /* --vvh la actualiza JS con el alto real visible (visualViewport), para que el teclado del celular no tape el modal */
     background:rgba(0,0,0,0.4);
     display:flex;
     align-items:flex-end;
     justify-content:center;
     opacity:0;
     pointer-events:none;
-    transition:opacity .25s ease;
+    transition:opacity .25s ease, height .15s ease;
     z-index:50;
     padding:0;
   }
@@ -509,7 +512,7 @@
     max-width:560px;
     border-radius:20px 20px 0 0;
     padding:10px 20px calc(22px + var(--safe-b));
-    max-height:88vh;
+    max-height:88%;
     overflow-y:auto;
     transform:translateY(100%);
     transition:transform .32s cubic-bezier(.32,.72,0,1);
@@ -545,6 +548,16 @@
     color:var(--label-2);
     margin:-8px 0 14px;
     line-height:1.5;
+  }
+  /* Título chico y sutil solo del modal "Completar antes de copiar/enviar",
+     para dejar más lugar a los campos que realmente importan. */
+  #fillTitle{
+    font-size:13px;
+    font-weight:600;
+    color:var(--label-2);
+    text-transform:uppercase;
+    letter-spacing:0.3px;
+    margin:0 0 14px;
   }
   .field-label{
     font-size:12.5px;
@@ -811,7 +824,6 @@
 <div class="modal-overlay" id="fillOverlay">
   <div class="modal">
     <h2 id="fillTitle">Completar datos</h2>
-    <p class="hint">Se van a reemplazar en el mensaje. Si dejás un campo vacío, se mantiene tal cual.</p>
     <div id="fillFields"></div>
     <div class="modal-actions">
       <button class="btn-save" id="btnFillContinue">Continuar</button>
@@ -1763,6 +1775,43 @@ function closeMoreSheet(){
 document.getElementById('btnOpenAdd').onclick = () => openModal(null);
 document.getElementById('btnCancel').onclick = closeModal;
 document.getElementById('btnSave').onclick = saveMessage;
+// ---- Ajuste de modales cuando aparece el teclado en el celular ----
+// En muchos navegadores móviles, cuando se abre el teclado, el "viewport de
+// layout" (el que usa position:fixed / 100vh) NO se achica: sigue midiendo
+// toda la pantalla, aunque la mitad de abajo esté tapada por el teclado.
+// Por eso los modales anclados abajo (align-items:flex-end) quedaban
+// pegados detrás del teclado, tapando justo el campo que había que llenar.
+//
+// window.visualViewport sí sabe cuánto espacio queda REALMENTE visible.
+// Usamos eso para actualizar --vvh, así el modal se acomoda arriba del
+// teclado en vez de quedar escondido debajo.
+(function(){
+  function actualizarAltoVisible(){
+    const alto = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+    document.documentElement.style.setProperty('--vvh', alto + 'px');
+  }
+  actualizarAltoVisible();
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', actualizarAltoVisible);
+    window.visualViewport.addEventListener('scroll', actualizarAltoVisible);
+  }else{
+    window.addEventListener('resize', actualizarAltoVisible);
+  }
+
+  // Además, cuando el usuario toca un campo de texto dentro de un modal
+  // abierto, lo desplazamos suavemente para que quede visible arriba del
+  // teclado (por si el navegador tarda un instante en reacomodar todo).
+  document.addEventListener('focusin', (e) => {
+    const campo = e.target;
+    if(!campo.matches('input, textarea')) return;
+    const modalAbierto = campo.closest('.modal-overlay.open .modal');
+    if(!modalAbierto) return;
+    setTimeout(() => {
+      campo.scrollIntoView({ block:'center', behavior:'smooth' });
+    }, 250); // pequeña espera para dar tiempo a que el teclado termine de abrirse
+  });
+})();
+
 document.getElementById('modalOverlay').onclick = (e) => { if(e.target.id === 'modalOverlay') closeModal(); };
 document.getElementById('btnCollapseAll').onclick = closeAllCards;
 document.getElementById('searchInput').oninput = renderList;
