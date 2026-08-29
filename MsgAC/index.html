@@ -16,9 +16,9 @@
     --fill:rgba(118,118,128,0.12);
     --tint:#0A84FF;
     --tint-dark:#0066CC;
-    --green:#30C85E;
-    --green-dark:#1FA34B;
-    --red:#FF3B30;
+    --green:#2B7E4E;
+    --green-dark:#1F6B3F;
+    --red:#C63E32;
     --r-lg:20px;
     --r-md:14px;
     --r-sm:10px;
@@ -40,6 +40,7 @@
       --label-3:#636366;
       --separator:rgba(84,84,88,0.55);
       --fill:rgba(118,118,128,0.24);
+      --red:#E5695D;
       --wa-wallpaper:#0B141A;
       --wa-bubble:#005C4B;
       --wa-bubble-text:#E9EDEF;
@@ -221,15 +222,17 @@
     margin-bottom:10px;
   }
   .close-all-bar button{
-    border:none;
-    background:var(--fill);
-    color:var(--tint);
-    font-size:13px;
+    border:1px solid var(--separator);
+    background:transparent;
+    color:var(--label-2);
+    font-size:12.5px;
     font-weight:600;
-    padding:7px 14px;
+    padding:6px 14px;
     border-radius:20px;
     cursor:pointer;
+    transition:background .15s ease, color .15s ease;
   }
+  .close-all-bar button:active{background:var(--fill); color:var(--label);}
 
   .empty{
     text-align:center;
@@ -248,6 +251,7 @@
   .card{
     background:var(--bg-elevated);
     border-radius:var(--r-md);
+    border:1px solid var(--separator);
     box-shadow:0 1px 2px rgba(0,0,0,0.04);
     position:relative;
     overflow:hidden;
@@ -282,14 +286,30 @@
   .row-text{
     flex:1;
     min-width:0;
+    display:flex;
+    flex-direction:column;
   }
   .row-cat{
-    font-size:11.5px;
-    font-weight:600;
+    display:inline-block;
+    max-width:100%;
+    font-size:11px;
+    font-weight:700;
     text-transform:uppercase;
     letter-spacing:0.3px;
-    color:var(--label-2);
-    margin-bottom:2px;
+    color:var(--cat-text-l);
+    background:var(--cat-bg-l);
+    padding:3px 8px;
+    border-radius:6px;
+    margin-bottom:5px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  @media (prefers-color-scheme: dark){
+    .row-cat{
+      color:var(--cat-text-d);
+      background:var(--cat-bg-d);
+    }
   }
   .row-preview{
     font-size:15px;
@@ -322,9 +342,13 @@
     font-size:13.5px;
     font-weight:500;
     cursor:pointer;
-    padding:2px;
+    padding:4px 8px;
+    margin:-4px -8px;
+    border-radius:8px;
     color:var(--tint);
+    transition:background .15s ease;
   }
+  .link-action:active{background:var(--fill);}
   .link-action.danger{color:var(--red);}
 
   .wa-preview-label{
@@ -404,6 +428,53 @@
     z-index:30;
   }
   .fab:active{background:var(--tint-dark); transform:scale(0.96);}
+
+  /* ---- FAB de sincronización pendiente ---- */
+  .fab-sync{
+    position:fixed;
+    bottom:calc(24px + 58px + 14px + var(--safe-b));
+    right:max(20px, calc((100vw - 560px) / 2 + 20px));
+    width:46px; height:46px;
+    border-radius:50%;
+    border:none;
+    background:#FF9500;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(255,149,0,0.45);
+    z-index:30;
+    padding:0;
+    opacity:0;
+    transform:scale(0.6);
+    pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .fab-sync.show{
+    opacity:1;
+    transform:scale(1);
+    pointer-events:auto;
+  }
+  .fab-sync svg{width:22px; height:22px;}
+  .fab-sync.spinning svg{animation:fabSyncSpin .8s linear infinite;}
+  .fab-sync .fab-sync-badge{
+    position:absolute;
+    top:-3px; right:-3px;
+    min-width:16px; height:16px;
+    padding:0 3px;
+    border-radius:8px;
+    background:#FF3B30;
+    color:#fff;
+    font-size:10px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 0 2px var(--bg);
+  }
+  @keyframes fabSyncSpin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  .fab-sync:active{transform:scale(0.94);}
 
   /* ---- Sheets / modals (shared) ---- */
   .modal-overlay{
@@ -494,6 +565,93 @@
     color:var(--label);
   }
   .modal textarea::placeholder, .modal input::placeholder{color:var(--label-3);}
+
+  /* ---- Combobox de categoría ---- */
+  .combo-wrap{
+    position:relative;
+    margin-bottom:14px;
+  }
+  .combo-wrap input[type="text"]{
+    margin-bottom:0;
+    padding-left:30px;
+    padding-right:34px;
+  }
+  .combo-swatch{
+    position:absolute;
+    left:12px; top:50%;
+    transform:translateY(-50%);
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--label-3);
+    opacity:0.5;
+    pointer-events:none;
+    transition:background .15s ease, opacity .15s ease;
+  }
+  .combo-swatch.has-value{opacity:1;}
+  .combo-chevron{
+    position:absolute;
+    right:12px; top:50%;
+    transform:translateY(-50%);
+    color:var(--label-3);
+    font-size:13px;
+    line-height:1;
+    pointer-events:none;
+    transition:transform .2s ease, color .2s ease;
+  }
+  .combo-wrap.open .combo-chevron{
+    transform:translateY(-50%) rotate(180deg);
+    color:var(--label-2);
+  }
+  .combo-dropdown{
+    position:absolute;
+    left:0; right:0;
+    top:calc(100% + 6px);
+    background:var(--bg-elevated);
+    border-radius:var(--r-sm);
+    box-shadow:0 10px 28px rgba(0,0,0,0.32), 0 0 0 1px var(--separator);
+    max-height:230px;
+    overflow-y:auto;
+    padding:6px;
+    opacity:0;
+    transform:translateY(-6px);
+    pointer-events:none;
+    transition:opacity .15s ease, transform .15s ease;
+    z-index:20;
+  }
+  .combo-wrap.open .combo-dropdown{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .combo-option{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    border:none;
+    background:none;
+    padding:10px 10px;
+    border-radius:8px;
+    font-size:15px;
+    color:var(--label);
+    cursor:pointer;
+    text-align:left;
+  }
+  .combo-option .swatch{width:10px; height:10px; border-radius:50%; flex-shrink:0;}
+  .combo-option .name{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .combo-option:hover, .combo-option.highlighted{background:var(--fill);}
+  .combo-option.combo-new{color:var(--tint); font-weight:600; border-top:1px solid var(--separator); margin-top:4px; padding-top:12px; border-radius:0 0 8px 8px;}
+  .combo-option.combo-new .swatch{
+    width:14px; height:14px; border-radius:0; background:none;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--tint); font-size:15px; font-weight:700; line-height:1;
+  }
+  .combo-empty{
+    padding:16px 10px;
+    text-align:center;
+    font-size:13.5px;
+    color:var(--label-2);
+  }
   .error-text{
     color:var(--red);
     font-size:12.5px;
@@ -622,6 +780,14 @@
     <div class="list" id="list"></div>
   </main>
 
+  <button class="fab-sync" id="btnFabSync" aria-label="Sincronizar cambios pendientes" title="Sincronizar cambios pendientes">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20 20v-5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4.5 9a8 8 0 0 1 14.3-3.5M19.5 15a8 8 0 0 1-14.3 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="fab-sync-badge" id="fabSyncBadge">0</span>
+  </button>
   <button class="fab" id="btnOpenAdd" aria-label="Nuevo mensaje">+</button>
 </div>
 
@@ -642,8 +808,15 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2 id="modalTitle">Nuevo mensaje</h2>
-    <label class="field-label" for="msgCategoria">Categoría (opcional)</label>
-    <input type="text" id="msgCategoria" placeholder="Ej: Cotización, Saludo, Seguimiento">
+    <label class="field-label" for="msgDescripcion">Descripción del mensaje</label>
+    <input type="text" id="msgDescripcion" placeholder="Ej: Cotización realizada, Pedir datos para la visita">
+    <label class="field-label" for="msgCategoria">Categoría (opcional, para agrupar y darle color)</label>
+    <div class="combo-wrap" id="catCombo">
+      <input type="text" id="msgCategoria" placeholder="Ej: Cotización, Saludo, Seguimiento" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="catDropdown">
+      <span class="combo-swatch" id="catComboSwatch"></span>
+      <span class="combo-chevron">⌄</span>
+      <div class="combo-dropdown" id="catDropdown" role="listbox"></div>
+    </div>
     <label class="field-label" for="msgTexto">Mensaje</label>
     <textarea id="msgTexto" placeholder="Escribí el texto que vas a enviar por WhatsApp..."></textarea>
     <p class="error-text" id="errorText">Escribí el mensaje antes de guardar.</p>
@@ -693,7 +866,12 @@
         <span>Conexión con Google Sheet</span>
         <span class="val">›</span>
       </button>
+      <button class="settings-row" id="btnForceResync">
+        <span>Forzar sincronización completa</span>
+        <span class="val">⟳</span>
+      </button>
     </div>
+    <p class="hint" style="margin-top:-8px;">Usá esto si editaste la Google Sheet a mano (por ejemplo reordenando columnas o corrigiendo categorías) y la app no está trayendo esos cambios.</p>
     <div class="settings-list">
       <button class="settings-row" id="btnExport">
         <span>Descargar respaldo (.json)</span>
@@ -724,12 +902,30 @@ let syncUrl = '';
 let lastSync = null;
 let isSyncing = false;
 
-const CAT_COLORS = ['#FF3B30','#FF9500','#FFCC00','#34C759','#00C7BE','#0A84FF','#5E5CE6','#AF52DE','#FF2D55'];
-function catColor(name){
-  if(!name) return '#AEAEB2';
+// Paleta de categorías: tonos suaves, bajos y elegantes (fondo pastel + texto de la misma
+// familia de color, en versión más profunda, para que siempre haya buen contraste sin ser "duro").
+const CAT_PALETTE = [
+  { dot:'#C1746F', bgLight:'#F7E9E7', textLight:'#9C5551', bgDark:'#3A2926', textDark:'#D9A9A5' }, // terracota
+  { dot:'#C68A4E', bgLight:'#F8EEE0', textLight:'#8D5F2A', bgDark:'#392B1D', textDark:'#DCB27E' }, // caramelo
+  { dot:'#B49A4E', bgLight:'#F6F0DD', textLight:'#79672A', bgDark:'#37331F', textDark:'#D6C085' }, // dorado
+  { dot:'#6E9E76', bgLight:'#E8F0E6', textLight:'#44704B', bgDark:'#25342A', textDark:'#A3CBA8' }, // salvia
+  { dot:'#4F9E92', bgLight:'#E3F1EE', textLight:'#317369', bgDark:'#1F3835', textDark:'#8FC7BD' }, // verde azulado
+  { dot:'#5E8FBD', bgLight:'#E6EEF6', textLight:'#39628C', bgDark:'#232F3D', textDark:'#9CBEDD' }, // azul pizarra
+  { dot:'#7C7ACB', bgLight:'#ECEAF7', textLight:'#5750A6', bgDark:'#2B2A40', textDark:'#B4B0E4' }, // índigo
+  { dot:'#9A72B8', bgLight:'#F0E8F5', textLight:'#75478F', bgDark:'#2F2638', textDark:'#C6A7DA' }, // ciruela
+  { dot:'#BC7096', bgLight:'#F7E8EF', textLight:'#93486B', bgDark:'#392530', textDark:'#DCA3BF' }, // rosa antiguo
+];
+const CAT_FALLBACK = { dot:'#9C9CA3', bgLight:'#EEEEF1', textLight:'#6E6E73', bgDark:'#2A2A2D', textDark:'#AEAEB4' };
+
+function catSwatch(name){
+  if(!name) return CAT_FALLBACK;
   let h = 0;
   for(let i=0; i<name.length; i++){ h = name.charCodeAt(i) + ((h<<5) - h); }
-  return CAT_COLORS[Math.abs(h) % CAT_COLORS.length];
+  return CAT_PALETTE[Math.abs(h) % CAT_PALETTE.length];
+}
+// Se mantiene por compatibilidad: color "punto" representativo de la categoría.
+function catColor(name){
+  return catSwatch(name).dot;
 }
 
 function uuid(){
@@ -918,7 +1114,8 @@ function renderList(){
   }
   if(query){
     items = items.filter(m => m.texto.toLowerCase().includes(query) ||
-      (m.categoria || '').toLowerCase().includes(query));
+      (m.categoria || '').toLowerCase().includes(query) ||
+      (m.descripcion || '').toLowerCase().includes(query));
   }
   if(items.length === 0){
     list.innerHTML = `<div class="empty">
@@ -929,8 +1126,8 @@ function renderList(){
     return;
   }
   list.innerHTML = items.map(m => {
-    const stamp = m.categoria ? escapeHtml(m.categoria) : 'General';
-    const color = catColor(m.categoria);
+    const stamp = m.descripcion ? escapeHtml(m.descripcion) : (m.categoria ? escapeHtml(m.categoria) : 'Sin descripción');
+    const sw = catSwatch(m.categoria);
     const pendingBadge = m.pendingAction ? '<span class="pending-badge">Sin subir</span>' : '';
     const isOpen = openIds.has(m.id);
     const cardClass = 'card' + (isOpen ? ' is-open' : '');
@@ -939,9 +1136,9 @@ function renderList(){
     return `<div class="${cardClass}" data-id="${m.id}">
       ${pendingBadge}
       <div class="row">
-        <span class="tag-dot" style="background:${color}"></span>
+        <span class="tag-dot" style="background:${sw.dot}"></span>
         <div class="row-text">
-          <div class="row-cat">${stamp}</div>
+          <div class="row-cat" style="--cat-bg-l:${sw.bgLight}; --cat-text-l:${sw.textLight}; --cat-bg-d:${sw.bgDark}; --cat-text-d:${sw.textDark}">${stamp}</div>
           <div class="row-preview">${escapeHtml(preview)}</div>
         </div>
         <span class="chevron">›</span>
@@ -1118,20 +1315,143 @@ async function deleteLocal(id){
 function openModal(msg){
   editingId = msg ? msg.id : null;
   document.getElementById('modalTitle').textContent = msg ? 'Editar mensaje' : 'Nuevo mensaje';
+  document.getElementById('msgDescripcion').value = msg ? (msg.descripcion || '') : '';
   document.getElementById('msgCategoria').value = msg ? (msg.categoria || '') : '';
   document.getElementById('msgTexto').value = msg ? msg.texto : '';
   document.getElementById('errorText').style.display = 'none';
+  refreshCatDatalist();
+  updateCatSwatch();
   document.getElementById('modalOverlay').classList.add('open');
-  document.getElementById('msgTexto').focus();
+  document.getElementById('msgDescripcion').focus();
 }
 
 function closeModal(){
   document.getElementById('modalOverlay').classList.remove('open');
+  closeCatCombo();
   editingId = null;
 }
 
+/* ---- Combobox de categoría (reemplaza al <datalist> nativo) ---- */
+let catComboItems = [];
+let catComboHighlight = -1;
+
+function refreshCatDatalist(){
+  catComboItems = [...new Set(allMessages.map(m => m.categoria).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, 'es'));
+}
+
+function updateCatSwatch(){
+  const val = document.getElementById('msgCategoria').value.trim();
+  const swatch = document.getElementById('catComboSwatch');
+  if(val){
+    swatch.style.background = catColor(val);
+    swatch.classList.add('has-value');
+  }else{
+    swatch.style.background = '';
+    swatch.classList.remove('has-value');
+  }
+}
+
+function renderCatCombo(){
+  const input = document.getElementById('msgCategoria');
+  const dropdown = document.getElementById('catDropdown');
+  const query = input.value.trim().toLowerCase();
+  const matches = query
+    ? catComboItems.filter(c => c.toLowerCase().includes(query))
+    : catComboItems;
+  const exactMatch = catComboItems.some(c => c.toLowerCase() === query);
+
+  let html = '';
+  matches.forEach(cat => {
+    html += `<button type="button" class="combo-option" role="option" data-value="${escapeHtml(cat)}">
+      <span class="swatch" style="background:${catColor(cat)}"></span>
+      <span class="name">${escapeHtml(cat)}</span>
+    </button>`;
+  });
+  if(query && !exactMatch){
+    html += `<button type="button" class="combo-option combo-new" role="option" data-value="${escapeHtml(input.value.trim())}">
+      <span class="swatch">+</span>
+      <span class="name">Crear categoría "${escapeHtml(input.value.trim())}"</span>
+    </button>`;
+  }
+  if(!html){
+    html = `<div class="combo-empty">No hay categorías todavía. Escribí para crear una.</div>`;
+  }
+  dropdown.innerHTML = html;
+  catComboHighlight = -1;
+
+  dropdown.querySelectorAll('.combo-option').forEach(opt => {
+    opt.onclick = () => {
+      input.value = opt.dataset.value;
+      updateCatSwatch();
+      closeCatCombo();
+      input.focus();
+    };
+  });
+}
+
+function openCatCombo(){
+  renderCatCombo();
+  document.getElementById('catCombo').classList.add('open');
+  document.getElementById('msgCategoria').setAttribute('aria-expanded', 'true');
+}
+
+function closeCatCombo(){
+  document.getElementById('catCombo').classList.remove('open');
+  document.getElementById('msgCategoria').setAttribute('aria-expanded', 'false');
+  catComboHighlight = -1;
+}
+
+function moveCatComboHighlight(dir){
+  const dropdown = document.getElementById('catDropdown');
+  const opts = [...dropdown.querySelectorAll('.combo-option')];
+  if(!opts.length) return;
+  opts[catComboHighlight]?.classList.remove('highlighted');
+  catComboHighlight = (catComboHighlight + dir + opts.length) % opts.length;
+  const active = opts[catComboHighlight];
+  active.classList.add('highlighted');
+  active.scrollIntoView({ block: 'nearest' });
+}
+
+(function initCatCombo(){
+  const input = document.getElementById('msgCategoria');
+  const combo = document.getElementById('catCombo');
+
+  input.addEventListener('focus', openCatCombo);
+  input.addEventListener('input', () => {
+    updateCatSwatch();
+    openCatCombo();
+  });
+  input.addEventListener('keydown', (e) => {
+    const dropdown = document.getElementById('catDropdown');
+    const opts = [...dropdown.querySelectorAll('.combo-option')];
+    if(e.key === 'ArrowDown'){
+      e.preventDefault();
+      if(!combo.classList.contains('open')) return openCatCombo();
+      moveCatComboHighlight(1);
+    }else if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      if(!combo.classList.contains('open')) return openCatCombo();
+      moveCatComboHighlight(-1);
+    }else if(e.key === 'Enter'){
+      if(combo.classList.contains('open') && catComboHighlight >= 0 && opts[catComboHighlight]){
+        e.preventDefault();
+        opts[catComboHighlight].click();
+      }else{
+        closeCatCombo();
+      }
+    }else if(e.key === 'Escape'){
+      closeCatCombo();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if(!combo.contains(e.target)) closeCatCombo();
+  });
+})();
+
 async function saveMessage(){
   const texto = document.getElementById('msgTexto').value.trim();
+  const descripcion = document.getElementById('msgDescripcion').value.trim();
   const categoria = document.getElementById('msgCategoria').value.trim();
   if(!texto){
     document.getElementById('errorText').style.display = 'block';
@@ -1142,6 +1462,7 @@ async function saveMessage(){
     const existing = (await getAll()).find(m => m.id === editingId);
     item = existing || { id: editingId, fecha: Date.now() };
     item.texto = texto;
+    item.descripcion = descripcion;
     item.categoria = categoria;
     item.updatedAt = Date.now();
     item.pendingAction = 'upsert';
@@ -1149,6 +1470,7 @@ async function saveMessage(){
     item = {
       id: uuid(),
       texto,
+      descripcion,
       categoria,
       fecha: Date.now(),
       updatedAt: Date.now(),
@@ -1190,6 +1512,7 @@ function importBackup(file){
         const clean = {
           id: it.id || uuid(),
           texto: it.texto,
+          descripcion: it.descripcion || '',
           categoria: it.categoria || '',
           fecha: it.fecha || Date.now(),
           updatedAt: it.updatedAt || Date.now(),
@@ -1225,13 +1548,38 @@ function updateSyncBar(){
       const when = lastSync ? new Date(lastSync).toLocaleString() : 'nunca';
       text.innerHTML = `Todo sincronizado · última vez: <b>${when}</b>`;
     }
+    updateFabSync(pending);
   });
+}
+
+function updateFabSync(pending){
+  const fab = document.getElementById('btnFabSync');
+  const badge = document.getElementById('fabSyncBadge');
+  if(!fab) return;
+  if(pending > 0 && syncUrl){
+    badge.textContent = pending > 99 ? '99+' : String(pending);
+    fab.classList.add('show');
+  }else{
+    fab.classList.remove('show');
+  }
 }
 
 async function fetchJson(url, options){
   const res = await fetch(url, options);
   if(!res.ok) throw new Error('Error de red: ' + res.status);
   return res.json();
+}
+
+async function forceFullResync(){
+  if(!syncUrl){
+    openConfigModal();
+    return;
+  }
+  lastSync = null;
+  await setConfig('lastSync', null);
+  showToast('Forzando sincronización completa...');
+  closeMoreSheet();
+  await syncNow();
 }
 
 async function syncNow(){
@@ -1245,6 +1593,8 @@ async function syncNow(){
   const btnVal = btn.querySelector('.val');
   btn.disabled = true;
   if(btnVal) btnVal.textContent = '…';
+  const fabSync = document.getElementById('btnFabSync');
+  if(fabSync) fabSync.classList.add('spinning');
   try{
     const all = await getAll();
     const pending = all.filter(m => m.pendingAction);
@@ -1255,7 +1605,7 @@ async function syncNow(){
           return { type: 'delete', id: m.id };
         }
         return { type: 'upsert', item: {
-          id: m.id, texto: m.texto, categoria: m.categoria,
+          id: m.id, texto: m.texto, categoria: m.categoria, Descripcion_Msg: m.descripcion || '',
           fecha: m.fecha, updatedAt: m.updatedAt
         }};
       });
@@ -1298,6 +1648,7 @@ async function syncNow(){
           await putMessage({
             id: String(r.id),
             texto: r.texto || '',
+            descripcion: r.Descripcion_Msg || '',
             categoria: r.categoria || '',
             fecha: Number(r.fecha) || Date.now(),
             updatedAt: Number(r.updatedAt) || Date.now(),
@@ -1315,6 +1666,7 @@ async function syncNow(){
           await putMessage({
             id: String(r.id),
             texto: r.texto || '',
+            descripcion: r.Descripcion_Msg || '',
             categoria: r.categoria || '',
             fecha: Number(r.fecha) || Date.now(),
             updatedAt: Number(r.updatedAt) || Date.now(),
@@ -1342,6 +1694,7 @@ async function syncNow(){
     isSyncing = false;
     btn.disabled = false;
     if(btnVal) btnVal.textContent = '↻';
+    if(fabSync) fabSync.classList.remove('spinning');
     updateSyncBar();
   }
 }
@@ -1407,10 +1760,12 @@ document.getElementById('msgTexto').addEventListener('input', () => {
   document.getElementById('errorText').style.display = 'none';
 });
 document.getElementById('btnConfig').onclick = openConfigModal;
+document.getElementById('btnForceResync').onclick = forceFullResync;
 document.getElementById('btnConfigCancel').onclick = closeConfigModal;
 document.getElementById('btnConfigSave').onclick = saveConfig;
 document.getElementById('configOverlay').onclick = (e) => { if(e.target.id === 'configOverlay') closeConfigModal(); };
 document.getElementById('btnSync').onclick = syncNow;
+document.getElementById('btnFabSync').onclick = syncNow;
 document.getElementById('btnFilter').onclick = openCatSheet;
 document.getElementById('catOverlay').onclick = (e) => { if(e.target.id === 'catOverlay') closeCatSheet(); };
 document.getElementById('btnFillContinue').onclick = applyFillAndRun;
