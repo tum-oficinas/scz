@@ -604,6 +604,11 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
           <span class="cp-text"><span class="ct">Cambios de fecha</span><span class="cp-preview"></span></span>
           <span class="cc"></span>
         </button>
+        <button class="cat-pill" data-cat="mantenimiento">
+          <span class="cp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><polyline points="21 3 21 9 15 9"/></svg></span>
+          <span class="cp-text"><span class="ct">Plan Mantenimiento</span><span class="cp-preview"></span></span>
+          <span class="cc"></span>
+        </button>
         <button class="cat-pill" data-cat="alcance">
           <span class="cp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 01-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 015.4-5.4l-3 3-2-2z"/></svg></span>
           <span class="cp-text"><span class="ct">Alcance del trabajo</span><span class="cp-preview"></span></span>
@@ -709,7 +714,7 @@ function RULE_LINK(cat, num, title){
     '<span class="rule-link-title">'+title+'</span>'+
   '</a>';
 }
-var CAT_LABELS_PRE={pagos:'Pagos y CUS',puntualidad:'Puntualidad',cambios:'Cambios de fecha',alcance:'Alcance del trabajo',seguridad:'Seguridad y objetos',garantia:'Garantía'};
+var CAT_LABELS_PRE={pagos:'Pagos y CUS',puntualidad:'Puntualidad',cambios:'Cambios de fecha',mantenimiento:'Plan Mantenimiento',alcance:'Alcance del trabajo',seguridad:'Seguridad y objetos',garantia:'Garantía'};
 
 /* ══════════ DATA: reglas agrupadas por categoría ══════════ */
 var RULES = {
@@ -757,6 +762,76 @@ var RULES = {
       '<p>Si necesitas cancelar o cambiar la fecha fuera de ese plazo, buscamos el <strong>próximo horario disponible</strong> en la agenda.</p>'+
       '<p>Las cancelaciones generan un descuento de <strong>50 Bs</strong> sobre el monto ya pagado, en concepto de las gestiones administrativas realizadas para la reserva de tu horario. El saldo restante se reembolsa con normalidad.</p>'+
       '<p>En casos de fuerza mayor, coordinamos juntos una nueva fecha.</p>'
+    }
+  ],
+  mantenimiento: [
+    {num:'12', title:'Qué significa cada plan', sub:'Inicial, Mantenimiento e Intensivo', body:
+      '<p><strong>INICIAL</strong> — tu primera limpieza con TUM. Tarifa promocional, válida <strong>una sola vez por cliente.</strong></p>'+
+      '<p><strong>MANTENIMIENTO</strong> — el plan de esta sección: un servicio periódico, con <strong>descuento por frecuencia</strong> mientras dure tu compromiso.</p>'+
+      '<p><strong>INTENSIVO</strong> — el precio real del vidrio, sin promoción ni descuento.</p>'+
+      '<div class="note-box">'+ICON_INFO+'<p>Las reglas de esta sección aplican <strong>únicamente</strong> a clientes con un plan de Mantenimiento activo. Si tu servicio es Inicial o Intensivo, revisa '+RULE_LINK('pagos','01','Condiciones de pago')+' y '+RULE_LINK('cambios','03','Reprogramaciones y cancelaciones')+'.</p></div>'
+    },
+    {num:'13', title:'Bloqueo de fecha del plan', sub:'Un día fijo cada mes, acordado al contratar', body:
+      '<p>Cada plan de Mantenimiento tiene un <strong>día fijo asignado por mes</strong>, acordado contigo al momento de contratar. Esa fecha queda bloqueada y <strong>no cambia dentro del mes en curso</strong>, salvo por lluvia antes de la hora acordada (ver la siguiente regla).</p>'+
+      '<p>Al aceptar el plan, te comprometes a mantener esa fecha. Si de todas formas solicitas una fecha distinta, el cambio se aplica recién <strong>desde el mes siguiente.</strong></p>'
+    },
+    {num:'14', title:'Reagendamiento por lluvia', sub:'El único motivo de cambio dentro del mes', body:
+      '<p>Se considera lluvia <strong>cualquier precipitación visible</strong> al momento acordado, incluida la llovizna.</p>'+
+      '<h5>Cómo se confirma</h5>'+
+      '<ul class="check-list">'+
+        '<li>'+ICON_CHECK+'<span>Si TUM detecta la lluvia primero, <strong>envía foto o video</strong> antes de la hora acordada.</span></li>'+
+        '<li>'+ICON_CHECK+'<span>Si tú te adelantas a pedir el reagendamiento, envías <strong>tu propia evidencia</strong> (foto o video).</span></li>'+
+      '</ul>'
+    },
+    {num:'15', title:'Confirmación tras un reagendamiento', sub:'24 horas para confirmar la nueva fecha', body:
+      '<p>Cuando se reagenda por lluvia, TUM te llama para confirmar que recibiste las <strong>2 opciones de fecha.</strong></p>'+
+      '<div class="tramo-list">'+
+        '<div class="tramo-item ok"><span class="tramo-badge">Dentro de 24h</span><span class="tramo-text">Confirmas una de las 2 opciones y el plan continúa con normalidad.</span></div>'+
+        '<div class="tramo-item danger"><span class="tramo-badge">Sin respuesta en 24h</span><span class="tramo-text">Se cancela el <strong>descuento y el plan.</strong> Para reactivarlo, el servicio se cotiza como <strong>INTENSIVO.</strong></span></div>'+
+      '</div>'
+    },
+    {num:'16', title:'Pago del plan', sub:'Adelantado, con un día fijo cada mes', body:
+      '<p>El plan se paga <strong>completo y por adelantado.</strong> Acuerdas con TUM un día fijo de pago cada mes, y ese pago debe estar hecho <strong>antes de que el equipo llegue al local.</strong></p>'+
+      '<div class="alert-box">'+ICON_ALERT+'<p>Si al llegar el equipo el pago no está hecho, se cobra el mes contratado <strong>más el recargo de espera</strong> de la '+RULE_LINK('puntualidad','02','Política de puntualidad')+'.</p></div>'+
+      '<div class="note-box">'+ICON_INFO+'<p><strong>Ejemplo:</strong> mes de Bs 230 + 15 min de espera (Bs 50) = <strong>Bs 280 en total.</strong></p></div>'+
+      '<p>Si la visita se cancela por falta de pago, el descuento y el plan quedan <strong>cancelados de forma definitiva.</strong></p>'
+    },
+    {num:'17', title:'Descuentos por frecuencia', sub:'Cuanto más seguido, mayor el ahorro', body:
+      '<div class="req-grid" style="grid-template-columns:repeat(3,1fr)">'+
+        '<div class="req-item"><div class="k">Mensual</div><div class="v">5% de descuento</div></div>'+
+        '<div class="req-item"><div class="k">Quincenal</div><div class="v">10% de descuento</div></div>'+
+        '<div class="req-item"><div class="k">Semanal</div><div class="v">15% de descuento</div></div>'+
+      '</div>'
+    },
+    {num:'18', title:'Activación del descuento', sub:'Cuándo empieza a aplicarse', body:
+      '<p>Si ya hiciste tu limpieza <strong>INICIAL</strong> por separado, el descuento del plan se activa <strong>desde la primera visita</strong> de Mantenimiento.</p>'
+    },
+    {num:'19', title:'Duración mínima del plan', sub:'6 meses, con opción de extender', body:
+      '<p>Todo plan de Mantenimiento tiene una duración mínima de <strong>6 meses.</strong></p>'+
+      '<p>Para extenderlo a 12 meses, firmamos juntos una <strong>Nota de Extensión</strong> al llegar el mes 6 — esta decisión no se toma desde el inicio del contrato.</p>'
+    },
+    {num:'20', title:'Pérdida del descuento por otras causas', sub:'Qué más puede cancelarlo, además del pago', body:
+      '<p>Además de la falta de pago, el descuento se cancela de forma <strong>definitiva</strong> si:</p>'+
+      '<ul class="check-list">'+
+        '<li>'+ICON_ALERT+'<span>Se cancela una visita por un motivo distinto a la lluvia justificada.</span></li>'+
+        '<li>'+ICON_ALERT+'<span>El local no está listo y la situación escala hasta cancelar la visita completa (30 minutos de espera).</span></li>'+
+      '</ul>'+
+      '<div class="note-box">'+ICON_INFO+'<p>La espera siempre se cobra según la '+RULE_LINK('puntualidad','02','Política de puntualidad')+'; el descuento solo se pierde si termina en <strong>cancelación total</strong> de la visita.</p></div>'
+    },
+    {num:'21', title:'Cancelación voluntaria antes de tiempo', sub:'Si decides terminar el plan antes de los 6 meses', body:
+      '<p>Si decides terminar el plan <strong>antes de los 6 meses</strong>, sin que sea por una falla de TUM, se aplica una <strong>penalización de Bs 100.</strong></p>'+
+      '<p>Las visitas ya pagadas y no realizadas se te devuelven, descontando esa penalización.</p>'+
+      '<div class="note-box">'+ICON_INFO+'<p><strong>Ejemplo:</strong> pagaste Bs 230 y recibiste 1 de 4 visitas → se descuentan Bs 100 y se te devuelve el resto del saldo.</p></div>'
+    },
+    {num:'22', title:'Compromiso de TUM con tu plan', sub:'Lo que garantizamos mientras dure el Mantenimiento', body:
+      '<ul class="check-list">'+
+        '<li>'+ICON_CHECK+'<span><strong>Cumplimiento de la fecha bloqueada</strong> — visitamos el día y horario fijados, salvo lluvia.</span></li>'+
+        '<li>'+ICON_CHECK+'<span><strong>Puntualidad</strong> — el equipo llega 10 minutos antes.</span></li>'+
+        '<li>'+ICON_CHECK+'<span><strong>Calidad del servicio</strong> — sin dejar trabajo a medias.</span></li>'+
+        '<li>'+ICON_CHECK+'<span><strong>Respaldo documentado</strong> — foto/video y Nota de Conformidad firmada.</span></li>'+
+        '<li>'+ICON_CHECK+'<span><strong>Transparencia en el reagendamiento</strong> — evidencia y 2 opciones de fecha.</span></li>'+
+        '<li>'+ICON_CHECK+'<span><strong>Continuidad del plan</strong> — si TUM falla sin justificación, cancelas sin penalización y recibes el 100% del saldo.</span></li>'+
+      '</ul>'
     }
   ],
   alcance: [
@@ -823,7 +898,8 @@ var RULES = {
   ]
 };
 
-var CAT_LABELS={pagos:'Pagos y CUS',puntualidad:'Puntualidad',cambios:'Cambios de fecha',alcance:'Alcance del trabajo',seguridad:'Seguridad y objetos',garantia:'Garantía'};
+var CAT_LABELS={pagos:'Pagos y CUS',puntualidad:'Puntualidad',cambios:'Cambios de fecha',mantenimiento:'Plan Mantenimiento',alcance:'Alcance del trabajo',seguridad:'Seguridad y objetos',garantia:'Garantía'};
+var CAT_HEADER_LABELS={pagos:'Pagos y CUS',puntualidad:'Puntualidad',cambios:'Cambios de fecha',mantenimiento:'Protocolo y Condiciones del Plan Mantenimiento',alcance:'Alcance del trabajo',seguridad:'Seguridad y objetos',garantia:'Garantía'};
 
 /* Cantidad real de reglas + vista previa de sus títulos, mostrada directamente en cada pestaña */
 document.querySelectorAll('.cat-pill').forEach(function(p){
@@ -836,7 +912,7 @@ function renderCategory(cat){
   var list=document.getElementById('rulesList');
   var meta=document.getElementById('rulesMeta');
   var items=RULES[cat]||[];
-  meta.textContent=CAT_LABELS[cat]+' · '+items.length+(items.length===1?' regla en este tema':' reglas en este tema');
+  meta.textContent=CAT_HEADER_LABELS[cat];
   list.innerHTML='';
   items.forEach(function(r,i){
     var card=document.createElement('div');
@@ -941,16 +1017,24 @@ renderCategory('pagos');
    Formato de enlace para compartir con un cliente:
      tu-web.html#garantia        → abre la categoría "Garantía"
      tu-web.html#garantia-09     → abre esa categoría Y despliega la regla 09
+     tu-web.html#PlanMantenimiento → abre "Protocolo y Condiciones del Plan Mantenimiento"
    El panel con todos los enlaces listos para copiar está en tu-web.html#enlaces */
 function baseUrl(){ return location.href.split('#')[0]; }
+
+/* Alias de hash "bonitos" -> clave interna de categoría (CAT_LABELS) */
+var CAT_HASH_ALIASES={planmantenimiento:'mantenimiento'};
+/* Clave interna -> hash "bonito" a usar al generar enlaces para compartir */
+var CAT_URL_ALIASES={mantenimiento:'PlanMantenimiento'};
 
 function applyHashRoute(){
   var hash=decodeURIComponent(location.hash.replace('#',''));
   if(!hash) return;
   if(hash==='enlaces'){ showEnlacesPanel(); return; }
   var m=hash.match(/^([a-z]+)(?:-(\d{1,2}))?$/i);
-  if(!m || !CAT_LABELS[m[1]]) return;
-  var cat=m[1], num=m[2];
+  if(!m) return;
+  var cat=CAT_HASH_ALIASES[m[1].toLowerCase()]||m[1].toLowerCase();
+  if(!CAT_LABELS[cat]) return;
+  var num=m[2];
   if(num){
     if(num.length===1) num='0'+num;
     goToRule(cat, num);
@@ -994,14 +1078,15 @@ function buildEnlacesPanel(){
   var html='';
   Object.keys(CAT_LABELS).forEach(function(cat){
     var items=RULES[cat]||[];
-    var catUrl=base+'#'+cat;
+    var catHash=CAT_URL_ALIASES[cat]||cat;
+    var catUrl=base+'#'+catHash;
     html+='<div class="enlace-group">'+
       '<div class="enlace-row enlace-row--cat">'+
         '<div class="enlace-info"><span class="enlace-label">'+CAT_LABELS[cat]+' (tema completo)</span><span class="enlace-url">'+catUrl+'</span></div>'+
         '<button class="enlace-copy" type="button" data-url="'+catUrl+'">Copiar</button>'+
       '</div>';
     items.forEach(function(r){
-      var url=base+'#'+cat+'-'+r.num;
+      var url=base+'#'+catHash+'-'+r.num;
       html+='<div class="enlace-row">'+
         '<div class="enlace-info"><span class="enlace-label">'+r.title+'</span><span class="enlace-url">'+url+'</span></div>'+
         '<button class="enlace-copy" type="button" data-url="'+url+'">Copiar</button>'+
