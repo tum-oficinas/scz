@@ -429,6 +429,16 @@
     display:flex; align-items:center; justify-content:center;
   }
   .ticket-close:active{ background: var(--surface-raised); }
+  .ticket-download-btn{
+    position:absolute; top:14px; right:54px; width:30px; height:30px; border-radius:50%;
+    background: var(--surface); border:1px solid var(--green-border); color: var(--ok);
+    display:flex; align-items:center; justify-content:center;
+    transition: transform .12s ease, background .15s ease, color .15s ease;
+  }
+  .ticket-download-btn svg{ width:14px; height:14px; }
+  .ticket-download-btn:active{ transform:scale(.9); background: var(--ok); color: var(--navy); }
+  .ticket-download-btn.is-loading{ pointer-events:none; opacity:.6; }
+  .ticket-download-btn.is-loading svg{ animation: spin .8s linear infinite; }
   .ticket-head{ text-align:center; margin-bottom:18px; }
   .ticket-logo{
     width:64px; height:64px; margin:0 auto 12px;
@@ -645,6 +655,9 @@
   <!-- Modal: comprobante de agendamiento -->
   <div class="ticket-overlay" id="ticketOverlay">
     <div class="ticket-card">
+      <button class="ticket-download-btn" id="btnDescargarNota" aria-label="Descargar nota de servicio" title="Descargar nota" onclick="descargarNotaServicio()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      </button>
       <button class="ticket-close" onclick="cerrarDetalleAgenda()">&times;</button>
 
       <div class="ticket-head">
@@ -764,39 +777,6 @@
     cargarCacheLocal();
   });
 
-  // Margen mínimo entre auto-sincronizaciones. El límite real de Apps
-  // Script para un Web App no es "cada tantos segundos", sino 30
-  // ejecuciones simultáneas por usuario -- el riesgo es que muchos
-  // dispositivos disparen la llamada justo al mismo instante, no la
-  // frecuencia en sí. Aun así, este margen se deja conservador a
-  // propósito (1.5 min) para no gastar cuota de más si el celular
-  // cambia de app seguido: sin esto, cada regreso a la pantalla
-  // dispararía una llamada nueva. Se aplica siempre -- tanto al abrir
-  // la app como al volver a ella -- así ningún camino se lo salta.
-  const AUTO_SYNC_MIN_INTERVAL_MS = 90000;
-
-  function autoSyncSiCorresponde(){
-    if (syncPending > 0) return; // ya hay una sincronización en curso
-    const t = parseInt(localStorage.getItem(SYNC_TIME_KEY) || '0', 10);
-    if (Date.now() - t < AUTO_SYNC_MIN_INTERVAL_MS) return; // se sincronizó hace muy poco
-    cargarTodo();
-  }
-
-  // Cubre el caso de dejar el lector abierto (pestaña de fondo, o la app
-  // minimizada en el celular) y volver más tarde: al recuperar el foco se
-  // sincroniza sola, así no hace falta salir y volver a entrar ni tocar
-  // "Sincronizar" para ver las suscripciones nuevas que se crearon
-  // mientras tanto desde el Panel Operativo. 'visibilitychange' cubre el
-  // caso normal (cambiar de pestaña/app y volver); 'pageshow' cubre el
-  // caso de volver por el botón "atrás" del navegador desde una página en
-  // caché (bfcache), donde 'DOMContentLoaded' no se vuelve a disparar.
-  document.addEventListener('visibilitychange', function(){
-    if (document.visibilityState === 'visible') autoSyncSiCorresponde();
-  });
-  window.addEventListener('pageshow', function(e){
-    if (e.persisted) autoSyncSiCorresponde();
-  });
-
   function cargarCacheLocal(){
     let tieneSuscripciones = false;
 
@@ -807,8 +787,9 @@
     }
 
     const cacheAgenda = localStorage.getItem(AGENDA_CACHE_KEY);
+    let tieneAgenda = false;
     if (cacheAgenda) {
-      try { agenda = JSON.parse(cacheAgenda); }
+      try { agenda = JSON.parse(cacheAgenda); tieneAgenda = true; }
       catch (e) { /* cache corrupta, se resincroniza abajo */ }
     }
 
@@ -820,19 +801,9 @@
       setStatusInicio('Primera vez: sincronizando datos iniciales...');
     }
 
-    // La memoria local (localStorage) se muestra de una, sin esperar red --
-    // por eso al abrir la app los datos aparecen al instante aunque no haya
-    // señal. Después se llama a autoSyncSiCorresponde() -- la MISMA función
-    // (y el mismo límite de tiempo) que usa el regreso a la app -- en vez de
-    // sincronizar siempre sin condición: así, si la app se recarga seguido
-    // (por ejemplo el sistema operativo reinicia la pestaña en segundo
-    // plano), no se dispara una llamada nueva cada vez, solo cuando ya
-    // pasó el margen mínimo. La primera vez que se abre (sin nada
-    // guardado todavía) siempre sincroniza, porque no hay fecha previa
-    // que comparar. Como esta app solo muestra datos (no escribe nada),
-    // no hace falta mandar ninguna operación pendiente -- alcanza con
-    // traer lo último, por eso una sola llamada GET basta.
-    autoSyncSiCorresponde();
+    // Modo AFK: si falta cualquiera de los dos datasets, se trae todo junto
+    // en una sola llamada (más rápido que dos peticiones separadas).
+    if (!tieneSuscripciones || !tieneAgenda) cargarTodo();
   }
 
   function sincronizarTodo(){
@@ -988,58 +959,17 @@
     buscarYMostrar(String(idLeido).trim());
   }
 
-  /* Normaliza una fecha "dd/mm/aaaa", "d/m/aaaa", "mm/dd/aaaa" o ISO
-     "aaaa-mm-dd" a "aaaa-m-d" (sin ceros a la izquierda), para poder
-     comparar dos fechas que representan el mismo día calendario aunque
-     vengan escritas con distinto separador, orden u con/sin ceros.
-     Usa la misma lógica de desambiguación día/mes que ya usa
-     formatearFechaLinda en esta misma app: si un valor es >12 no puede
-     ser mes, así que ese lado es el día. Si de verdad ambos ítems son
-     ambiguos (los dos ≤12), asume día/mes/año -- el orden que entrega
-     esta hoja para fechas de agenda -- salvo que venga en formato ISO
-     (aaaa-mm-dd), que siempre es año/mes/día sin ambigüedad posible. */
-  function normalizarFecha(fechaStr){
-    if (!fechaStr) return '';
-    const s = String(fechaStr).trim();
-
-    const iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
-    if (iso) return iso[1] + '-' + parseInt(iso[2], 10) + '-' + parseInt(iso[3], 10);
-
-    const partes = s.split('/');
-    if (partes.length === 3) {
-      const a = parseInt(partes[0], 10);
-      const b = parseInt(partes[1], 10);
-      const anio = parseInt(partes[2], 10);
-      if (isNaN(a) || isNaN(b) || isNaN(anio)) return s;
-
-      let dia, mes;
-      if (a > 12 && b <= 12) { dia = a; mes = b; }
-      else if (b > 12 && a <= 12) { dia = b; mes = a; }
-      else { dia = a; mes = b; } // ambiguo: día/mes/año, igual que formatearFechaLinda
-
-      if (mes < 1 || mes > 12) return s;
-      return anio + '-' + mes + '-' + dia;
-    }
-    return s;
-  }
-
   function buscarYMostrar(qrTexto){
     // El QR válido trae Id_Susc + QR_SEPARADOR + S_Fecha_Registro.
     // Se exige que AMBOS coincidan con el registro real: así un QR armado
     // a mano con solo el Id_Susc (adivinado o copiado) no es aceptado.
-    // La fecha se compara normalizada (no como texto literal), porque la
-    // hoja de origen puede entregar S_Fecha_Registro en distinto formato
-    // según cómo esté configurada esa celda en Sheets (con/sin ceros,
-    // día primero o mes primero) -- comparar el texto crudo rechazaba
-    // suscripciones válidas cuando ese formato no coincidía letra por letra.
     const partes = String(qrTexto).split(QR_SEPARADOR);
     const idSusc = partes[0] || '';
     const fechaRegistro = partes.slice(1).join(QR_SEPARADOR);
-    const fechaRegistroNorm = normalizarFecha(fechaRegistro);
 
     const s = suscripciones.find(function(x){
       return String(x.Id_Susc) === idSusc &&
-             normalizarFecha(x.S_Fecha_Registro) === fechaRegistroNorm;
+             String(x.S_Fecha_Registro || '') === fechaRegistro;
     });
 
     if (!s) {
@@ -1187,9 +1117,12 @@
     return 'Bs. ' + n.toFixed(2);
   }
 
+  let agendaDetalleActual = null; // agendamiento mostrado actualmente en el modal (para poder descargarlo)
+
   function abrirDetalleAgenda(indice){
     const a = agendaListaActual[indice];
     if (!a) return;
+    agendaDetalleActual = a;
 
     const realizado = esRealizado(a.Realizado);
 
@@ -1224,6 +1157,236 @@
 
   function cerrarDetalleAgenda(){
     document.getElementById('ticketOverlay').classList.remove('show');
+  }
+
+  /* ---------------- Descargar nota de servicio (PNG) ---------------- */
+  // Dibuja la nota en un <canvas> y la descarga como imagen, para que
+  // el cliente tenga su propio comprobante descargable de cada
+  // agendamiento sin depender de que el negocio le entregue un papel.
+
+  function truncarTextoCanvas(ctx, texto, maxWidth){
+    let t = String(texto == null ? '' : texto);
+    if (ctx.measureText(t).width <= maxWidth) return t;
+    while (t.length > 1 && ctx.measureText(t + '…').width > maxWidth){
+      t = t.slice(0, -1);
+    }
+    return t + '…';
+  }
+
+  function generarNotaServicioBlob(a){
+    return new Promise(function(resolve){
+      try{
+        const realizado = esRealizado(a.Realizado);
+        const deuda = Number(a.A_Deuda) || 0;
+        const pagado = deuda <= 0;
+
+        const scale = 2;
+        const width = 340;
+        const padding = 22;
+        const maxHeight = 900;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width * scale;
+        canvas.height = maxHeight * scale;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(scale, scale);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, maxHeight);
+
+        const colInk = '#0F172A';
+        const colAccent = '#00A85A';   // verde TUM en versión legible sobre blanco
+        const colText = '#1A202C';
+        const colMute = '#697386';
+        const colLine = '#D8DCE3';
+        const colDanger = '#D64545';
+
+        let y = padding;
+
+        function divider(){
+          y += 6;
+          ctx.strokeStyle = colLine;
+          ctx.setLineDash([3, 3]);
+          ctx.beginPath();
+          ctx.moveTo(padding, y);
+          ctx.lineTo(width - padding, y);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          y += 14;
+        }
+
+        // Encabezado
+        ctx.textAlign = 'left';
+        ctx.fillStyle = colAccent;
+        ctx.font = '700 17px monospace';
+        ctx.fillText('>_', padding, y + 13);
+        const markWidth = ctx.measureText('>_ ').width;
+        ctx.fillStyle = colInk;
+        ctx.font = '700 15px monospace';
+        ctx.fillText('TUM', padding + markWidth, y + 13);
+        y += 22;
+        ctx.fillStyle = colMute;
+        ctx.font = '700 10px monospace';
+        ctx.fillText('NOTA DE SERVICIO', padding, y + 9);
+        y += 20;
+
+        divider();
+
+        // Estado (Pendiente / Realizado)
+        ctx.font = '700 11px monospace';
+        ctx.fillStyle = realizado ? '#64748B' : colAccent;
+        ctx.fillText(realizado ? 'REALIZADO' : 'PENDIENTE', padding, y + 9);
+        y += 20;
+
+        ctx.font = '12px monospace';
+        function metaRow(label, value){
+          if (!value || value === '-') return;
+          ctx.fillStyle = colMute;
+          ctx.textAlign = 'left';
+          ctx.fillText(label, padding, y + 9);
+          const labelWidth = ctx.measureText(label).width;
+          const valMax = width - padding * 2 - labelWidth - 10;
+          ctx.fillStyle = colText;
+          ctx.textAlign = 'right';
+          ctx.fillText(truncarTextoCanvas(ctx, value, valMax), width - padding, y + 9);
+          ctx.textAlign = 'left';
+          y += 17;
+        }
+
+        metaRow('Servicio', val(a.RS_Descripcion));
+        metaRow('Código', val(a.RS_Id_Susc));
+        metaRow('Cliente', val(a.RS_Nombre));
+        metaRow('Celular', val(a.RS_Celular));
+        metaRow('Fecha', formatearFechaLinda(a.A_Fecha));
+        metaRow('Check-in', val(a['A_Check-IN']));
+
+        divider();
+
+        // Total y estado de pago
+        ctx.font = '700 15px monospace';
+        ctx.fillStyle = colInk;
+        ctx.textAlign = 'left';
+        ctx.fillText('TOTAL SERVICIO', padding, y + 11);
+        ctx.textAlign = 'right';
+        ctx.fillText(formatearMonto(a.A_Total || a.RC_Pagos_Total), width - padding, y + 11);
+        ctx.textAlign = 'left';
+        y += 26;
+
+        ctx.font = '600 12px monospace';
+        ctx.fillStyle = pagado ? colAccent : colDanger;
+        ctx.textAlign = 'left';
+        ctx.fillText(pagado ? 'Pagado' : 'Pendiente de pago', padding, y + 9);
+        ctx.textAlign = 'right';
+        ctx.fillText(pagado ? '✓ Ok' : ('Debe ' + formatearMonto(deuda)), width - padding, y + 9);
+        ctx.textAlign = 'left';
+        y += 24;
+
+        const finalHeight = Math.ceil(y);
+        const outerPad = 20;
+        const cardRadius = 16;
+        const accentH = 4;
+        const outW = width + outerPad * 2;
+        const outH = finalHeight + outerPad * 2;
+
+        function roundRectPath(c, rx, ry, rw, rh, rr){
+          c.beginPath();
+          c.moveTo(rx + rr, ry);
+          c.arcTo(rx + rw, ry,      rx + rw, ry + rh, rr);
+          c.arcTo(rx + rw, ry + rh, rx,      ry + rh, rr);
+          c.arcTo(rx,      ry + rh, rx,      ry,      rr);
+          c.arcTo(rx,      ry,      rx + rw, ry,      rr);
+          c.closePath();
+        }
+
+        const finalCanvas = document.createElement('canvas');
+        finalCanvas.width = outW * scale;
+        finalCanvas.height = outH * scale;
+        const fctx = finalCanvas.getContext('2d');
+        fctx.scale(scale, scale);
+
+        fctx.fillStyle = '#F1F3F7';
+        fctx.fillRect(0, 0, outW, outH);
+
+        fctx.save();
+        fctx.shadowColor = 'rgba(17,24,39,0.16)';
+        fctx.shadowBlur = 22;
+        fctx.shadowOffsetY = 10;
+        fctx.fillStyle = '#ffffff';
+        roundRectPath(fctx, outerPad, outerPad, width, finalHeight, cardRadius);
+        fctx.fill();
+        fctx.restore();
+
+        fctx.save();
+        roundRectPath(fctx, outerPad, outerPad, width, finalHeight, cardRadius);
+        fctx.clip();
+        fctx.drawImage(canvas, 0, 0, width * scale, finalHeight * scale, outerPad, outerPad, width, finalHeight);
+        fctx.restore();
+
+        fctx.save();
+        roundRectPath(fctx, outerPad, outerPad, width, finalHeight, cardRadius);
+        fctx.clip();
+        fctx.fillStyle = colAccent;
+        fctx.fillRect(outerPad, outerPad, width, accentH);
+        fctx.restore();
+
+        roundRectPath(fctx, outerPad, outerPad, width, finalHeight, cardRadius);
+        fctx.strokeStyle = '#E3E6EB';
+        fctx.lineWidth = 1;
+        fctx.stroke();
+
+        finalCanvas.toBlob(function(blob){ resolve(blob); }, 'image/png');
+      }catch(err){
+        resolve(null);
+      }
+    });
+  }
+
+  function dibujarLineasCanvas(ctx, texto, maxWidth){
+    const palabras = String(texto).split(' ');
+    const lineas = [];
+    let linea = '';
+    palabras.forEach(function(p){
+      const prueba = linea ? linea + ' ' + p : p;
+      if (ctx.measureText(prueba).width > maxWidth && linea){
+        lineas.push(linea);
+        linea = p;
+      } else {
+        linea = prueba;
+      }
+    });
+    if (linea) lineas.push(linea);
+    return lineas;
+  }
+
+  function descargarBlobArchivo(blob, nombre){
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = nombre;
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  }
+
+  function descargarNotaServicio(){
+    if (!agendaDetalleActual) return;
+    const a = agendaDetalleActual;
+    const btn = document.getElementById('btnDescargarNota');
+    btn.disabled = true;
+    btn.classList.add('is-loading');
+
+    generarNotaServicioBlob(a).then(function(blob){
+      btn.disabled = false;
+      btn.classList.remove('is-loading');
+      if (!blob){
+        showToast('No se pudo generar la nota');
+        return;
+      }
+      const codigo = val(a.RS_Id_Susc) !== '-' ? a.RS_Id_Susc : 'agendamiento';
+      const fechaArchivo = String(val(a.A_Fecha)).replace(/\//g, '-');
+      descargarBlobArchivo(blob, 'nota-servicio-' + codigo + '-' + fechaArchivo + '.png');
+      showToast('Nota de servicio descargada');
+    });
   }
 </script>
 </body>
