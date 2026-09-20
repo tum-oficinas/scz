@@ -204,6 +204,34 @@ nav{
 .tag-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
 .tag{font-size:12.5px;font-weight:600;padding:7px 16px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
 
+
+/* Nota sutil tipo alerta (hero) */
+.hero-note{
+  display:inline-flex;align-items:center;gap:10px;
+  margin:-6px 0 28px;padding:7px 14px 7px 8px;
+  border-radius:100px;
+  background:linear-gradient(90deg,rgba(0,255,135,.07),rgba(0,255,135,.015));
+  border:1px solid rgba(0,255,135,.14);
+  font-family:var(--font-body);font-size:12.5px;line-height:1.4;font-style:italic;
+  color:rgba(255,255,255,.55);
+  opacity:0;animation:noteIn .8s ease .9s forwards;
+}
+.hero-note-icon{
+  position:relative;flex-shrink:0;width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,255,135,.12);color:var(--green);
+  font-family:var(--font-heading);font-style:normal;font-size:10px;font-weight:800;
+}
+.hero-note-icon::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(0,255,135,.5);
+  animation:noteRing 3.2s ease-out infinite;
+}
+@keyframes noteIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes noteRing{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(2);opacity:0}}
+@media(max-width:480px){.hero-note{border-radius:14px;align-items:flex-start;padding:9px 12px 9px 9px}.hero-note-icon{margin-top:1px}}
+@media(prefers-reduced-motion:reduce){.hero-note{animation:none;opacity:1}.hero-note-icon::after{animation:none;display:none}}
+
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
 .btn-primary{
   display:inline-flex;align-items:center;gap:8px;
@@ -567,6 +595,7 @@ footer strong{color:var(--green)}
       <span class="tag">Espejos</span>
       <span class="tag">A pie de calle</span>
     </div>
+    <div class="hero-note" role="note"><span class="hero-note-icon" aria-hidden="true">!</span><span>Vidrio accesible desde la calle, sin escaleras ni estructuras.</span></div>
     <div class="hero-ctas">
       <a href="#cerrar" class="btn-primary">Agendar mi visita →</a>
       <a href="#problema" class="btn-secondary">Ver por qué importa</a>
@@ -678,11 +707,9 @@ footer strong{color:var(--green)}
 
     <div class="price-note">
       <h3>Un precio medido a tu local.</h3>
-      <p>Cada vidriera tiene una dimensión distinta — no existe un "tamaño estándar" de local. Por eso el precio se define después de medir tu vidrio en persona, <strong>superficie por superficie</strong>.</p>
+      <p>Cada vidriera tiene una dimensión distinta — no existe un "tamaño estándar" de local. Por eso el precio se define después de medir tu vidrio en persona, <strong>superficie por superficie</strong>. <strong>No damos precio por foto ni por chat</strong>: cobramos por <strong>tu superficie real</strong>, no por cómo se ve tu local ni en qué zona está.</p>
       <p>El precio incluye <strong>material y mano de obra</strong>. No hay cobros aparte.</p>
     </div>
-
-    <p class="unify-line">La visita de cotización se ajusta a lo que tú necesitas: <strong>rápida</strong> si quieres avanzar ya, con <strong>calma</strong> si prefieres pensarlo, o con <strong>medidas exactas</strong> por escrito.</p>
   </div>
 </section>
 
@@ -702,8 +729,8 @@ footer strong{color:var(--green)}
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
-        <h3>Medimos y te damos precio ahí mismo</h3>
-        <p>Superficie por superficie, en el momento. Sin sorpresas después.</p>
+        <h3>Medimos tu vidrio en persona</h3>
+        <p>Precio ahí mismo, sin sorpresas. Si avanzas, coordinamos el día — si prefieres pensarlo, te dejamos las medidas anotadas.</p>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
