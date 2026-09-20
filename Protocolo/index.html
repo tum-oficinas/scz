@@ -287,6 +287,7 @@ ul{list-style:none}
 .rule-txt{flex:1;min-width:0}
 .rule-txt h4{font-family:var(--font-heading);font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:2px}
 .rule-txt span{font-size:12px;color:var(--gray)}
+.rule-card--neg .rule-txt span{color:#B91C1C;font-weight:600}
 .rule-chev{
   transition:transform .3s;flex-shrink:0;color:var(--gray);
   width:26px;height:26px;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;
@@ -301,6 +302,7 @@ ul{list-style:none}
 .check-list{display:flex;flex-direction:column;gap:8px;margin:8px 0 12px}
 .check-list li{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:#3a4658;line-height:1.5}
 .check-list svg{color:var(--green);flex-shrink:0;margin-top:2px}
+.check-list--neg svg{color:#B91C1C}
 .alert-box,.note-box{display:flex;align-items:flex-start;gap:10px;border-radius:12px;padding:13px 15px;margin-top:10px}
 .alert-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
 .alert-box svg{color:var(--amber);flex-shrink:0;margin-top:1px}
@@ -936,6 +938,7 @@ document.addEventListener('click', e => {
 
 /* ══════════ ICONOS SVG reutilizados en los cuerpos de regla ══════════ */
 var ICON_CHECK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+var ICON_X='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 var ICON_ALERT='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
 var ICON_INFO='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
 
@@ -1084,8 +1087,21 @@ var RULES = {
     {num:'06', title:'Alcance de la limpieza de vidrios', sub:'Qué tipo de suciedad cubre el servicio', body:
       '<p>Nuestro servicio limpia la <strong>suciedad acumulada con el tiempo</strong> en el vidrio por falta de mantenimiento: polvo, grasa, velo de humo ambiental, marcas de rocío seco, excremento de insectos o aves, huellas y salpicaduras de agua con tierra.</p>'
     },
-    {num:'07', title:'Restauración de vidrio (no incluida en la limpieza)', sub:'Desgastes que no cubre la limpieza estándar', body:
-      '<p>Rayones, pintura, pegamento, stickers, vinil (yurex) o sarro (agua calcificada) son un desgaste distinto: entran en <strong>restauración de vidrio</strong>, servicio que próximamente sumaremos a TUM Cristal.</p>'
+    {num:'09', title:'Alcance por altura del escaparate', sub:'Solo el vidrio accesible desde la calle, sin escaleras ni estructuras', body:
+      '<p>Nuestro servicio cubre <strong>todo el vidrio al que llegamos parados desde la calle</strong>, sin montar estructura ni usar escalera sobre tu propiedad.</p>'+
+      '<div class="note-box">'+ICON_INFO+'<p>Es parte de nuestra política: <strong>no dañamos ni arriesgamos tu local</strong> para hacer el servicio.</p></div>'
+    },
+    {num:'07', neg:true, title:'No realizamos restauración de vidrio', sub:'Rayones, pintura, sarro y otros desgastes quedan fuera de la limpieza', body:
+      '<p>Estos desgastes son distintos a la suciedad y entran en <strong>restauración de vidrio</strong>, servicio que próximamente sumaremos a TUM Cristal:</p>'+
+      '<ul class="check-list check-list--neg">'+
+        '<li>'+ICON_X+'<span>Rayones.</span></li>'+
+        '<li>'+ICON_X+'<span>Pintura o residuos de obra.</span></li>'+
+        '<li>'+ICON_X+'<span>Pegamento, silicona o stickers.</span></li>'+
+        '<li>'+ICON_X+'<span>Vinil (yurex).</span></li>'+
+        '<li>'+ICON_X+'<span>Sarro (agua calcificada).</span></li>'+
+        '<li>'+ICON_X+'<span>Incrustaciones que necesiten tratamiento especial.</span></li>'+
+        '<li>'+ICON_X+'<span>Pulido o recuperación del cristal.</span></li>'+
+      '</ul>'
     },
     {num:'08', title:'Servicios adicionales', sub:'Si pides algo nuevo durante la visita', body:
       '<p>Si durante la visita pides una tarea fuera de lo presupuestado, esa tarea pasa a ser un <strong>servicio adicional:</strong> te la cotizamos o la agendamos para una próxima visita.</p>'
@@ -1159,7 +1175,7 @@ function renderCategory(cat){
   list.innerHTML='';
   items.forEach(function(r,i){
     var card=document.createElement('div');
-    card.className='rule-card';
+    card.className='rule-card'+(r.neg?' rule-card--neg':'');
     card.dataset.num=r.num;
     card.style.animationDelay=(i*0.05)+'s';
     card.innerHTML=
