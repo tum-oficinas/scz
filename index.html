@@ -689,6 +689,52 @@ nav:hover{
   box-shadow:0 0 8px rgba(0,255,135,.6);flex-shrink:0;
 }
 
+/* ── Tarjeta Protocolo (ancho completo, con enlace) ── */
+a.rule-protocol{
+  grid-column:1/-1;text-decoration:none;color:inherit;cursor:pointer;
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) auto;
+  align-items:center;gap:20px 36px;
+  padding:24px 28px;
+  border-color:rgba(0,255,135,.22);
+  background:linear-gradient(165deg,rgba(0,255,135,.07),rgba(255,255,255,.012));
+}
+a.rule-protocol::before{opacity:.9}
+a.rule-protocol:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.rp-main,.rp-chips,.rp-cta{position:relative;z-index:1}
+.rp-main{display:flex;align-items:center;gap:20px}
+.rp-main .rule-icon{margin-bottom:0}
+.rp-text h3{margin-bottom:6px}
+.rp-text p{flex:none}
+.rp-chips{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.rp-chips li{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-b);font-size:10px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--orange);
+}
+.rp-chips li::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 8px rgba(0,255,135,.6);flex-shrink:0;
+}
+.rp-cta{
+  display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
+  font-family:var(--font-b);font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:#04130b;background:var(--orange);
+  padding:13px 20px;border-radius:100px;
+  transition:transform .3s,box-shadow .3s;
+}
+.rp-cta svg{width:16px;height:16px;transition:transform .3s}
+a.rule-protocol:hover .rp-cta{box-shadow:0 0 28px rgba(0,255,135,.35)}
+a.rule-protocol:hover .rp-cta svg{transform:translateX(4px)}
+@media(max-width:900px){
+  a.rule-protocol{grid-template-columns:1fr;padding:22px 20px 20px}
+  .rp-cta{justify-self:start}
+}
+@media(max-width:560px){
+  .rp-main{align-items:flex-start;flex-direction:column;gap:14px}
+  .rp-cta{justify-self:stretch;justify-content:center}
+}
+
 @media(max-width:900px){.rules-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.rules-grid{grid-template-columns:1fr}}
 
@@ -1597,6 +1643,21 @@ nav:hover{
         <p>Pagas por visita. Sin contratos que te aten.</p>
         <span class="rule-tag">Cancelas cuando quieras</span>
       </div>
+      <a class="rule-item rule-protocol" href="https://tum-oficinas.github.io/scz/Protocolo/" target="_blank" rel="noopener" aria-label="Ver el protocolo de servicio completo de TUM">
+        <div class="rp-main">
+          <div class="rule-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,255,135,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>
+          <div class="rp-text">
+            <h3>Protocolo de servicio</h3>
+            <p>Pagos, puntualidad, cambios de fecha, garantía y seguridad. Todo respaldado por un código único que puedes verificar tú mismo.</p>
+          </div>
+        </div>
+        <ul class="rp-chips">
+          <li>CUS único en cada servicio</li>
+          <li>Llegamos 10 min antes</li>
+          <li>Nota de conformidad firmada</li>
+        </ul>
+        <span class="rp-cta">Ver protocolo completo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+      </a>
     </div>
   </div>
 </section>
